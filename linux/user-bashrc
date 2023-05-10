@@ -1,0 +1,38 @@
+[ -z "$PS1" ] && return
+
+echo "$HOME/.bashrc    starts."
+
+PS1="\u@\h:\w \\$ "
+
+cd() { builtin cd "$@" && ls; }
+
+alias gpush="git add . && git commit -m 'cs' && git push"
+alias gpull="git stash && git fetch --all && git reset --hard origin master"
+alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
+
+alias hi='history'
+
+alias ll='ls -ahlp'  # -a all include hidden; -l long format includes permission; -p trailing slash for dir
+
+alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
+alias prun='python3 manage.py runserver'
+alias pipup='pip3 install --upgrade pip'
+alias pipr='pip3 install -r requirements.txt'
+alias psq='psql -U postgres'
+alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
+alias py='python3'
+
+alias rm='rm -i'
+
+alias sha='sha256sum'
+alias sou='source ~/.bash_profile'
+alias sulogin='sudo su --login'
+
+alias tip='cardano-cli query tip --mainnet'
+alias tnode='tmux attach -t node'
+alias tweb='tmux attach -t web'
+
+alias venv='source venv/bin/activate'
+
+
+echo "$HOME/.bashrc    ends."
