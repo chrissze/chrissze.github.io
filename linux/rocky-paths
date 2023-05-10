@@ -1,0 +1,12 @@
+$HOME/.local/bin
+$HOME/.cabal/bin
+$HOME/.swift/usr/bin
+$HOME/bin
+$HOME/.ghcup/bin
+$HOME/.ghcup/ghc/9.6.1/bin
+/usr/local/bin
+/usr/bin
+/usr/local/sbin
+/usr/sbin
+/opt/node/bin
+/var/lib/snapd/snap/bin
