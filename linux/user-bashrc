@@ -14,7 +14,7 @@ la() {
     fi
 }
 
-ll() {
+le() {
     if [ -z "$1" ]; then
         ls -ahlp
     else
