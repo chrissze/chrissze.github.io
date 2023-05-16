@@ -10,7 +10,7 @@ la() {
     if [ -z "$1" ]; then
         ls -ahlp
     else
-        shopt -s dotglob; ls -adhlp [${1,,}${1^^}]*; shopt -u dotglob;
+        shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
     fi
 }
 
