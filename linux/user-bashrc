@@ -4,7 +4,7 @@ echo "$HOME/.bashrc    starts."
 
 PS1="\u@\h:\w \\$ "
 
-cd() { builtin cd "$@" && ls && pwd; }
+cd() { builtin cd "$@" && ls && echo && pwd; }
 
 la() {
     if [ -z "$1" ]; then
