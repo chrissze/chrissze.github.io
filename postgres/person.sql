@@ -1,4 +1,4 @@
-# generate this file by mockaroo.com
+-- generate this file by mockaroo.com
 create table person (
 	id BIGSERIAL PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
