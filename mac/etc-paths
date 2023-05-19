@@ -1,1 +1,31 @@
-/Applications/Postgres.app/Contents/Versions/latest/bin   # include psql
+/Applications/Postgres.app/Contents/Versions/latest/bin   # bin of the official Postgres.app, include psql, the latest symlink to 15, so each new version use the same path
+
+/Users/chris/anaconda3/bin                  # make django in tmux working
+
+/Users/chris/anaconda3/condabin               # make django in tmux working
+
+/Users/chris/.ghcup/bin                     # for haskell
+
+/Users/chris/.ghcup/ghc/9.0.2/bin            # haskell
+
+/Library/Frameworks/Python.framework/Versions/3.9/bin
+
+/opt/homebrew/opt/llvm/bin
+
+/opt/homebrew/opt/node@16/bin        # node.js by homebrew
+
+/opt/homebrew/bin                    # homebrew
+
+/opt/homebrew/opt/libpq/bin          # postgres by homebrew
+
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+
+
+# original paths are listed below
+/opt/local/bin
+/usr/local/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+
