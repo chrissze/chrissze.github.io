@@ -14,7 +14,7 @@
 
 /opt/homebrew/opt/node@16/bin        # node.js by homebrew
 
-/opt/homebrew/bin                    # homebrew
+/opt/homebrew/bin                    # homebrew, contains psql
 
 /opt/homebrew/opt/libpq/bin          # postgres by homebrew
 
