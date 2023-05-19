@@ -1,4 +1,4 @@
--- generate this file by mockaroo.com
+-- generate this file by mockaroo.com, check freeCodeCamp youtube tutorial: Learn PostgreSQL Tutorial - Full Course for Beginners 
 create table person (
 	id BIGSERIAL PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
