@@ -1,3 +1,4 @@
+# generate this file by mockaroo.com
 create table person (
 	id BIGSERIAL PRIMARY KEY,
 	first_name VARCHAR(50) NOT NULL,
@@ -7,7 +8,6 @@ create table person (
 	date_of_birth DATE NOT NULL,
 	country_of_birth VARCHAR(50) NOT NULL
 );
-
 insert into person (first_name, last_name, email, gender, date_of_birth, country_of_birth) values ('Slade', 'Bickerton', null, 'Male', '1993-07-09', 'Angola');
 insert into person (first_name, last_name, email, gender, date_of_birth, country_of_birth) values ('Jacquette', 'Salvati', null, 'Genderqueer', '1993-05-11', 'Angola');
 insert into person (first_name, last_name, email, gender, date_of_birth, country_of_birth) values ('Cleopatra', 'Brombell', 'cbrombell2@ucoz.com', 'Female', '1995-06-10', 'Angola');
