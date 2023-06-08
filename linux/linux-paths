@@ -9,12 +9,13 @@ $HOME/.nix-profile/bin
 
 
 
-# Fedora 38 user default PATH (5):
+# Fedora 38 user default PATH (6):
 $HOME/.local/bin
 $HOME/bin
 /usr/local/bin
 /usr/local/sbin
-/usr/bin:/usr/sbin
+/usr/bin
+/usr/sbin
 
 # Fedora 38 root default PATH (9):
 /root/.local/bin
