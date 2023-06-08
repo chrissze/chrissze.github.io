@@ -1,0 +1,28 @@
+# /etc/paths  owner: root   , permission: 644, as /etc is owned by root, so it is easier to edit if this file is owned by root
+
+
+
+
+
+# Fedora 38 user CUSTOM paths:
+$HOME/.nix-profile/bin
+
+
+
+# Fedora 38 user default PATH (5):
+$HOME/.local/bin
+$HOME/bin
+/usr/local/bin
+/usr/local/sbin
+/usr/bin:/usr/sbin
+
+# Fedora 38 root default PATH (9):
+/root/.local/bin
+/root/bin
+/usr/local/sbin
+/usr/local/bin
+/usr/sbin
+/usr/bin
+/sbin
+/bin
+/var/lib/snapd/snap/bin
