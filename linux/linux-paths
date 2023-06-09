@@ -28,4 +28,12 @@ $HOME/bin
 /bin
 /var/lib/snapd/snap/bin
 
-# If I use nix to install python, the python binary will also appear in $HOME/.nix-profile/bin
+# Fedora 38's python3 is at /usr/bin/python3   (ver 3.11.3)
+
+# Fedora 38 python3's site-packages are at
+    # /usr/lib/python3.11                   (some standard lib such as json, tkinter)
+    # /usr/lib/python3.11/site-packages
+    # /usr/lib64/python3.11/site-packages   (contains dnf pyqt6)
+    # /usr/lib/python3.11/lib-dynload       (low level C stuff)
+    
+# If I use nix to install python, the python binary will be at $HOME/.nix-profile/bin/python3  (symlink to nix store)
