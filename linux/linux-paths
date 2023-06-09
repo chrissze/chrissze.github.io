@@ -6,7 +6,7 @@
 
 # Fedora 38 user CUSTOM paths:
 $HOME/.nix-profile/bin
-
+/nix/store/x74c7ss7ji5h32lnbcwhis4h5d59jrxz-python3-3.10.11/bin
 
 
 # Fedora 38 user default PATH (6):
@@ -27,3 +27,5 @@ $HOME/bin
 /sbin
 /bin
 /var/lib/snapd/snap/bin
+
+# If I use nix to install python, the python binary will also appear in $HOME/.nix-profile/bin
