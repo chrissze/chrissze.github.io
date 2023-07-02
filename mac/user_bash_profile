@@ -5,7 +5,7 @@ echo "hi I'm $USER  .bash_profile 644, start"
 export PS1='\d \u@\W $ '
 export EDITOR="/usr/bin/nano"
 
-cd() { builtin cd "$@" && ls && echo && pwd; }
+cd() { builtin cd "$@" && pwd && echo && ls; }
 
 la() {
     if [ -z "$1" ]; then
