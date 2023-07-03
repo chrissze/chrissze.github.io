@@ -8,7 +8,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SimpleListView()
+            
         }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -25,6 +27,8 @@ struct SimpleListView: View {
             Text("Grapes")
             Text("Strawberry")
         }
+
+    }
 }
 
     
