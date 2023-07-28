@@ -50,6 +50,7 @@ alias r3sl='ssh -p 55555 sl@157.90.167.121'
 alias gpush="git add . && git commit -m 'pro' && git push"
 alias gpull="git fetch --all && git reset --hard origin/master"
 alias hi=history
+alias nan='nano -v'
 
 
 
