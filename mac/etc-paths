@@ -1,3 +1,4 @@
+/nix/store/fzykws31cb5a88h3jkimzr944yaiqbyv-nix-2.15.0/bin            # my mac mini nix-env path
 
 /Users/chris/.nix-profile/bin         # nix binaries
 
