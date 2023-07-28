@@ -28,29 +28,17 @@ le() {
 
 ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
-alias re="rsync -av -e 'ssh -p 55555'"
-alias re22="rsync -av -e 'ssh -p 22'"
 
 
-# OVH
-alias r1='ssh -p 55555 cs@152.228.212.159'
 
-#Hetzner
-alias sw3='ssh -p 55555 cs@94.130.110.100'
-alias sw2='ssh -p 55555 cs@188.34.156.157'
-alias sw1='ssh -p 55555 cs@95.217.188.3'
 
-alias r2='ssh -p 55555 cs@168.119.62.24'
-alias r2sl='ssh -p 55555 sl@168.119.62.24'
 
-alias r3='ssh -p 55555 cs@157.90.167.121'
-alias r3sl='ssh -p 55555 sl@157.90.167.121'
 
 
 alias gpush="git add . && git commit -m 'pro' && git push"
 alias gpull="git fetch --all && git reset --hard origin/master"
 alias hi=history
-alias nan='nano -v'
+alias nan='nano -cv'
 
 
 
@@ -60,10 +48,25 @@ alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
 alias prun='python3 manage.py runserver'
 alias py='python3'
 
+alias r2='ssh -p 55555 cs@168.119.62.24'
+alias r2sl='ssh -p 55555 sl@168.119.62.24'
+
+alias r3='ssh -p 55555 cs@157.90.167.121'
+alias r3sl='ssh -p 55555 sl@157.90.167.121'
+
+
+alias re="rsync -av -e 'ssh -p 55555'"
+alias re22="rsync -av -e 'ssh -p 22'"
+
 alias rms='rename "s/ //g" *'
 
 alias sha='shasum -a 256'
 alias sou='source ~/.bash_profile'
+#Hetzner
+alias sw3='ssh -p 55555 cs@94.130.110.100'
+alias sw2='ssh -p 55555 cs@188.34.156.157'
+alias sw1='ssh -p 55555 cs@95.217.188.3'
+
 alias venv='source venv/bin/activate'
 
 echo "hi I'm $USER  .bash_profile 644, end"
