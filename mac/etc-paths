@@ -1,3 +1,6 @@
+
+/Users/chris/.nix-profile/bin         # nix binaries
+
 /Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin     # swift, swiftc Beta path, after installing Xcode Beta
 
 /Applications/Postgres.app/Contents/Versions/latest/bin   # bin of the official Postgres.app, include psql, the latest symlink to 15, so each new version use the same path
