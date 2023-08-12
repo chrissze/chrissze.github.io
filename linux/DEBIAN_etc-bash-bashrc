@@ -3,6 +3,8 @@
 echo "/etc/bash.bashrc    beginning."
 
 # SYSTEM PROVIDE
+######################################
+
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -38,7 +40,18 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
 fi
 
 # CUSTOM
+############################################
 # this file is shared by both user and root
+
+cd() { builtin cd "$@" && pwd && echo && ls; }
+
+la() {
+    if [ -z "$1" ]; then
+        ls -ahlp
+    else
+        shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+    fi
+}
 
 
 
