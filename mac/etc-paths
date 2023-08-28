@@ -20,7 +20,7 @@
 
 /opt/homebrew/opt/node@16/bin        # node.js by homebrew
 
-/opt/homebrew/bin                    # homebrew, contains psql
+/opt/homebrew/bin                    # homebrew, contains python3, psql
 
 /opt/homebrew/opt/libpq/bin          # postgres by homebrew
 
@@ -29,7 +29,7 @@
 
 # original paths are listed below
 /opt/local/bin
-/usr/local/bin
+/usr/local/bin    # MacOS default python3
 /usr/bin
 /bin
 /usr/sbin
