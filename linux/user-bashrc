@@ -3,6 +3,8 @@
 echo "$HOME/.bashrc    starts."
 
 PS1="\u@\h:\w \\$ "
+export EDITOR='nano'
+export VISUAL='nano'
 
 cd() { builtin cd "$@" && pwd && echo && ls; }
 
