@@ -1,14 +1,12 @@
 
-firewall-cmd --permanent --add-service=smtp
+firewall-cmd --permanent --add-service=imap  # 143
 
-firewall-cmd --permanent --add-service=smtps
+firewall-cmd --permanent --add-service=imaps  # 993
 
-firewall-cmd --permanent --add-service=pop3
+firewall-cmd --permanent --add-service=smtp  # 25
 
-firewall-cmd --permanent --add-service=pop3s
+firewall-cmd --permanent --add-service=smtps # 465
 
-firewall-cmd --permanent --add-service=imap
-
-firewall-cmd --permanent --add-service=imaps
+firewall-cmd --permanent --add-service=smtp-submission # 587
 
 firewall-cmd --reload
