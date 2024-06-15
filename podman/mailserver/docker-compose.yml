@@ -1,0 +1,40 @@
+
+# https://docker-mailserver.github.io/docker-mailserver/latest/config/security/ssl/#lets-encrypt-recommended
+
+services:
+  mailserver:
+    image: ghcr.io/docker-mailserver/docker-mailserver:latest
+    container_name: mailserver
+    hostname: mail.220122.xyz
+    volumes:
+      - ./docker-data/traefik/acme.json:/etc/letsencrypt/acme.json:ro
+    environment:
+      SSL_TYPE: letsencrypt
+      SSL_DOMAIN: 220122.xyz
+      # for a wildcard certificate, use
+      # SSL_DOMAIN: example.com
+
+  reverse-proxy:
+    image: docker.io/traefik:latest #v2.5
+    container_name: docker-traefik
+    ports:
+      - "80:80"
+      - "443:443"
+    command:
+      - --providers.docker
+      - --entrypoints.http.address=:80
+      - --entrypoints.http.http.redirections.entryPoint.to=https
+      - --entrypoints.http.http.redirections.entryPoint.scheme=https
+      - --entrypoints.https.address=:443
+      - --entrypoints.https.http.tls.certResolver=letsencrypt
+      - --certificatesresolvers.letsencrypt.acme.email=cs@220122.xyz
+      - --certificatesresolvers.letsencrypt.acme.storage=/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http
+    volumes:
+      - ./docker-data/traefik/acme.json:/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  whoami:
+    image: docker.io/traefik/whoami:latest
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`mail.220122.xyz`)"
