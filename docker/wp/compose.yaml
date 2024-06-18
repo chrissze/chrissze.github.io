@@ -4,6 +4,7 @@
 
 # curl -sSL https://raw.githubusercontent.com/bitnami/containers/main/bitnami/wordpress-nginx/docker-compose.yml > docker-compose.yml
 
+# curl -sSL https://raw.githubusercontent.com/chrissze/chrissze.github.io/main/docker/wp/compose.yaml > compose.yaml
 
 version: '2'
 services:
