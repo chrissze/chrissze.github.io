@@ -1,3 +1,7 @@
+# ADDING CUSTOM SSL CERTS
+# https://github.com/bitnami/containers/tree/main/bitnami/nginx#using-custom-ssl-certificates
+
+
 # https://github.com/bitnami/containers/tree/main/bitnami/wordpress-nginx
 
 # https://hub.docker.com/r/bitnami/wordpress-nginx
