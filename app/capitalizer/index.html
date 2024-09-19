@@ -1,0 +1,140 @@
+<!-- 
+    CHATGPT INPUT:
+
+    Q: HOW TO CREATE A SINGLE PAGE JAVASCRIPT APP TO CONVERT ALL STRING INPUTS TO CAPITAL LETTERS?
+
+    Requirements:
+
+    - 1st textarea contain the original input text, 1/3 page heght, 80 char width 
+
+    - 2nd textarea contain the output CAPITALIZED text, 1/3 page heght, 80 char width
+
+    - I can edit the output on the 2nd text area
+
+    - The 2nd textarea content is automatically copied to the clipboad
+
+    - there is a COPY button beneath 2nd text area
+
+    - the manual edited output is copied to the clipboad on the fly
+
+    - add CLEAR button next to COPY button to clear the textarea
+
+-->
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Text Capitalizer</title>
+
+    <style>
+        textarea {
+            width: 80ch;
+            
+            height: 33vh;
+            
+            display: block;
+            
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-right: 10px;
+
+            /* increased width from default 100px */ 
+            width: 200px;  
+            
+            /* increased height from default 30px */
+            height: 40px; 
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <h1>Text Capitalizer</h1>
+    
+    <!-- Original Input Textarea -->
+    <textarea id="inputText" placeholder="Enter your text here"></textarea>
+
+    <!-- Capitalized Output Textarea -->
+    <h4>Output text (copied to the clipboard automatically):</h4>
+
+    <textarea id="outputText" placeholder="Capitalized text will appear here"></textarea>
+
+
+    <!-- Copy and Clear Buttons -->
+    <button id="copyButton">COPY</button>
+
+    <button id="clearButton">CLEAR</button>
+
+    
+
+    <script>
+        const inputText = document.getElementById('inputText');
+
+        const outputText = document.getElementById('outputText');
+
+        const copyButton = document.getElementById('copyButton');
+
+        const clearButton = document.getElementById('clearButton');
+
+        // Convert input to uppercase and update output textarea
+        inputText.addEventListener('input', () => {
+
+            outputText.value = inputText.value.toUpperCase();
+            
+            // This line is a must, without it the paste text will not be copied to clipboard automatically.
+            copyToClipboard(outputText.value);
+
+        });
+
+        // Copy content of output textarea to clipboard automatically
+        outputText.addEventListener('input', () => {
+            
+            copyToClipboard(outputText.value);
+        
+        });
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+        
+            navigator.clipboard.writeText(text).then(() => {
+                console.log('Copied to clipboard');
+        
+            }).catch(err => {
+        
+                console.error('Failed to copy: ', err);
+        
+            });
+        }
+
+        // Manual copy button action
+        copyButton.addEventListener('click', () => {
+
+            copyToClipboard(outputText.value);
+
+        });
+
+        // Clear both textareas
+        clearButton.addEventListener('click', () => {
+
+            inputText.value = '';
+
+            outputText.value = '';
+
+        });
+
+    </script>
+
+</body>
+
+</html>
