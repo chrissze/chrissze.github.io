@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clip App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        #app {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 950px; /* Set a fixed height to allow wrapping into new columns */
+        }
+
+        .block {
+            margin: 5px;
+        }
+
+        .statusbar {
+            margin: 5px;
+        }
+
+        textarea {
+            width: 98%; /* Adjust width to account for padding */
+            height: 100px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .disabled {
+            background-color: #DDDDDD;
+        }
+
+        input[type="number"] {
+                    
+            width: 60px;
+            
+            height: 40px;
+            
+            margin-left: 10px;
+            
+            font-size: 18px; /* Increase font size to make the arrows larger */
+            
+            padding: 5px; /* Add padding to enlarge the input field */
+        }
+
+        /* WebKit Browsers (Chrome, Safari) - Adjust the size of the arrows */
+        input[type="number"]::-webkit-inner-spin-button {
+            height: 40px; /* Adjust the height of the spin buttons */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .header h2 {
+            margin-right: 10px;
+        }
+
+
+        button {
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Clip App</h2>
+        <label for="blockCountInput">Blocks:</label>
+        <input type="number" id="blockCountInput" min="1" max="25" value="5" onchange="updateBlockCount()">
+    </div>
+    <div class="statusbar" id="statusbar">Ready</div>
+    <div id="app"></div>
+
+    <script>
+        let blockCount = 5; // Initialize block count
+        const maxBlocks = 25;
+
+        function createBlock(blockNum) {
+            const block = document.createElement('div');
+            block.className = 'block';
+            block.id = 'block-' + blockNum;
+
+            const textArea = document.createElement('textarea');
+            textArea.placeholder = 'BLOCK ' + blockNum;
+            textArea.oninput = () => handleTextChange(blockNum);
+
+            const lockCheckbox = document.createElement('input');
+            lockCheckbox.type = 'checkbox';
+            lockCheckbox.onchange = () => updateLockState(blockNum);
+            
+            const lockLabel = document.createElement('label');
+            lockLabel.textContent = 'Unlocked';
+
+            const btnCopy = createButton('Copy', () => copyText(blockNum));
+            const btnClear = createButton('Clear', () => clearText(blockNum));
+
+            block.appendChild(textArea);
+            block.appendChild(createRow(lockCheckbox, lockLabel, btnCopy, btnClear));
+
+            document.getElementById('app').appendChild(block);
+
+            updateLayout();
+        }
+
+        function createRow(...elements) {
+            const row = document.createElement('div');
+            row.className = 'row';
+            elements.forEach(el => row.appendChild(el));
+            return row;
+        }
+
+        function createButton(label, onClick) {
+            const button = document.createElement('button');
+            button.textContent = label;
+            button.onclick = onClick;
+            return button;
+        }
+
+        async function handleTextChange(blockNum) {
+            const block = document.getElementById('block-' + blockNum);
+            const textArea = block.querySelector('textarea');
+            const text = textArea.value;
+
+            const hash = text ? await sha256(text) : 'blank';
+            const first4char = JSON.stringify(text.slice(0, 4));
+            const last4char = JSON.stringify(text.slice(-4));
+            const length = text.length;
+
+            updateStatusBar(`[Block ${blockNum}] Length: ${length}, First4Char: ${first4char}, Last4Char: ${last4char}, sha256: ${hash}`);
+        }
+
+        function updateLockState(blockNum) {
+            const block = document.getElementById('block-' + blockNum);
+            const textArea = block.querySelector('textarea');
+            const checkbox = block.querySelector('input[type="checkbox"]');
+            const lockLabel = block.querySelector('label');
+
+            if (checkbox.checked) {
+                lockLabel.textContent = 'Locked 🔒';
+                textArea.disabled = true;
+                textArea.classList.add('disabled');
+            } else {
+                lockLabel.textContent = 'Unlocked';
+                textArea.disabled = false;
+                textArea.classList.remove('disabled');
+            }
+        }
+
+        function copyText(blockNum) {
+            const block = document.getElementById('block-' + blockNum);
+            const textArea = block.querySelector('textarea');
+            const text = textArea.value;
+            if (text) {
+                navigator.clipboard.writeText(text);
+                updateStatusBar(`[${blockNum}] COPIED: ${text.slice(0, 40)} ...`);
+            }
+        }
+
+        function clearText(blockNum) {
+            const block = document.getElementById('block-' + blockNum);
+            const textArea = block.querySelector('textarea');
+            if (!block.querySelector('input[type="checkbox"]').checked) {
+                textArea.value = '';
+                updateStatusBar(`[${blockNum}] Text area is cleared.`);
+                handleTextChange(blockNum);
+            }
+        }
+
+        function updateStatusBar(message) {
+            document.getElementById('statusbar').textContent = message;
+        }
+
+        async function sha256(text) {
+            const utf8 = new TextEncoder().encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', utf8);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function updateBlockCount() {
+            const input = document.getElementById('blockCountInput');
+            const newCount = parseInt(input.value, 10);
+            
+            if (newCount < 1 || newCount > maxBlocks) {
+                updateStatusBar(`Please enter a number between 1 and ${maxBlocks}.`);
+                input.value = blockCount; // Reset to current block count if out of range
+                return;
+            }
+
+            if (newCount > blockCount) {
+                // Add blocks if the new count is greater
+                while (blockCount < newCount) {
+                    blockCount++;
+                    createBlock(blockCount);
+                    updateStatusBar(`Block ${blockCount} added.`);
+                }
+            } else if (newCount < blockCount) {
+                // Remove blocks if the new count is smaller
+                while (blockCount > newCount) {
+                    const block = document.getElementById('block-' + blockCount);
+                    if (block) {
+                        block.remove();
+                        blockCount--;
+                        updateStatusBar(`Block ${blockCount + 1} removed.`);
+                    }
+                }
+            }
+            updateLayout();
+        }
+
+        function updateLayout() {
+            const blocks = document.querySelectorAll('.block');
+            const columns = getColumns(blockCount);
+
+            blocks.forEach((block, index) => {
+                block.style.width = `calc(${100 / columns}% - 10px)`; // Dynamically adjust width based on column count
+                // Determine the order for each block, starting a new column after block 5
+                block.style.order = Math.floor((index) / 5); // Group blocks in columns starting from block 6
+            });
+        }
+
+        function getColumns(count) {
+            return Math.ceil(count / 5); // Determine the number of columns based on the count
+        }
+
+        // Initialize the app with the initial block count
+        for (let i = 1; i <= blockCount; i++) {
+            createBlock(i);
+        }
+    </script>
+
+</body>
+</html>
