@@ -1,0 +1,30 @@
+
+AllowAgentForwarding no
+
+AllowTcpForwarding yes
+
+AuthenticationMethods publickey
+
+ChallengeResponseAuthentication no
+
+LoginGraceTime 120
+
+LogLevel VERBOSE
+
+MaxAuthTries 3
+
+MaxStartups 2
+
+PasswordAuthentication no
+
+PermitRootLogin no
+
+PermitUserEnvironment no
+
+# Change to custom port after update selinux
+Port 22
+
+PrintLastLog no
+
+# alma9 Subsystem
+Subsystem sftp /usr/libexec/openssh/sftp-server
