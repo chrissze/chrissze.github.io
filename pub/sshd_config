@@ -21,8 +21,7 @@ PermitRootLogin no
 
 PermitUserEnvironment no
 
-# Change to custom port after update selinux
-Port 22
+Port 55555
 
 PrintLastLog no
 
