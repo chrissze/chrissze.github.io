@@ -1,11 +1,14 @@
 echo "hi I'm $USER  .bash_profile 644, start"
 
 
-# User-defined below
-export PS1='\d \u@\W $ '
-export EDITOR="/usr/bin/nano"
+# USER VARIABLES
 
-cd() { builtin cd "$@" && pwd && echo && ls; }
+export PS1='\d \u@\W $ '
+
+
+# USER FUNCTIONS
+
+cd() { builtin cd "$@" && ls -laph && echo && pwd && echo; }
 
 la() {
     if [ -z "$1" ]; then
@@ -15,65 +18,54 @@ la() {
     fi
 }
 
-
-le() {
-    if [ -z "$1" ]; then
-        ls -ahlp
-    else
-        shopt -s dotglob; ls -adhlp $1*; shopt -u dotglob;
-    fi
-}
-
-
-
 ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
 
-
-
-
-
-
-# GENERAL ALIAS
+# USER ALIAS
 
 alias gpush="git add . && git commit -m 'pro' && git push"
+
 alias gpull="git fetch --all && git reset --hard origin/master"
+
 alias hi=history
+
 alias nan='nano -cv'
 
+alias o1='ssh -p 55555 almalinux@o1.220122.xyz'
+
+alias o2='ssh -p 55555 almalinux@220122.xyz'
 
 
 alias pipup='pip3 install --upgrade pip'
+
 alias pipr='pip3 install -r requirements.txt'
+
 alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
+
 alias prun='python3 manage.py runserver'
+
 alias py='python3'
 
 alias pycustom='cd ~/github/pizzapy/venv/lib/python3.11/site-packages && ln -s ~/github/batterypy batterypy && ln -s ~/github/dimsumpy dimsumpy'
+
 alias pyv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && pip3 list && which python3 && python3 -V'
 
 
 
 alias re="rsync -av -e 'ssh -p 55555'"
-alias re22="rsync -av -e 'ssh -p 22'"
+
+
+alias rs=rust-script
+
 
 alias rms='rename "s/ //g" *'
 
 alias sha='shasum -a 256'
+
 alias sou='source ~/.bash_profile'
+
 alias venv='source venv/bin/activate'
 
-# HETZNER ALIAS
-alias a9='ssh -p 55555 cs@49.13.74.151'
-
-alias r2='ssh -p 55555 cs@168.119.62.24'
-alias r2sl='ssh -p 55555 sl@168.119.62.24'
-
-alias r3='ssh -p 55555 cs@157.90.167.121'
-alias r3sl='ssh -p 55555 sl@157.90.167.121'
-alias sw1='ssh -p 55555 cs@95.217.188.3'
-alias sw2='ssh -p 55555 cs@188.34.156.157'
-alias sw3='ssh -p 55555 cs@94.130.110.100'
 
 
 
