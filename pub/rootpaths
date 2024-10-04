@@ -1,3 +1,19 @@
-/bin
+
+/home/almalinux/.nix-profile/bin
+
+/home/almalinux/.cargo/bin
+
+
+# ORIGINAL ROOT PATH BELOW OF FRESH ALMA9
+
+$HOME/.local/bin
+
+$HOME/bin
 
 /sbin
+
+/bin
+
+/usr/sbin
+
+/usr/bin
