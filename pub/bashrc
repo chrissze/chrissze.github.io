@@ -3,7 +3,9 @@
 echo "$HOME/.bashrc    starts."
 
 PS1="\u@\h:\w \\$ "
+
 export EDITOR='nano'
+
 export VISUAL='nano'
 
 cd() { builtin cd "$@" && pwd && echo && ls; }
@@ -47,10 +49,15 @@ alias sou='source ~/.bash_profile'
 alias sulogin='sudo su --login'
 
 alias tip='cardano-cli query tip --mainnet'
+
 alias tnode='tmux attach -t node'
+
 alias tweb='tmux attach -t web'
 
 alias venv='source venv/bin/activate'
+
+alias vir="vim -R -c 'syntax on'"
+
 
 
 echo "$HOME/.bashrc    ends."
