@@ -54,8 +54,8 @@ alias pyv='python3 -m venv venv && source venv/bin/activate && pip3 install --up
 
 alias re="rsync -av -e 'ssh -p 55555'"
 
-
-alias rs=rust-script
+# need to remove or rename Mac built-in rs command first
+alias rs=rust-script  
 
 
 alias rms='rename "s/ //g" *'
@@ -66,6 +66,7 @@ alias sou='source ~/.bash_profile'
 
 alias venv='source venv/bin/activate'
 
+alias vir="vim -R -c 'syntax on'"
 
 
 
