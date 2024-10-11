@@ -1,5 +1,8 @@
-echo "hi I'm $USER  .bash_profile 644, start"
+echo "hi I'm chris  .bash_profile 644, start"
 
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
 
-echo "hi I'm $USER  .bash_profile 644, end"
-echo $SHELL
+echo "hi I'm chris  .bash_profile 644, end"
+
