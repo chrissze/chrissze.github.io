@@ -5,6 +5,9 @@ echo "hi I'm $USER  .bashrc 644, start"
 
 export PS1='\d \u@\W $ '
 
+# to make rust compiler woking
+export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
+
 
 # USER FUNCTIONS
 
