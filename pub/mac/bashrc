@@ -5,7 +5,7 @@ echo "hi I'm $USER  .bashrc 644, start"
 
 export PS1='\d \u@\W $ '
 
-# to make rust compiler woking
+# to make rust compiler woking, xcode 15 in MacOS 15 Sequoia
 export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
 
