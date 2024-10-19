@@ -2,7 +2,6 @@
 This script has no dependency, socket is from the standard library. 
 """
 
-
 import socket
 
 HOST = "localhost"        # "localhost" / "1.2.3.4" / "sub.domain.com"
@@ -16,8 +15,10 @@ def check_postgresql_connection(host, port):
             s.connect((host, port))
             print(f"Successfully connected to PostgreSQL on {host}:{port}")
     except socket.error as e:
-        print(f"Failed to connect to PostgreSQL: {e}")
+        print(f"Failed to connect to PostgreSQL on {host}:{port}: {e}")
 
+    finally:
+        s.close()
 
 if __name__ == "__main__":
     check_postgresql_connection(HOST, PORT)
