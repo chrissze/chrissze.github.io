@@ -13,6 +13,7 @@ export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
 cd() { builtin cd "$@" && ls -laph && echo && pwd && echo; }
 
+
 la() {
     if [ -z "$1" ]; then
         ls -ahlp
