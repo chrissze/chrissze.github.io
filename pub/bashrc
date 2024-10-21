@@ -8,6 +8,10 @@ export EDITOR='nano'
 
 export VISUAL='nano'
 
+# for ookla-speedtest
+export NIXPKGS_ALLOW_UNFREE=1
+
+
 cd() { builtin cd "$@" && pwd && echo && ls; }
 
 la() {
