@@ -2,72 +2,87 @@
 
 echo "$HOME/.bashrc    starts."
 
-PS1="\u@\h:\w \\$ "
 
-export EDITOR='nano'
+# USER VARIABLES
 
-export VISUAL='nano'
+    PS1="\u@\h:\w \\$ "
+    
+    export EDITOR='nano'
+    
+    export VISUAL='nano'
+    
+    export HISTSIZE=500
+    
+    export HISTFILESIZE=500
+    
+    # for ookla-speedtest
+    export NIXPKGS_ALLOW_UNFREE=1
 
-export HISTSIZE=500
 
-export HISTFILESIZE=500
-
-
-# for ookla-speedtest
-export NIXPKGS_ALLOW_UNFREE=1
-
-
-cd() { builtin cd "$@" && pwd && echo && ls; }
-
-la() {
-    if [ -z "$1" ]; then
-        ls -ahlp
-    else
-        shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+# USER PATH
+    
+    if [ -f /etc/paths ]; then
+        eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
+        export PATH
     fi
-}
+    
 
 
 
-alias gpush="git add . && git commit -m 'cs' && git push"
+# USER FUNCTIONS
+    
+    cd() { builtin cd "$@" && pwd && echo && ls; }
+    
+    la() {
+        if [ -z "$1" ]; then
+            ls -ahlp
+        else
+            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+        fi
+    }
 
-alias gpull="git stash && git fetch --all && git reset --hard origin master"
 
-alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
-
-alias hi=history
-
-alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
-
-alias prun='python3 manage.py runserver'
-
-alias pipup='pip3 install --upgrade pip'
-
-alias pipr='pip3 install -r requirements.txt'
-
-alias psq='psql -U postgres'
-
-alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
-
-alias py=python3
-
-alias rm='rm -i'
-
-alias sha=sha256sum
-
-alias sou='source ~/.bash_profile'
-
-alias sulo='sudo su --login'
-
-alias tip='cardano-cli query tip --mainnet'
-
-alias tnode='tmux attach -t node'
-
-alias tweb='tmux attach -t web'
-
-alias venv='source venv/bin/activate'
-
-alias vir="vim -R -c 'syntax on'"
+# USER ALIAS
+    
+    alias gpush="git add . && git commit -m 'cs' && git push"
+    
+    alias gpull="git stash && git fetch --all && git reset --hard origin master"
+    
+    alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
+    
+    alias hi=history
+    
+    alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
+    
+    alias prun='python3 manage.py runserver'
+    
+    alias pipup='pip3 install --upgrade pip'
+    
+    alias pipr='pip3 install -r requirements.txt'
+    
+    alias psq='psql -U postgres'
+    
+    alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
+    
+    alias py=python3
+    
+    alias rm='rm -i'
+    
+    alias sha=sha256sum
+    
+    alias sou='source ~/.bash_profile'
+    
+    alias sulo='sudo su --login'
+    
+    alias tip='cardano-cli query tip --mainnet'
+    
+    alias tnode='tmux attach -t node'
+    
+    alias tweb='tmux attach -t web'
+    
+    alias venv='source venv/bin/activate'
+    
+    
 
 
 
