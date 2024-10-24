@@ -1,0 +1,57 @@
+[ -z "$PS1" ] && return
+
+echo "/root/.bashrc    starts."
+
+PS1="\u@\h:\w \\# "
+
+export EDITOR='nano'
+
+export VISUAL='nano'
+
+export HISTSIZE=500
+
+export HISTFILESIZE=500
+
+
+# for ookla-speedtest
+export NIXPKGS_ALLOW_UNFREE=1
+
+
+cd() { builtin cd "$@" && pwd && echo && ls; }
+
+la() {
+    if [ -z "$1" ]; then
+        ls -ahlp
+    else
+        shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+    fi
+}
+
+
+
+
+alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
+
+alias hi=history
+
+
+alias pipr='pip3 install -r requirements.txt'
+
+alias psq='psql -U postgres'
+
+
+
+alias py=python3
+
+alias rm='rm -i'
+
+alias sha=sha256sum
+
+alias sou='source /root/.bash_profile'
+
+
+
+
+
+
+echo "/root/.bashrc    ends."
