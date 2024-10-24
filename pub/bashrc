@@ -27,35 +27,37 @@ la() {
     fi
 }
 
-le() {
-    if [ -z "$1" ]; then
-        ls -ahlp
-    else
-        shopt -s dotglob; ls -adhlp $1*; shopt -u dotglob;
-    fi
-}
-
 
 
 alias gpush="git add . && git commit -m 'cs' && git push"
+
 alias gpull="git stash && git fetch --all && git reset --hard origin master"
+
 alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
 
 alias hi=history
 
 alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
+
 alias prun='python3 manage.py runserver'
+
 alias pipup='pip3 install --upgrade pip'
+
 alias pipr='pip3 install -r requirements.txt'
+
 alias psq='psql -U postgres'
+
 alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
+
 alias py=python3
 
 alias rm='rm -i'
 
 alias sha=sha256sum
+
 alias sou='source ~/.bash_profile'
-alias sulogin='sudo su --login'
+
+alias sulo='sudo su --login'
 
 alias tip='cardano-cli query tip --mainnet'
 
