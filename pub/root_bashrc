@@ -2,6 +2,9 @@
 
 echo "/root/.bashrc    starts."
 
+
+
+
 PS1="\u@\h:\w \\# "
 
 export EDITOR='nano'
@@ -12,10 +15,22 @@ export HISTSIZE=500
 
 export HISTFILESIZE=500
 
-
 # for ookla-speedtest
 export NIXPKGS_ALLOW_UNFREE=1
 
+
+
+# ROOT PATH
+
+if [ -f /etc/rootpaths ]; then
+    eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/rootpaths | paste -sd ":" -)
+    export PATH
+fi
+
+
+
+
+# ROOT FUNCTIONS
 
 cd() { builtin cd "$@" && pwd && echo && ls; }
 
@@ -28,7 +43,7 @@ la() {
 }
 
 
-
+# ROOT ALIAS
 
 alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
 
