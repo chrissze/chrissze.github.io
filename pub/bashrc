@@ -8,9 +8,9 @@ export EDITOR='nano'
 
 export VISUAL='nano'
 
-HISTSIZE=999
+HISTSIZE=800
 
-HISTFILESIZE=999
+HISTFILESIZE=800
 
 
 # for ookla-speedtest
