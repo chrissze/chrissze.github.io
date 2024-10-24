@@ -32,7 +32,9 @@ echo "$HOME/.bashrc    starts."
 # USER FUNCTIONS
     
     cd() { builtin cd "$@" && pwd && echo && ls; }
-    
+
+    clip() { cat "$@" | xsel -b; }
+
     la() {
         if [ -z "$1" ]; then
             ls -ahlp
