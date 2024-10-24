@@ -8,6 +8,11 @@ export EDITOR='nano'
 
 export VISUAL='nano'
 
+HISTSIZE=999
+
+HISTFILESIZE=999
+
+
 # for ookla-speedtest
 export NIXPKGS_ALLOW_UNFREE=1
 
