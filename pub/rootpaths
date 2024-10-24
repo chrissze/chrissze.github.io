@@ -6,13 +6,28 @@
 
 # ORIGINAL ROOT PATH BELOW OF FRESH ALMA9
 
-$HOME/.local/bin
+/root/.local/bin
 
-$HOME/bin
+/root/bin
 
 /sbin
 
 /bin
+
+/usr/sbin
+
+/usr/bin
+
+
+# ORIGINAL ROOT PATH BELOW OF FRESH FEDORA 40
+
+/root/.local/bin
+
+/root/bin
+
+/usr/local/sbin
+
+/usr/local/bin
 
 /usr/sbin
 
