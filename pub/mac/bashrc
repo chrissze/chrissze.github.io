@@ -75,6 +75,8 @@ echo "hi I'm $USER  /Users/chris/.bashrc start"
     cd() { builtin cd "$@" && ls -laph && echo && pwd && echo ; }
 
 
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
     la() {
         if [ -z "$1" ]; then
             ls -ahlp
