@@ -3,45 +3,9 @@
 echo "$HOME/.bashrc    starts."
 
 
-# USER VARIABLES
-
-    PS1="\u@\h:\w \\$ "
-    
-    export EDITOR='nano'
-    
-    export VISUAL='nano'
-    
-    export HISTSIZE=500
-    
-    export HISTFILESIZE=500
-    
-    # for ookla-speedtest
-    export NIXPKGS_ALLOW_UNFREE=1
-
-
-# USER PATH
-    
-    if [ -f /etc/paths ]; then
-        eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
-        export PATH
-    fi
-    
 
 
 
-# USER FUNCTIONS
-    
-    cd() { builtin cd "$@" && pwd && echo && ls; }
-
-    clip() { cat "$@" | xsel -b; }
-
-    la() {
-        if [ -z "$1" ]; then
-            ls -ahlp
-        else
-            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
-        fi
-    }
 
 
 # USER ALIAS
@@ -88,6 +52,48 @@ echo "$HOME/.bashrc    starts."
     
     
 
+
+# USER FUNCTIONS
+    
+    cd() { builtin cd "$@" && pwd && echo && ls; }
+
+    clip() { cat "$@" | xsel -b; }
+
+
+    
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
+    la() {
+        if [ -z "$1" ]; then
+            ls -ahlp
+        else
+            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+        fi
+    }
+
+
+# USER PATH
+    
+    if [ -f /etc/paths ]; then
+        eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
+        export PATH
+    fi
+
+
+# USER VARIABLES
+
+    PS1="\u@\h:\w \\$ "
+    
+    export EDITOR='nano'
+    
+    export VISUAL='nano'
+    
+    export HISTSIZE=500
+    
+    export HISTFILESIZE=500
+    
+    # for ookla-speedtest
+    export NIXPKGS_ALLOW_UNFREE=1
 
 
 echo "$HOME/.bashrc    ends."
