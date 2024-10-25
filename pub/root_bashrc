@@ -35,6 +35,8 @@ echo "/root/.bashrc    starts."
 
     clip() { cat "$@" | xsel -b; }
 
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
     
     la() {
         if [ -z "$1" ]; then
