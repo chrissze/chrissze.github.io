@@ -59,7 +59,9 @@ echo "/root/.bashrc    starts."
     
     
     alias py=python3
-    
+
+    alias re="rsync -avP -e 'ssh -p 55555'"
+
     alias rm='rm -i'
     
     alias sha=sha256sum
