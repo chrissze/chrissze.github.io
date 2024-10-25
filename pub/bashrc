@@ -50,7 +50,7 @@ echo "$HOME/.bashrc    starts."
     
     alias gpull="git stash && git fetch --all && git reset --hard origin master"
     
-    alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
+    #alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
     
     alias hi=history
     
