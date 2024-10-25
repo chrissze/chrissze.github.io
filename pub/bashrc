@@ -67,7 +67,9 @@ echo "$HOME/.bashrc    starts."
     alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
     
     alias py=python3
-    
+
+    alias re="rsync -avP -e 'ssh -p 55555'"
+
     alias rm='rm -i'
     
     alias sha=sha256sum
