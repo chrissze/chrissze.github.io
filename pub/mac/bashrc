@@ -62,7 +62,7 @@ alias pyv='python3 -m venv venv && source venv/bin/activate && pip3 install --up
 
 
 
-alias re="rsync -av -e 'ssh -p 55555'"
+alias re="rsync -avP -e 'ssh -p 55555'"
 
 # I cannot use rs alias due to Mac SIP protected rs command
 alias rus=rust-script  
