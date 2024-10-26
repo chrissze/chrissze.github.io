@@ -1,0 +1,52 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: INSTALL NIX
+  hosts: localhost
+  become: no   # Single-user install does not need sudo
+
+  pre_tasks:
+    - name: Ensure the playbook is not run as root
+      fail:
+        msg: "This playbook cannot be run as root."
+      when: ansible_user_id == 'root'
+
+  tasks:
+
+    - name: TASK 1 - Check if Nix is already installed
+      command: which nix
+      register: nix_check
+      ignore_errors: yes
+      changed_when: false
+
+
+    - name: TASK 2 - Install Single User Nix By non-root user
+      become: no
+      shell: sh <(curl -L https://nixos.org/nix/install) --no-daemon
+      args:
+        creates: /home/{{ ansible_user_id }}/.nix-profile
+      when: nix_check.failed
+      register: install_result
+
+
+    - name: TASK 3 - Print nix install script stdout_lines
+      debug:
+        var: install_result.stdout_lines
+      when: install_result is defined
+
+    - name: TASK 4 - Allow Unfree in bashrc
+      ansible.builtin.lineinfile:
+        path: "/home/{{ ansible_user_id }}/.bashrc"
+        regexp: '^\s*export NIXPKGS_ALLOW_UNFREE=1\s*$'
+        line: "export NIXPKGS_ALLOW_UNFREE=1"
+        create: yes
+        state: present
+
+
+    - name: TASK 5 - Fetch custom module - mynix
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/ansible/mynix.py"
+        dest: "/usr/share/ansible/plugins/modules"
+        mode: '0755'
+        force: no
