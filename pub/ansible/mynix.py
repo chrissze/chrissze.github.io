@@ -14,7 +14,9 @@ def run_module():
         update_cache=dict(type='bool', default=False),
         allow_unfree=dict(type='bool', default=False),
         upgrade=dict(type='bool', default=False),
-        list_packages=dict(type='bool', default=False)
+        list_packages=dict(type='bool', default=False),
+        list_generations=dict(type='bool', default=False),
+        collect_garbage=dict(type='bool', default=False),
 
     )
 
@@ -30,6 +32,8 @@ def run_module():
     allow_unfree = module.params['allow_unfree']
     upgrade = module.params['upgrade']
     list_packages = module.params['list_packages']
+    list_generations = module.params['list_generations']
+    collect_garbage = module.params['collect_garbage']
 
     changed = False
     all_stdout = []
@@ -81,9 +85,29 @@ def run_module():
             module.fail_json(msg=f"Failed to manage package {name}: {e}", stdout=e.stdout, stderr=e.stderr)
 
 
+    if collect_garbage:
+        try:
+            command = ['nix-collect-garbage', '-d']
+            result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
+            all_stdout.append(result.stdout)
+            all_stderr.append(result.stderr)
+        except subprocess.CalledProcessError as e:
+            module.fail_json(msg=f"Failed to list packages: {e}", stdout=e.stdout, stderr=e.stderr)
+
+
     if list_packages:
         try:
             command = ['nix-env', '-q']
+            result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
+            all_stdout.append(result.stdout)
+            all_stderr.append(result.stderr)
+        except subprocess.CalledProcessError as e:
+            module.fail_json(msg=f"Failed to list packages: {e}", stdout=e.stdout, stderr=e.stderr)
+
+
+    if list_generations:
+        try:
+            command = ['nix-env', '--list-generations']
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
             all_stdout.append(result.stdout)
             all_stderr.append(result.stderr)
