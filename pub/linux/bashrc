@@ -2,19 +2,11 @@
 
 echo "$HOME/.bashrc    starts."
 
-
-
-
-
-
-
 # USER ALIAS
     
     alias gpush="git add . && git commit -m 'cs' && git push"
     
     alias gpull="git stash && git fetch --all && git reset --hard origin master"
-    
-    #alias grep='grep -in'    # -i case-insensitve; -n dislpay line number
     
     alias hi=history
     
