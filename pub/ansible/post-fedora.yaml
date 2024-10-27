@@ -21,7 +21,7 @@
 
   tasks:
 
-    # No forced overwrite
+    # No forced overwrite, specified group cs to avoid root group in /etc
     - name: TASK 1 - Fetch cs user /etc/paths
       become: yes
       ansible.builtin.get_url:
@@ -29,6 +29,7 @@
         dest: "/etc/paths"
         mode: '0644'
         owner: cs
+        group: cs
         force: no
     
     # No forced overwrite
