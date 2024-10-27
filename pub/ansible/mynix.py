@@ -6,6 +6,23 @@ import subprocess
 import os
 
 
+def determine_nix_command(nix_cmd: str) -> str:
+    
+    if os.path.exists(f"/nix/var/nix/profiles/default/bin/{nix_cmd}"):
+        return f"/nix/var/nix/profiles/default/bin/{nix_cmd}"
+    if os.path.exists(os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")):
+        return os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")
+    return None
+
+
+
+nix_channel_cmd: str = determine_nix_command('nix-channel')
+
+nix_env_cmd: str = determine_nix_command('nix-env')
+
+nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
+
+
 def run_module():
     module_args = dict(
         name=dict(type='list', elements='str', default=[]),
@@ -38,20 +55,28 @@ def run_module():
     changed = False
     all_stdout = []
     all_stderr = []
+
     env = os.environ.copy()
+    env["PATH"] = "/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:" + env.get("PATH", "")
+
+
+
+
+
+
 
     # Enable allowUnfree BEFORE names for loop.
     if allow_unfree:
-        try:
-            env['NIXPKGS_ALLOW_UNFREE'] = '1'
-        except subprocess.CalledProcessError as e:
-            module.fail_json(msg=f"Failed to set allowUnfree: {e}", stdout=e.stdout, stderr=e.stderr)
+        env['NIXPKGS_ALLOW_UNFREE'] = '1'
+
+
+
 
 
     # Update cache if requested, place this BEFORE upgrade and names.
     if update_cache or upgrade:
         try:
-            update_command = ['nix-channel', '--update']
+            update_command = [nix_channel_cmd, '--update']
             result = subprocess.run(update_command, check=True, capture_output=True, text=True)
             all_stdout.append(result.stdout)
             all_stderr.append(result.stderr)
@@ -61,7 +86,7 @@ def run_module():
 
     if upgrade:
         try:
-            command = ['nix-env', '-u']
+            command = [nix_env_cmd, '-u']
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
             changed = True
             all_stdout.append(result.stdout)
@@ -72,9 +97,9 @@ def run_module():
 
     for name in names:
         if state == 'present':
-            command = ['nix-env', '-iA', f'{repo}.{name}']
+            command = [nix_env_cmd, '-iA', f'{repo}.{name}']
         elif state == 'absent':
-            command = ['nix-env', '-e', name]
+            command = [nix_env_cmd, '-e', name]
 
         try:
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
@@ -87,7 +112,7 @@ def run_module():
 
     if collect_garbage:
         try:
-            command = ['nix-collect-garbage', '-d']
+            command = [nix_collect_garbage_cmd, '-d']
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
             all_stdout.append(result.stdout)
             all_stderr.append(result.stderr)
@@ -97,7 +122,7 @@ def run_module():
 
     if list_packages:
         try:
-            command = ['nix-env', '-q']
+            command = [nix_env_cmd, '-q']
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
             all_stdout.append(result.stdout)
             all_stderr.append(result.stderr)
@@ -107,7 +132,7 @@ def run_module():
 
     if list_generations:
         try:
-            command = ['nix-env', '--list-generations']
+            command = [nix_env_cmd, '--list-generations']
             result = subprocess.run(command, check=True, capture_output=True, text=True, env=env)
             all_stdout.append(result.stdout)
             all_stderr.append(result.stderr)
