@@ -1,3 +1,5 @@
+#!/usr/bin/env -S ansible-playbook
+
 ---
 - name: Install Ansible, PostgreSQL, MySQL, and Remove Unwanted Packages
   hosts: all
