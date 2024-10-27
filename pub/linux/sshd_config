@@ -25,5 +25,5 @@ Port 55555
 
 PrintLastLog no
 
-# alma fedora Subsystem
+# alma fedora Subsystem for ansible, rsync, scp
 Subsystem sftp /usr/libexec/openssh/sftp-server
