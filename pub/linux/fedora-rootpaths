@@ -1,0 +1,19 @@
+# CUSTOM ROOT PATHS
+
+/home/cs/.nix-profile/bin
+
+
+
+# ORIGINAL FRESH FEDORA ROOT PATHS
+
+/root/.local/bin
+
+/root/bin
+
+/usr/local/sbin
+
+/usr/local/bin
+
+/usr/sbin
+
+/usr/bin
