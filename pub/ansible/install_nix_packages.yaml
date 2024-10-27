@@ -1,0 +1,27 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: INSTALL NIX PACKAGES
+  hosts: localhost
+  become: no
+  tasks:
+
+    # fedora already has nc, ss, tmux
+    - name: Install nix packages in fedora
+      mynix:
+        name:
+          - ansible
+          - bat
+          - nmap
+          - ookla-speedtest
+          - tldr
+        
+        repo: nixpkgs
+        state: present
+        update_cache: yes
+        list_packages: yes
+      register: fedora
+
+    - debug:
+        var: fedora.stdout_lines
+
