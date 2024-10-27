@@ -18,8 +18,7 @@
       ansible.builtin.dnf:
         name:
           - "libreoffice*"
-          - "java-21-openjdk-headless"
-          - "ibus"
+          - "java-21-openjdk-headless"          
           - "geolite2-city"
           - "gnome-user-docs"
           - "nvidia-gpu-firmware"
@@ -30,14 +29,8 @@
           - "gnome-maps"
           - "gnome-photos"
           - "gnome-weather"
-          - "simple-scan"
         state: absent
         autoremove: yes
-
-    - name: Clean up residual packages
-      ansible.builtin.dnf:
-        name: "*"
-        state: autoremove
 
     - name: Enable and start PostgreSQL
       ansible.builtin.systemd:
