@@ -1,8 +1,5 @@
 
-/home/almalinux/.nix-profile/bin
-
-/home/almalinux/.cargo/bin
-
+/home/cs/.nix-profile/bin
 
 # ORIGINAL ROOT PATH BELOW OF FRESH ALMA9
 
@@ -13,21 +10,6 @@
 /sbin
 
 /bin
-
-/usr/sbin
-
-/usr/bin
-
-
-# ORIGINAL ROOT PATH BELOW OF FRESH FEDORA 40
-
-/root/.local/bin
-
-/root/bin
-
-/usr/local/sbin
-
-/usr/local/bin
 
 /usr/sbin
 
