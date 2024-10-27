@@ -44,6 +44,22 @@ echo "$HOME/.bashrc    starts."
     
     
 
+# USER ENV
+
+    PS1="\u@\h:\w \\$ "
+    
+    export EDITOR='nano'
+    
+    export VISUAL='nano'
+    
+    export HISTSIZE=500
+    
+    export HISTFILESIZE=500
+    
+    export NIXPKGS_ALLOW_UNFREE=1
+
+    export PGDATA=/var/lib/pgsql/data
+
 
 # USER FUNCTIONS
     
@@ -70,22 +86,6 @@ echo "$HOME/.bashrc    starts."
         eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
         export PATH
     fi
-
-
-# USER VARIABLES
-
-    PS1="\u@\h:\w \\$ "
-    
-    export EDITOR='nano'
-    
-    export VISUAL='nano'
-    
-    export HISTSIZE=500
-    
-    export HISTFILESIZE=500
-    
-    # for ookla-speedtest
-    export NIXPKGS_ALLOW_UNFREE=1
 
 
 echo "$HOME/.bashrc    ends."
