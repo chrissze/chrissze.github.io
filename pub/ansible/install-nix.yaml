@@ -2,7 +2,7 @@
 
 ---
 - name: INSTALL NIX
-  hosts: localhost
+  hosts: fuji
   become: no   # Single-user install does not need sudo
 
   pre_tasks:
@@ -14,7 +14,9 @@
   tasks:
 
     - name: TASK 1 - Check if Nix is already installed
-      command: which nix
+      become: no
+      ansible.builtin.command: 
+        cmd: "bash -lc 'which nix'"
       register: nix_check
       ignore_errors: yes
       changed_when: false
@@ -39,11 +41,19 @@
         path: "/home/{{ ansible_user_id }}/.bashrc"
         regexp: '^\s*export NIXPKGS_ALLOW_UNFREE=1\s*$'
         line: "export NIXPKGS_ALLOW_UNFREE=1"
-        create: yes
+        create: no
         state: present
+        insertafter: EOF
+
+    - name: TASK 5 - Ensure /usr/share/ansible/plugins/modules directory exists
+      become: yes
+      ansible.builtin.file:
+        path: "/usr/share/ansible/plugins/modules"
+        state: directory
+        mode: '0755'
 
 
-    - name: TASK 5 - Fetch custom module - mynix
+    - name: TASK 6 - Fetch custom module - mynix
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/ansible/mynix.py"
