@@ -1,5 +1,9 @@
 #!/usr/bin/env -S ansible-playbook
 
+#1 Postgresql Server requires this command to initialize DB before enabling systemd 
+    # sudo postgresql-setup --initdb
+
+
 ---
 - name: Install Ansible, PostgreSQL, MySQL, and Remove Unwanted Packages
   hosts: localhost
