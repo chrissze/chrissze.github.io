@@ -1,0 +1,50 @@
+---
+- name: Install Ansible, PostgreSQL, MySQL, and Remove Unwanted Packages
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure Ansible, PostgreSQL, and MySQL are installed
+      ansible.builtin.dnf:
+        name:
+          - ansible
+          - postgresql-server
+          - mysql-server
+        state: present
+        update_cache: yes
+
+    - name: Remove unwanted applications and clean up
+      ansible.builtin.dnf:
+        name:
+          - "libreoffice*"
+          - "java-21-openjdk-headless"
+          - "ibus"
+          - "geolite2-city"
+          - "gnome-user-docs"
+          - "nvidia-gpu-firmware"
+          - "skopeo"
+          - "thunderbird"
+          - "rhythmbox"
+          - "cheese"
+          - "gnome-maps"
+          - "gnome-photos"
+          - "gnome-weather"
+          - "simple-scan"
+        state: absent
+        autoremove: yes
+
+    - name: Clean up residual packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: autoremove
+
+    - name: Enable and start PostgreSQL
+      ansible.builtin.systemd:
+        name: postgresql
+        enabled: yes
+        state: started
+
+    - name: Enable and start MySQL
+      ansible.builtin.systemd:
+        name: mysqld
+        enabled: yes
+        state: started
