@@ -32,14 +32,15 @@
         state: absent
         autoremove: yes
 
-    - name: Enable and start PostgreSQL
-      ansible.builtin.systemd:
-        name: postgresql
-        enabled: yes
-        state: started
-
     - name: Enable and start MySQL
       ansible.builtin.systemd:
         name: mysqld
+        enabled: yes
+        state: started
+
+
+    - name: Enable and start PostgreSQL
+      ansible.builtin.systemd:
+        name: postgresql
         enabled: yes
         state: started
