@@ -9,7 +9,6 @@
       ansible.builtin.dnf:
         name:
           - ansible
-          - postgresql-server
           - mysql-server
         state: present
         update_cache: yes
@@ -39,8 +38,3 @@
         state: started
 
 
-    - name: Enable and start PostgreSQL
-      ansible.builtin.systemd:
-        name: postgresql
-        enabled: yes
-        state: started
