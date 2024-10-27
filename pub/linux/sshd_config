@@ -25,5 +25,5 @@ Port 55555
 
 PrintLastLog no
 
-# alma9 Subsystem
+# alma fedora Subsystem
 Subsystem sftp /usr/libexec/openssh/sftp-server
