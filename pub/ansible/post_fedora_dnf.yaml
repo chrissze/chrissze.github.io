@@ -1,6 +1,6 @@
 #!/usr/bin/env -S ansible-playbook
 
-#1 Postgresql Server requires this command to initialize DB before enabling systemd 
+#1 Postgresql Server 16 requires this command to initialize DB before enabling systemd 
     # sudo postgresql-setup --initdb
 
 
