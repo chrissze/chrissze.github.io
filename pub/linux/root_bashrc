@@ -1,0 +1,79 @@
+[ -z "$PS1" ] && return       # for scp, rsync
+
+echo "I am $USER, /root/.bashrc    starts."
+
+### NOTES
+
+    # SWITCH TO ROOT "sudo su" COMMAND DOES NOT LOAD /root/.bash_profile
+
+
+
+##############
+# ROOT ALIAS #
+##############
+
+    alias cp='cp -i'
+    
+    alias hi=history
+    
+    alias mv='mv -i'
+    
+    alias re="rsync -av -e 'ssh -p 55555'"
+    
+    alias re22="rsync -av -e 'ssh -p 22'"
+    
+    alias rm='rm -i'
+    
+    alias sou='source /root/.bash_profile'
+
+############
+# ROOT ENV #
+############
+    
+    export EDITOR='nano'
+    
+    
+    export HISTSIZE=500
+    
+    export HISTFILESIZE=500
+    
+    export VISUAL='nano'
+
+
+
+##################
+# ROOT FUNCTIONS #
+##################
+
+    cd() { builtin cd "$@" && ls -laph && echo && pwd && echo; }
+
+    clip() { cat "$@" | xsel -b; }
+
+
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
+    la() {
+        if [ -z "$1" ]; then
+            ls -ahlp
+        else
+            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+        fi
+    }
+
+    ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
+
+
+
+#############
+# ROOT PATH #
+#############
+
+if [ -f /etc/rootpaths ]; then
+    eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/rootpaths | paste -sd ":" -)
+    export PATH
+fi
+
+    
+
+
+echo "I am $USER, /root/.bashrc    ends."
