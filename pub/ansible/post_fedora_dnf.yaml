@@ -2,7 +2,7 @@
 
 ---
 - name: Install Ansible, PostgreSQL, MySQL, and Remove Unwanted Packages
-  hosts: all
+  hosts: localhost
   become: yes
   tasks:
     - name: Ensure Ansible, PostgreSQL, and MySQL are installed
