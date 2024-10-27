@@ -16,61 +16,70 @@ def determine_nix_command(nix_cmd: str) -> str:
 
 
 
-nix_channel_cmd: str = determine_nix_command('nix-channel')
-
-nix_env_cmd: str = determine_nix_command('nix-env')
-
-nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
-
-
 def run_module():
     module_args = dict(
-        name=dict(type='list', elements='str', default=[]),
-        repo=dict(type='str', default='nixpkgs'),
-        state=dict(type='str', default='present', choices=['present', 'absent']),
-        update_cache=dict(type='bool', default=False),
         allow_unfree=dict(type='bool', default=False),
+
+        update_cache=dict(type='bool', default=False),
+        
         upgrade=dict(type='bool', default=False),
-        list_packages=dict(type='bool', default=False),
-        list_generations=dict(type='bool', default=False),
+        
+        name=dict(type='list', elements='str', default=[]),
+        state=dict(type='str', default='present', choices=['present', 'absent']),
+        repo=dict(type='str', default='nixpkgs'),
+        
         collect_garbage=dict(type='bool', default=False),
+        
+        list_packages=dict(type='bool', default=False),
+        
+        list_generations=dict(type='bool', default=False),
 
     )
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
+
+    # FIELDS
+
+    allow_unfree = module.params['allow_unfree']
+    
+    update_cache = module.params['update_cache']
+    
+    upgrade = module.params['upgrade']
+
     names = module.params['name']
     if isinstance(names, str):
         names = [names]
-
-    repo = module.params['repo']
     state = module.params['state']
-    update_cache = module.params['update_cache']
-    allow_unfree = module.params['allow_unfree']
-    upgrade = module.params['upgrade']
-    list_packages = module.params['list_packages']
-    list_generations = module.params['list_generations']
+    repo = module.params['repo']
+
     collect_garbage = module.params['collect_garbage']
 
+    list_packages = module.params['list_packages']
+
+    list_generations = module.params['list_generations']
+
+    # VARIABLES
+
     changed = False
+    
     all_stdout = []
+    
     all_stderr = []
+
+    nix_channel_cmd: str = determine_nix_command('nix-channel')
+
+    nix_env_cmd: str = determine_nix_command('nix-env')
+
+    nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
 
     env = os.environ.copy()
     env["PATH"] = "/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:" + env.get("PATH", "")
 
 
-
-
-
-
-
     # Enable allowUnfree BEFORE names for loop.
     if allow_unfree:
         env['NIXPKGS_ALLOW_UNFREE'] = '1'
-
-
-
 
 
     # Update cache if requested, place this BEFORE upgrade and names.
