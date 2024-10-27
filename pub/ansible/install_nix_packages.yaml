@@ -2,26 +2,27 @@
 
 ---
 - name: INSTALL NIX PACKAGES
-  hosts: localhost
+  hosts: fuji
   become: no
   tasks:
 
     # fedora already has nc, ss, tmux
     - name: Install nix packages in fedora
       mynix:
+        allow_unfree: yes
+        update_cache: yes
+        state: present
+        repo: nixpkgs
+        collect_garbage: yes
+        list_packages: yes
+
         name:
           - ansible
           - bat
           - nmap
           - ookla-speedtest
           - tldr
-        
-        repo: nixpkgs
-        state: present
-        update_cache: yes
-        list_packages: yes
       register: fedora
 
     - debug:
         var: fedora.stdout_lines
-
