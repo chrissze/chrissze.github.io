@@ -4,10 +4,19 @@ $HOME/.nix-profile/bin
 
 $HOME/.cargo/bin
 
+
+
+
 # FEDORA user default PATH (6):
+
 $HOME/.local/bin
+
 $HOME/bin
+
 /usr/local/bin
+
 /usr/local/sbin
+
 /usr/bin
+
 /usr/sbin
