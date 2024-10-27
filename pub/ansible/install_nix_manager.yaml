@@ -1,5 +1,7 @@
 #!/usr/bin/env -S ansible-playbook
 
+#1 Safe to re-run, it will fetch new custom modules.
+
 ---
 - name: INSTALL NIX
   hosts: fuji
@@ -52,11 +54,11 @@
         state: directory
         mode: '0755'
 
-
+    # FORCED OVERWRITE
     - name: TASK 6 - Fetch custom module - mynix
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/ansible/mynix.py"
         dest: "/usr/share/ansible/plugins/modules"
         mode: '0755'
-        force: no
+        force: yes
