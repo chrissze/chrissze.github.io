@@ -17,8 +17,8 @@
         list_packages: yes
 
         name:
-          - ansible
           - bat
+          - docker
           - nmap
           - ookla-speedtest
           - tldr
