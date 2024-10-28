@@ -8,10 +8,12 @@ import os
 
 def determine_nix_command(nix_cmd: str) -> str:
     
-    if os.path.exists(f"/nix/var/nix/profiles/default/bin/{nix_cmd}"):
-        return f"/nix/var/nix/profiles/default/bin/{nix_cmd}"
     if os.path.exists(os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")):
         return os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")
+    
+    if os.path.exists(f"/nix/var/nix/profiles/default/bin/{nix_cmd}"):
+        return f"/nix/var/nix/profiles/default/bin/{nix_cmd}"
+    
     return None
 
 
