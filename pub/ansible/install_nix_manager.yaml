@@ -1,6 +1,11 @@
-#!/usr/bin/env -S ansible-playbook
+#!/usr/bin/env -S ansible-playbook -v
 
-#1 Safe to re-run, it will fetch new custom modules.
+### Safe to re-run, it will fetch new custom modules.
+
+#1 Required curl
+
+#2 user is sudoer and NOPASSWD for the user in /etc/sudoers (use visudo command)
+# cs    ALL=(ALL)       NOPASSWD: ALL
 
 ---
 - name: INSTALL NIX
