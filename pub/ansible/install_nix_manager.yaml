@@ -1,5 +1,7 @@
 #!/usr/bin/env -S ansible-playbook -v
 
+### THIS PLAYBOOK WORKS ON BOTH ALMA AND DEBIAN
+
 ### Safe to re-run, it will fetch new custom modules.
 
 #1 Required curl
