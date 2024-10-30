@@ -1,0 +1,22 @@
+# CUSTOM ROOT PATHS
+
+/home/cs/.nix-profile/bin
+
+/usr/sbin
+
+/usr/local/sbin
+
+
+
+# ORIGINAL FRESH DEBIAN ROOT PATHS
+
+/usr/local/bin
+
+/usr/bin
+  
+/bin
+
+/usr/local/games
+
+/usr/games
+  
