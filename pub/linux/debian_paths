@@ -1,0 +1,20 @@
+# CUSTOM USER PATHS
+
+/home/cs/.nix-profile/bin
+
+/home/cs/.cargo/bin
+
+
+
+# ORIGINAL FRESH DEBIAN USER PATHS
+
+/usr/local/bin
+
+/usr/bin
+  
+/bin
+
+/usr/local/games
+
+/usr/games
+  
