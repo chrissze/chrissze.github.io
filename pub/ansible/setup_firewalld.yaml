@@ -1,0 +1,61 @@
+#!/usr/bin/env -S ansible-playbook
+
+# WORKS FOR BOTH REDHAT AND DEBIAN
+
+
+---
+- name: ENABLE DEBIAN FIREWALL 
+  hosts: localhost
+  become: yes
+
+  tasks:
+
+    - name: Install debain packages
+      ansible.builtin.package:
+        name:
+          - firewalld
+        state: present
+
+
+
+    - name: Enable and start firewalld
+      ansible.builtin.service:
+        name: firewalld
+        enabled: yes
+        state: started
+
+
+    - name: Open PostgreSQL and MySQL services in firewalld
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      loop:
+        - postgresql
+        - mysql
+
+
+    - name: Open TCP ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+      loop:
+        - 55555
+        - 8000
+        
+
+    - name: Reload firewalld to apply changes
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
+    - name: Check firewalld configuration
+      ansible.builtin.command: firewall-cmd --list-all
+      register: firewalld_status
+
+
+    - name: Display firewalld configuration
+      ansible.builtin.debug:
+        msg: "{{ firewalld_status.stdout_lines }}"
