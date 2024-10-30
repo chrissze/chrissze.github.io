@@ -6,6 +6,9 @@
 
 /usr/sbin
 
+/usr/local/sbin
+
+
 
 # ORIGINAL FRESH DEBIAN USER PATHS
 
