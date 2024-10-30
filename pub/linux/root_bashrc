@@ -24,7 +24,7 @@ echo "I am $USER, /root/.bashrc    starts."
     
     alias rm='rm -i'
     
-    alias sou='source /root/.bash_profile'
+    alias sou='source /root/.bashrc'
 
 ############
 # ROOT ENV #
