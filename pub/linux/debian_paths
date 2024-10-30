@@ -6,6 +6,8 @@ $HOME/.cargo/bin
 
 $HOME/.local/bin
 
+$HOME/bin
+
 /usr/sbin
 
 /usr/local/sbin
