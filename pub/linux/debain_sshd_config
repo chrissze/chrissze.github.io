@@ -1,0 +1,28 @@
+AllowAgentForwarding no
+
+AllowTcpForwarding yes
+
+AuthenticationMethods publickey
+
+ChallengeResponseAuthentication no
+
+LoginGraceTime 120
+
+LogLevel VERBOSE
+
+MaxAuthTries 3
+
+MaxStartups 2
+
+PasswordAuthentication no
+
+PermitRootLogin no
+
+PermitUserEnvironment no
+
+Port 55555
+
+PrintLastLog no
+
+# Debain Subsystem for ansible, rsync, scp
+Subsystem sftp /usr/libexec/sftp-server
