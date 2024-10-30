@@ -1,8 +1,10 @@
 # CUSTOM USER PATHS
 
-/home/cs/.nix-profile/bin
+$HOME/.nix-profile/bin
 
-/home/cs/.cargo/bin
+$HOME/.cargo/bin
+
+$HOME/.local/bin
 
 /usr/sbin
 
