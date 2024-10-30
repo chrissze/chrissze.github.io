@@ -1,0 +1,43 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: SSHD
+  hosts: debian
+  become: yes
+  
+  tasks:
+
+    - name: Open TCP ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+      loop:
+        - 55555
+
+        
+
+    - name: Reload firewalld to apply changes
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
+    - name: Backup /etc/ssh/sshd_config
+      ansible.builtin.copy:
+        src: /etc/ssh/sshd_config
+        dest: "/etc/ssh/sshd_config.{{ ansible_date_time.time }}"
+        backup: no
+
+    - name: Download file from web
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/debian_sshd_config"
+        dest: "/etc/ssh/sshd_config"
+        mode: '0644'
+        force: yes
+
+
+    - name: Reload sshd to apply changes
+      ansible.builtin.service:
+        name: sshd
+        state: reloaded
