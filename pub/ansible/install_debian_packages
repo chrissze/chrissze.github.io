@@ -1,0 +1,23 @@
+#!/usr/bin/env -S ansible-playbook
+
+
+---
+- name: INSTALL APT PACKAGES
+  hosts: deb
+  become: yes
+
+  tasks:
+
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - curl
+          - firewalld
+        state: present
+
+    - name: Uninstall debain packages
+      ansible.builtin.package:
+        name:
+          - ufw
+        
+        state: absent
