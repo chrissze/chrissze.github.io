@@ -1,0 +1,132 @@
+#!/usr/bin/env -S ansible-playbook 
+
+---
+- name: INSTALL NIX DOCKER
+  hosts: o1
+  tasks:
+
+    # become yes will cause error due to binary program search return None
+    - name: TASK 1 - Install nix packages
+      become: no
+      mynix:
+        #update_cache: yes
+        collect_garbage: yes
+        list_packages: yes
+        name: docker
+
+
+    - name: TASK 2 - Create docker group for docker.socker
+      become: yes
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+    # FORCED overwrite
+    - name: TASK 3 - Create docker.socket file
+      become: yes
+      ansible.builtin.copy:
+        dest: /usr/lib/systemd/system/docker.socket
+        content: |
+          [Unit]
+          Description=Docker Socket for the API
+
+          [Socket]
+          ListenStream=/var/run/docker.sock
+          SocketMode=0660
+          SocketUser=root
+          SocketGroup=docker
+
+          [Install]
+          WantedBy=sockets.target
+        owner: root
+        group: root
+        mode: '0644'
+
+
+    # FORCED overwrite
+    - name: TASK 4 - Create docker.service file
+      become: yes
+      ansible.builtin.copy:
+        dest: /usr/lib/systemd/system/docker.service
+        content: |
+          [Unit]
+          Description=Docker Application Container Engine
+          Documentation=https://docs.docker.com
+          After=docker.socket network-online.target firewalld.service
+          Requires=docker.socket
+          Wants=network-online.target
+
+          [Service]
+          Type=notify
+          ExecStart=/home/{{ ansible_user_id }}/.nix-profile/bin/dockerd \
+                    --host=fd:// \
+                    --exec-opt native.cgroupdriver=systemd \
+                    $OPTIONS
+          ExecReload=/bin/kill -s HUP $MAINPID
+          LimitNOFILE=infinity
+          LimitNPROC=infinity
+          LimitCORE=infinity
+          TimeoutStartSec=0
+          # Delegate=yes  # Uncomment if needed
+          KillMode=process
+          Restart=on-failure
+          StartLimitBurst=10
+          StartLimitInterval=300s
+
+          [Install]
+          WantedBy=multi-user.target
+        owner: root
+        group: root
+        mode: '0644'
+
+
+
+    - name: TASK 5.1 - Trigger SELINUX dockerd error
+      become: yes
+      ansible.builtin.systemd:
+        name: docker
+        daemon-reload: yes
+        state: started
+
+
+    - name: TASK 5.2 - SELinux - Create SELinux modules directory
+      become: yes
+      file:
+        path: /root/selinux-modules
+        state: directory
+        mode: '0755'
+
+    - name: TASK 5.3 - SELinux - Check if my-dockerd.pp exists
+      become: yes
+      stat:
+        path: /root/selinux-modules/my-dockerd.pp
+      register: my_dockerd_pp_status
+
+
+    - name: TASK 5.4 - SELinux - Generate my-nginx module from audit logs
+      become: yes
+      shell: cd /root/selinux-modules && ausearch -c 'dockerd' --raw | audit2allow -M my-dockerd
+      when: not my_dockerd_pp_status.stat.exists
+
+    - name: TASK 5.5 - SELinux - Install my-dockerd SELinux module
+      become: yes
+      command: semodule -X 300 -i /root/selinux-modules/my-dockerd.pp
+      when: not my_dockerd_pp_status.stat.exists
+
+
+    - name: TASK 6.1 - Enable and start docker.socket
+      become: yes
+      ansible.builtin.systemd:
+        name: docker.socket
+        enabled: yes
+        daemon-reload: yes
+        state: started
+
+
+    - name: TASK 6.2 - Enable and start docker.service
+      become: yes
+      ansible.builtin.systemd:
+        name: docker
+        enabled: yes
+        daemon-reload: yes
+        state: started
