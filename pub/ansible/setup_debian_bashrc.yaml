@@ -17,7 +17,6 @@
 ---
 - name: POST debian
   hosts: deb
-  become: no
 
   tasks:
 
@@ -26,20 +25,20 @@
         become: no
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/bashrc'
-            dest: '/home/cs/.bashrc'
+            dest: "/home/{{ ansible_user_id }}/.bashrc"
             mode: '0644'
-            owner: cs
+            owner: "{{ ansible_user_id }}"
             force: yes
 
       # FORCED overwrite
-      - name: TASK 2 - Fetch cs user /etc/paths
+      - name: TASK 2 - Fetch user /etc/paths
         become: yes
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/debian_paths'
             dest: '/etc/paths'
             mode: '0644'
-            owner: cs
-            group: cs
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_id }}"
             force: yes
 
 
