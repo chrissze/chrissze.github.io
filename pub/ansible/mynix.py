@@ -6,7 +6,7 @@ import subprocess
 import os
 
 
-def determine_nix_command(nix_cmd: str) -> str:
+def get_full_path(nix_cmd: str) -> str:
     
     if os.path.exists(os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")):
         return os.path.expanduser(f"~/.nix-profile/bin/{nix_cmd}")
@@ -69,11 +69,11 @@ def run_module():
     
     all_stderr = []
 
-    nix_channel_cmd: str = determine_nix_command('nix-channel')
+    nix_channel_cmd: str = get_full_path('nix-channel')
 
-    nix_env_cmd: str = determine_nix_command('nix-env')
+    nix_env_cmd: str = get_full_path('nix-env')
 
-    nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
+    nix_collect_garbage_cmd: str = get_full_path('nix-collect-garbage')
 
     # Use ~, do not use $HOME
     env = os.environ.copy()
