@@ -76,7 +76,7 @@ def run_module():
     nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
 
     env = os.environ.copy()
-    env["PATH"] = "/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:" + env.get("PATH", "")
+    env["PATH"] = "/nix/var/nix/profiles/default/bin:~/.nix-profile/bin:" + env.get("PATH", "")
 
 
     # Enable allowUnfree BEFORE names for loop.
