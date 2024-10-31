@@ -1,35 +1,37 @@
 #!/usr/bin/env -S ansible-playbook
 
 #1 Make sure sshd_config have the following lines for initial password login after fresh install:
-    # PasswordAuthentication yes
-    # UsePAM yes
-    # Subsystem sftp /usr/libexec/openssh/sftp-server
-
+  # PasswordAuthentication yes
+  # UsePAM yes
+  # Subsystem sftp /usr/libexec/openssh/sftp-server
+  
 #2 Set NOPASSWD in SUDOER file
-
-    # sudo usermod -aG wheel cs   (optional: add user to wheel group)
-
-    # sudo visudo   (use vi to edit sudoer file)
-    # cs    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
-   
-
+  
+  # sudo usermod -aG wheel cs   (optional: add user to wheel group)
+  
+  # sudo visudo   (use vi to edit sudoer file)
+  # cs    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
+  
+#3 Target machine has /home/cs/.ssh/authorized_keys key-based login
+  
+#4 do not use f-string to quote, this is not python code per se. 
 
 ---
 - name: POST FEDORA
-  hosts: fuji
-  become: yes   
+  hosts: fed
+   
 
   tasks:
 
-    # No forced overwrite, specified group cs to avoid root group in /etc
-    - name: TASK 1 - Fetch cs user /etc/paths
+    # No forced overwrite
+    - name: TASK 1 - Fetch user /etc/paths
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/fedora_paths"
         dest: "/etc/paths"
         mode: '0644'
-        owner: cs
-        group: cs
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
         force: no
     
     # No forced overwrite
@@ -47,9 +49,9 @@
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/bashrc"
-        dest: "/home/cs/.bashrc"
+        dest: "/home/{{ ansible_user_id }}/.bashrc"
         mode: '0644'
-        owner: cs
+        owner: "{{ ansible_user_id }}"
         force: yes
 
     # FORCED overwrite
@@ -57,9 +59,9 @@
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/bash_profile"
-        dest: "/home/cs/.bash_profile"
+        dest: "/home/{{ ansible_user_id }}/.bash_profile"
         mode: '0644'
-        owner: cs
+        owner: "{{ ansible_user_id }}"
         force: yes
 
     # FORCED overwrite
