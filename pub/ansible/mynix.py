@@ -75,6 +75,7 @@ def run_module():
 
     nix_collect_garbage_cmd: str = determine_nix_command('nix-collect-garbage')
 
+    # Use ~, do not use $HOME
     env = os.environ.copy()
     env["PATH"] = "/nix/var/nix/profiles/default/bin:~/.nix-profile/bin:" + env.get("PATH", "")
 
