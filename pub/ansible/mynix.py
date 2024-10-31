@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""
+1. A full path nix command mgiht call other short path nix commands, like  ~/.nix-profile/bin/nix-env might call other non full path nix-env commands, so I have to expand PATH variable so that subprocess can locate those triggered commands. $HOME does not work in the PATH variable in this module, I have to use ~.
+
+
+"""
+
 
 from ansible.module_utils.basic import AnsibleModule
 import subprocess
