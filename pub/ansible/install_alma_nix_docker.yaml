@@ -2,6 +2,7 @@
 
 ---
 - name: INSTALL NIX DOCKER
+  become: yes
   hosts: o1
   tasks:
 
@@ -9,21 +10,20 @@
     - name: TASK 1 - Install nix packages
       become: no
       mynix:
-        #update_cache: yes
+        update_cache: yes
         collect_garbage: yes
         list_packages: yes
         name: docker
 
 
     - name: TASK 2 - Create docker group for docker.socker
-      become: yes
       ansible.builtin.group:
         name: docker
         state: present
 
+
     # FORCED overwrite
     - name: TASK 3 - Create docker.socket file
-      become: yes
       ansible.builtin.copy:
         dest: /usr/lib/systemd/system/docker.socket
         content: |
@@ -45,7 +45,6 @@
 
     # FORCED overwrite
     - name: TASK 4 - Create docker.service file
-      become: yes
       ansible.builtin.copy:
         dest: /usr/lib/systemd/system/docker.service
         content: |
@@ -82,7 +81,6 @@
 
 
     - name: TASK 5.1 - Trigger SELINUX dockerd error
-      become: yes
       ansible.builtin.systemd:
         name: docker
         daemon-reload: yes
@@ -90,32 +88,45 @@
 
 
     - name: TASK 5.2 - SELinux - Create SELinux modules directory
-      become: yes
       file:
         path: /root/selinux-modules
         state: directory
         mode: '0755'
 
+
     - name: TASK 5.3 - SELinux - Check if my-dockerd.pp exists
-      become: yes
       stat:
         path: /root/selinux-modules/my-dockerd.pp
       register: my_dockerd_pp_status
 
 
     - name: TASK 5.4 - SELinux - Generate my-nginx module from audit logs
-      become: yes
       shell: cd /root/selinux-modules && ausearch -c 'dockerd' --raw | audit2allow -M my-dockerd
       when: not my_dockerd_pp_status.stat.exists
 
+
     - name: TASK 5.5 - SELinux - Install my-dockerd SELinux module
-      become: yes
       command: semodule -X 300 -i /root/selinux-modules/my-dockerd.pp
       when: not my_dockerd_pp_status.stat.exists
 
 
+    - name: TASK 5.6 - SELinux - Check if my-iptables.pp exists
+      stat:
+        path: /root/selinux-modules/my-iptables.pp
+      register: my_iptables_pp_status
+
+
+    - name: TASK 5.7 - SELinux - Generate my-iptables module from audit logs
+      shell: cd /root/selinux-modules && ausearch -c 'iptables' --raw | audit2allow -M my-iptables
+      when: not my_iptables_pp_status.stat.exists
+
+
+    - name: TASK 5.8 - SELinux - Install my-iptables SELinux module
+      command: semodule -X 300 -i /root/selinux-modules/my-iptables.pp
+      when: not my_iptables_pp_status.stat.exists
+
+
     - name: TASK 6.1 - Enable and start docker.socket
-      become: yes
       ansible.builtin.systemd:
         name: docker.socket
         enabled: yes
@@ -124,7 +135,6 @@
 
 
     - name: TASK 6.2 - Enable and start docker.service
-      become: yes
       ansible.builtin.systemd:
         name: docker
         enabled: yes
