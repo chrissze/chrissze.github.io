@@ -1,5 +1,9 @@
 #!/usr/bin/env -S ansible-playbook
 
+#1 run this playbook with sudo
+  # sudo ./setup_debian_sshd.yaml
+
+
 ---
 - name: SSHD
   hosts: debian
