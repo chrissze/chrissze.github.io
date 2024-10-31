@@ -23,8 +23,8 @@ TimeoutStartSec=0
 KillMode=process
 
 Restart=on-failure
-StartLimitBurst=3
-StartLimitInterval=60s
+StartLimitBurst=10
+StartLimitInterval=300s
 
 [Install]
 WantedBy=multi-user.target
