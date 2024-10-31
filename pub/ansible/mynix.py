@@ -14,7 +14,7 @@ def determine_nix_command(nix_cmd: str) -> str:
     if os.path.exists(f"/nix/var/nix/profiles/default/bin/{nix_cmd}"):
         return f"/nix/var/nix/profiles/default/bin/{nix_cmd}"
     
-    return None
+    return nix_cmd
 
 
 
