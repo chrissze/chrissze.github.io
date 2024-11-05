@@ -1,4 +1,4 @@
-echo "hi I'm $USER  /Users/chris/.bashrc start"
+echo "hi I'm $USER  .bashrc start"
 
 
 
@@ -93,5 +93,5 @@ echo "hi I'm $USER  /Users/chris/.bashrc start"
 
 
 
-echo "hi I'm $USER  /Users/chris/.bashrc ends"
+echo "hi I'm $USER  .bashrc ends"
 
