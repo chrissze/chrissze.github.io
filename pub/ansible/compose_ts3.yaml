@@ -1,0 +1,100 @@
+#!/usr/bin/env -S ansible-playbook
+
+
+---
+- name: COMPOSE TEAMSPEAK 
+  hosts: o1
+  become: yes
+
+  tasks:
+
+
+    - name: Open 9987 UDP port in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/udp"
+        permanent: yes
+        state: enabled
+      loop:
+        - 9987
+       
+
+    - name: Open 3306, 10011, 30033 TCP ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+      loop:
+        - 3306
+        - 10011
+        - 30033
+        
+
+    - name: Reload firewalld to apply changes
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
+    - name: Check firewalld configuration
+      ansible.builtin.command: firewall-cmd --list-all
+      register: firewalld_status
+
+    - ansible.builtin.debug:
+        msg: "{{ firewalld_status.stdout_lines }}"
+
+
+    - name: Create directory /data/containers/ts3
+      file:
+        path: /data/containers/ts3
+        state: directory
+        mode: '0755'
+        owner: "{{ansible_user_id}}"
+        group: "{{ansible_user_id}}"
+
+
+    - name: Create file /data/containers/ts3/compose.yaml
+      copy:
+        dest: /data/containers/ts3/compose.yaml
+        content: |
+          services:
+            teamspeak:
+              image: teamspeak
+              restart: always
+              ports:
+                - 9987:9987/udp
+                - 10011:10011
+                - 30033:30033
+              environment:
+                TS3SERVER_DB_PLUGIN: ts3db_mariadb
+                TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+                TS3SERVER_DB_HOST: db
+                TS3SERVER_DB_USER: root
+                TS3SERVER_DB_PASSWORD: example
+                TS3SERVER_DB_NAME: teamspeak
+                TS3SERVER_DB_WAITUNTILREADY: 30
+                TS3SERVER_LICENSE: accept
+            db:
+              image: mariadb
+              restart: always
+              ports:
+                - 3306:3306
+              environment:
+                MYSQL_ROOT_PASSWORD: example
+                MYSQL_DATABASE: teamspeak
+
+        mode: '0644'
+        owner: "{{ansible_user_id}}"
+        group: "{{ansible_user_id}}"
+        force: yes
+
+
+    # Use full path to run `docker compose` because of limited PATH.
+    - name: Run Docker Compose
+      ansible.builtin.command: /home/almalinux/.nix-profile/bin/docker compose --project-directory /data/containers/ts3 up -d
+
+    - name: List docker containers
+      ansible.builtin.command: /home/almalinux/.nix-profile/bin/docker ps -a
+      register: docker_terminal
+
+    - ansible.builtin.debug:
+        msg: "{{ docker_terminal.stdout_lines }}"
