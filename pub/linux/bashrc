@@ -3,13 +3,19 @@
 echo "$HOME/.bashrc    starts."
 
 # USER ALIAS
-    
+
+    alias down='docker compose down && docker ps -a && echo && docker volume ls && echo && docker network ls'
+
+    alias downv='docker compose down -v && docker ps -a && echo && docker volume ls && echo && docker network ls'
+
     alias gpush="git add . && git commit -m 'cs' && git push"
     
     alias gpull="git stash && git fetch --all && git reset --hard origin master"
     
     alias hi=history
-    
+
+    alias ins='docker inspect'
+
     alias nls='docker network ls'
     
     alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
@@ -71,7 +77,7 @@ echo "$HOME/.bashrc    starts."
 
     clip() { cat "$@" | xsel -b; }
 
-
+    exec() { docker container exec -it "$@" /bin/bash; }
     
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
