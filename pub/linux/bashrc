@@ -62,8 +62,8 @@ echo "$HOME/.bashrc    starts."
 
 
 # USER FUNCTIONS
-    
-    cd() { builtin cd "$@" && echo && pwd && echo && ls -la; }
+
+    cd() { builtin cd "$@" && ls -laph && echo && pwd && echo; }
 
     clip() { cat "$@" | xsel -b; }
 
