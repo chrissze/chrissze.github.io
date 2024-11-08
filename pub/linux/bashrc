@@ -20,8 +20,8 @@ echo "$HOME/.bashrc    starts."
     
     alias psa='docker ps -a'
     
-    alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip'
-    
+    alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && which python3 && python3 -V &&  pip3 -V &&  pip3 list'
+
     alias py=python3
 
     alias re="rsync -avP -e 'ssh -p 55555'"
