@@ -10,6 +10,8 @@ echo "$HOME/.bashrc    starts."
     
     alias hi=history
     
+    alias nls='docker network ls'
+    
     alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
     
     alias prun='python3 manage.py runserver'
@@ -41,6 +43,8 @@ echo "$HOME/.bashrc    starts."
     alias tweb='tmux attach -t web'
     
     alias venv='source venv/bin/activate'
+    
+    alias vls='docker volume ls'
     
     
 
