@@ -60,3 +60,13 @@
         name: "{{ME}}"
         groups: docker
         append: yes
+
+
+    - name: Run Docker
+      become: no
+      command: docker network ls
+      ignore_errors: yes
+      register: nls_terminal
+
+    - debug:
+        var: nls_terminal.stdout_lines
