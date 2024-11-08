@@ -12,6 +12,8 @@ echo "I am $USER, /root/.bashrc    starts."
 # ROOT ALIAS #
 ##############
 
+    alias cdvol='cd /var/lib/docker/volumes'
+
     alias cp='cp -i'
     
     alias hi=history
