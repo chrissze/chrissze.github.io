@@ -1,0 +1,65 @@
+#!/usr/bin/env -S ansible-playbook 
+
+---
+- name: Ansible Playbook for Docker Setup on ALMA
+
+  hosts: localhost # MANUAL EDIT
+
+  become: yes
+  
+  vars:
+    ME: "cs"  # MANUAL EDIT
+
+  tasks:
+
+    - name: Ensure dnf is updated
+      dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+
+    - name: Install dnf-plugins-core
+      dnf:
+        name: dnf-plugins-core
+        state: present
+
+
+    # RHEL REPO
+    - name: Add Docker repository
+      command: >
+        dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+      args:
+        creates: /etc/yum.repos.d/docker-ce.repo
+
+
+    - name: Install Docker packages
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+        state: present
+
+
+    - name: Ensure docker socket is running
+      systemd:
+        name: docker.socket
+        state: started
+        enabled: yes
+
+
+    - name: Ensure docker service is running
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ME}}"
+        groups: docker
+        append: yes
