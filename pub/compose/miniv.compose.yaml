@@ -1,0 +1,18 @@
+services:
+  mini:
+    image: bitnami/minideb
+    container_name: miniv1
+    stdin_open: true
+    tty: true
+    volumes:
+      - 'minivol:/bitnami/minideb'
+    environment:
+      - 'ME=cs'
+
+volumes:
+  minivol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /vmware/miniv
