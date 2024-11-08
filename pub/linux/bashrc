@@ -47,6 +47,8 @@ echo "$HOME/.bashrc    starts."
     alias tnode='tmux attach -t node'
     
     alias tweb='tmux attach -t web'
+
+    alias upd='docker compose up -d && docker ps -a && echo && docker network ls && echo && docker volume ls'
     
     alias venv='source venv/bin/activate'
     
