@@ -40,6 +40,8 @@ echo "$HOME/.bashrc    starts."
     
     alias sou='source ~/.bashrc'
     
+    alias sys='systemctl status'
+    
     alias sulo='sudo su --login'
     
     alias tip='cardano-cli query tip --mainnet'
