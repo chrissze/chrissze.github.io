@@ -32,6 +32,10 @@ echo "I am $USER, /root/.bashrc    starts."
 
     alias sys='systemctl status'
 
+    alias sysen='systemctl enable --now'
+    
+
+
 ############
 # ROOT ENV #
 ############
