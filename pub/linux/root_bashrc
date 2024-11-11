@@ -30,6 +30,8 @@ echo "I am $USER, /root/.bashrc    starts."
     
     alias sou='source /root/.bashrc'
 
+    alias sys='systemctl status'
+
 ############
 # ROOT ENV #
 ############
