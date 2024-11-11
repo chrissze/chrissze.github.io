@@ -42,6 +42,8 @@ echo "$HOME/.bashrc    starts."
     
     alias sys='systemctl status'
     
+    alias sysen='sudo systemctl enable --now'
+    
     alias sulo='sudo su --login'
     
     alias tip='cardano-cli query tip --mainnet'
