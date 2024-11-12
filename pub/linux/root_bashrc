@@ -30,7 +30,7 @@ echo "I am $USER, /root/.bashrc    starts."
     
     alias sou='source /root/.bashrc'
 
-    alias sys='systemctl status'
+    alias sys='systemctl status --no-pager'
 
     alias sysen='systemctl enable --now'
     
