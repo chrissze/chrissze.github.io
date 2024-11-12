@@ -40,7 +40,7 @@ echo "$HOME/.bashrc    starts."
     
     alias sou='source ~/.bashrc'
     
-    alias sys='systemctl status'
+    alias sys='systemctl status --no-pager'
     
     alias sysen='sudo systemctl enable --now'
     
