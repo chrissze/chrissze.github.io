@@ -4,10 +4,11 @@ echo "$HOME/.bashrc    starts."
 
 # USER ALIAS
 
-    alias down='docker compose down && docker ps -a && echo && docker volume ls && echo && docker network ls'
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
-    alias downv='docker compose down -v && docker ps -a && echo && docker volume ls && echo && docker network ls'
+    alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+    alias downv='docker compose down -v && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
     alias gpush="git add . && git commit -m 'cs' && git push"
     
     alias gpull="git stash && git fetch --all && git reset --hard origin master"
@@ -52,8 +53,8 @@ echo "$HOME/.bashrc    starts."
     
     alias tweb='tmux attach -t web'
 
-    alias upd='docker compose up -d && docker ps -a && echo && docker network ls && echo && docker volume ls'
-    
+    alias upd='docker compose up -d && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
     alias venv='source venv/bin/activate'
     
     alias vls='docker volume ls'
