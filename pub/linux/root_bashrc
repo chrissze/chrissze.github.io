@@ -13,14 +13,18 @@ echo "I am $USER, /root/.bashrc    starts."
 ##############
 
     alias cdvol='cd /var/lib/docker/volumes'
-
-    alias cp='cp -i'
     
+    alias fi='firewall-cmd'
+
+    alias fls='firewall-cmd --list-all'
+
+    
+
+
+
     alias hi=history
 
     alias psa='docker ps -a'
-
-    alias mv='mv -i'
     
     alias re="rsync -av -e 'ssh -p 55555'"
     
@@ -32,9 +36,12 @@ echo "I am $USER, /root/.bashrc    starts."
 
     alias sys='systemctl status --no-pager'
 
-    alias sysen='systemctl enable --now'
+    alias sysdis='systemctl disable --now'
     
+    alias sysen='systemctl enable --now'
 
+    alias sysres='systemctl restart'
+    
 
 ############
 # ROOT ENV #
@@ -59,6 +66,9 @@ echo "I am $USER, /root/.bashrc    starts."
 
     clip() { cat "$@" | xsel -b; }
 
+
+    fadd() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --list-all ; }
+    frm() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --list-all ; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
