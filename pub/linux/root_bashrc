@@ -69,7 +69,15 @@ echo "I am $USER, /root/.bashrc    starts."
 
     fadd() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
+    faddu() { firewall-cmd --permanent --zone=public --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    fadds() { firewall-cmd --permanent --zone=public --add-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+
     frm() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    frmu() { firewall-cmd --permanent --zone=public --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    frms() { firewall-cmd --permanent --zone=public --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
