@@ -53,7 +53,9 @@ echo "I am $USER, /root/.bashrc    starts."
     export HISTSIZE=500
     
     export HISTFILESIZE=500
-    
+
+    export NIXPKGS_ALLOW_UNFREE=1
+
     export VISUAL='nano'
 
 
