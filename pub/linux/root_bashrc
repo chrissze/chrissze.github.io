@@ -67,9 +67,9 @@ echo "I am $USER, /root/.bashrc    starts."
     clip() { cat "$@" | xsel -b; }
 
 
-    fadd() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall --reload && firewall-cmd --list-all ; }
+    fadd() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    frm() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall --reload && firewall-cmd --list-all ; }
+    frm() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
