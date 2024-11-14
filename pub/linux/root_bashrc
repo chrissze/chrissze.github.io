@@ -78,15 +78,16 @@ echo "I am $USER, /root/.bashrc    starts."
     frms() { firewall-cmd --permanent --zone=public --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+    
 
     la() {
         if [ -z "$1" ]; then
             ls -ahlp
         else
-            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+            shopt -s dotglob nocaseglob; ls -adhlp "$1"* ."$1"* 2>/dev/null; shopt -u dotglob nocaseglob;
         fi
     }
-
+    
     ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
 
