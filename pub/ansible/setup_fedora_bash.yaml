@@ -23,7 +23,6 @@
 
   tasks:
 
-    # No forced overwrite
     - name: TASK 1 - Fetch user /etc/paths
       become: yes
       ansible.builtin.get_url:
@@ -34,7 +33,7 @@
         group: "{{ ansible_user_id }}"
         force: no
     
-    # No forced overwrite
+  
     - name: TASK 2 - Fetch ROOT /etc/rootpaths
       become: yes
       ansible.builtin.get_url:
@@ -44,27 +43,27 @@
         owner: root
         force: no
 
-    # FORCED overwrite
+  
     - name: TASK 3 - Fetch USER bashrc
       become: no
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/linux/bashrc"
+        url: "https://chrissze.github.io/pub/linux/user_bashrc"
         dest: "/home/{{ ansible_user_id }}/.bashrc"
         mode: '0644'
         owner: "{{ ansible_user_id }}"
-        force: yes
+        force: yes  # FORCED overwrite
 
-    # FORCED overwrite
+    
     - name: TASK 4 - Fetch USER bash_profile
       become: no
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/linux/bash_profile"
+        url: "https://chrissze.github.io/pub/linux/user_bash_profile"
         dest: "/home/{{ ansible_user_id }}/.bash_profile"
         mode: '0644'
         owner: "{{ ansible_user_id }}"
-        force: yes
+        force: yes  # FORCED overwrite
 
-    # FORCED overwrite
+    
     - name: TASK 5 - Fetch ROOT bashrc
       become: yes
       ansible.builtin.get_url:
@@ -72,9 +71,8 @@
         dest: "/root/.bashrc"
         mode: '0644'
         owner: root
-        force: yes
+        force: yes  # FORCED overwrite
 
-    # FORCED overwrite
     - name: TASK 6 - Fetch ROOT bash_profile
       become: yes
       ansible.builtin.get_url:
@@ -82,4 +80,4 @@
         dest: "/root/.bash_profile"
         mode: '0644'
         owner: root
-        force: yes
+        force: yes  # FORCED overwrite
