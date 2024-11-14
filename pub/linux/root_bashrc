@@ -2,11 +2,6 @@
 
 echo "I am $USER, /root/.bashrc    starts."
 
-### NOTES
-
-    # SWITCH TO ROOT "sudo su" COMMAND DOES NOT LOAD /root/.bash_profile
-
-
 
 ##############
 # ROOT ALIAS #
@@ -19,9 +14,6 @@ echo "I am $USER, /root/.bashrc    starts."
     alias fls='firewall-cmd --list-all'
 
     
-
-
-
     alias hi=history
 
     alias psa='docker ps -a'
