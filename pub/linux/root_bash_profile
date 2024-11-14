@@ -2,11 +2,8 @@
 
 echo "/root/.bash_profile   starts."
 
-    # NOTE THAT SWITCH TO ROOT "sudo su" COMMAND DOES NOT LOAD /root/.bash_profile
-
 if [ -f /root/.bashrc ]; then
 	. /root/.bashrc
 fi
-
 
 echo "/root/.bash_profile   ends."
