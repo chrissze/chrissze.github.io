@@ -92,10 +92,9 @@ echo "$HOME/.bashrc    starts."
         if [ -z "$1" ]; then
             ls -ahlp
         else
-            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+            shopt -s dotglob nocaseglob; ls -adhlp "$1"* ."$1"* 2>/dev/null; shopt -u dotglob nocaseglob;
         fi
     }
-
 
 # USER PATH
     
