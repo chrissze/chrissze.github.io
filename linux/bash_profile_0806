@@ -1,0 +1,14 @@
+echo "/root/.bash_profile   starts."
+
+# NOTE THAT SWITCH TO ROOT COMMAND "sudo su" WILL NOT RUN /root/.bash_profile
+
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+
+
+
+echo "/root/.bash_profile   ends."
