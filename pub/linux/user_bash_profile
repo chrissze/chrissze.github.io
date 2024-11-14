@@ -1,3 +1,7 @@
+[ -z "$PS1" ] && return
+
+echo "$HOME/.bashrc    starts."
+
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
@@ -5,3 +9,6 @@ fi
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
+
+
+echo "$HOME/.bashrc    ends."
