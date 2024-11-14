@@ -1,6 +1,6 @@
 [ -z "$PS1" ] && return
 
-echo "$HOME/.bashrc    starts."
+echo "$HOME/.bash_profile    starts."
 
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
@@ -11,4 +11,4 @@ if [ -f ~/.bashrc ]; then
 fi
 
 
-echo "$HOME/.bashrc    ends."
+echo "$HOME/.bash_profile    ends."
