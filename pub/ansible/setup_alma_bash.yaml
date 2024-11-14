@@ -1,0 +1,45 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: SETUP ALMA BASH
+  hosts: o2
+  vars:
+    USER1: "almalinux"
+    USER2: "cs"
+
+  tasks:
+
+
+    # FORCED overwrite
+    - name: TASK 3 - Fetch USER bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/user_bashrc"
+        dest: "/home/{{ USER2 }}/.bashrc"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes         # FORCED overwrite
+
+
+     
+    - name: TASK 5 - Fetch ROOT bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/root_bashrc"
+        dest: "/root/.bashrc"
+        mode: '0644'
+        owner: root
+        force: yes # FORCED overwrite
+
+
+    
+    - name: TASK 6 - Fetch ROOT bash_profile
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/root_bash_profile"
+        dest: "/root/.bash_profile"
+        mode: '0644'
+        owner: root
+        force: yes # FORCED overwrite
+
