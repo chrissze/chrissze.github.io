@@ -9,7 +9,7 @@ echo "I am $USER, /root/.bashrc    starts."
 
     alias cdvol='cd /var/lib/docker/volumes'
     
-    alias fi='firewall-cmd'
+    alias fw='firewall-cmd'  # DO NOT USE fi BECAUSE fi IS THE CLOSING OF if.
 
     alias fls='firewall-cmd --list-all'
 
