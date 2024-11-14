@@ -39,7 +39,7 @@ echo "$HOME/.bashrc    starts."
     
     alias sha=sha256sum
     
-    alias sou='source ~/.bashrc'
+    alias sou='source ~/.bash_profile'
     
     alias sys='systemctl status --no-pager'
     
