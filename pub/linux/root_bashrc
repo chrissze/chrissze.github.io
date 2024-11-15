@@ -23,7 +23,9 @@ echo "I am $USER, /root/.bashrc    starts."
     alias re22="rsync -av -e 'ssh -p 22'"
     
     alias rm='rm -i'
-    
+
+    alias sam='mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
+
     alias sou='source /root/.bash_profile'
 
     alias sys='systemctl status --no-pager'
