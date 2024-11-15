@@ -63,7 +63,7 @@ echo "I am $USER, /root/.bashrc    starts."
     clip() { cat "$@" | xsel -b; }
 
 
-    fadd() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    faddt() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     faddu() { firewall-cmd --permanent --zone=public --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
@@ -73,7 +73,7 @@ echo "I am $USER, /root/.bashrc    starts."
 
     finfo() { firewall-cmd --info-service="$@" ; }
 
-    frm() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    frmt() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     frmu() { firewall-cmd --permanent --zone=public --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
