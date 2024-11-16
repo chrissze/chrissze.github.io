@@ -17,11 +17,15 @@ echo "hi I'm $USER  .bashrc start"
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
 
+    alias cp='cp -i'  # prompt at overwrites
+
     alias gpush="git add . && git commit -m 'pro' && git push"
 
     alias gpull="git fetch --all && git reset --hard origin/master"
 
     alias hi=history
+
+    alias mv='mv -i'  # prompt at overwrites
 
 
     # OVH
@@ -41,6 +45,9 @@ echo "hi I'm $USER  .bashrc start"
     alias py='python3'
 
     alias re="rsync -avP -e 'ssh -p 55555'"
+
+    alias rm='rm -i'
+
 
     # I cannot use rs alias due to Mac SIP protected rs command
     alias rus=rust-script
