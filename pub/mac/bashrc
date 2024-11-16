@@ -5,12 +5,17 @@ echo "hi I'm $USER  .bashrc start"
 
 
 
-##############
-# USER ALIAS #
-##############
+##################
+# MAC USER ALIAS #
+##################
 
     alias ap=ansible-playbook
 
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+    alias clonepizzapy='git clone git@github.com:chrissze/pizzapy.git'
+
+    alias clonescript='git clone git@github.com:chrissze/script.git'
 
     alias gpush="git add . && git commit -m 'pro' && git push"
 
