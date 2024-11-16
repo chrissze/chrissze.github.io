@@ -1,0 +1,71 @@
+echo "hi I'm $USER  .bashrc starts"
+
+
+
+##############
+# ROOT ALIAS #
+##############
+
+    alias cp='cp -i'  # prompt at overwrites
+
+    alias mv='mv -i'  # prompt at overwrites
+
+    alias rm='rm -i'
+
+
+    alias hi=history
+
+
+    alias nano='nano -c'
+
+    alias re="rsync -av -e 'ssh -p 55555'"
+
+    alias re22="rsync -av -e 'ssh -p 22'"
+
+    alias sha='shasum -a 256'
+
+    alias sou='source ~/.bash_profile'
+
+
+############
+# ROOT ENV #
+############
+
+    export HISTSIZE=500
+
+    export HISTFILESIZE=500
+
+    export PS1="\w# "
+
+    export PYTHONPATH="/opt/homebrew/opt/pyside@2/lib/python3.9/site-packages/"
+
+
+##################
+# ROOT FUNCTIONS #
+##################
+
+    cd() { builtin cd "$@" && ls; }
+
+
+    la() {
+        if [ -z "$1" ]; then
+            ls -ahlp
+        else
+            shopt -s dotglob nocaseglob; ls -adhlp "$1"* ."$1"* 2>/dev/null; shopt -u dotglob nocaseglob;
+        fi
+    }
+
+
+    ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
+
+
+
+
+
+
+
+
+echo "hi I'm $USER  .bashrc ends"
+
+
+
