@@ -13,6 +13,11 @@ echo "hi I'm $USER  .bashrc start"
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+
+    alias clonepizzapy='git clone git@github.com:chrissze/batterypy.git'
+
+    alias clonepizzapy='git clone git@github.com:chrissze/dimsumpy.git'
+
     alias clonepizzapy='git clone git@github.com:chrissze/pizzapy.git'
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
