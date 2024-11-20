@@ -57,6 +57,10 @@ echo "$HOME/.bashrc    starts."
     alias re="rsync -avP -e 'ssh -p 55555'"
 
     alias rm='rm -i'
+
+    #username=xx
+    #password=hs
+    alias samo2='sudo mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
     
     alias sha=sha256sum
     
