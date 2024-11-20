@@ -27,7 +27,9 @@ echo "I am $USER, /root/.bashrc    starts."
     
     alias rm='rm -i'
 
-    alias sam='mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
+    #username=xx
+    #password=hs
+    alias samo2='mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
 
     alias sou='source /root/.bash_profile'
 
