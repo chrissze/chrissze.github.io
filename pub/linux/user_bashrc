@@ -32,7 +32,9 @@ echo "$HOME/.bashrc    starts."
     alias ins='docker inspect'
 
     # run at github/ folder
-    alias linkdimsum='ln -s batterypy venv/lib/python3.11/site-packages/batterypy && ln -s dimsumpy venv/lib/python3.11/site-packages/dimsumpy'
+    alias link39='ln -s batterypy venv/lib/python3.9/site-packages/batterypy && ln -s dimsumpy venv/lib/python3.9/site-packages/dimsumpy'
+
+    alias link311='ln -s batterypy venv/lib/python3.11/site-packages/batterypy && ln -s dimsumpy venv/lib/python3.11/site-packages/dimsumpy'
 
     alias mv='mv -i'  # prompt at overwrites
     
