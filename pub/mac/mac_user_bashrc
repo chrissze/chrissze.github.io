@@ -32,6 +32,8 @@ echo "hi I'm $USER  .bashrc start"
 
     alias hi=history
 
+    alias mo2='sudo mount -t nfs -o resvport,vers=4 10.0.0.1:/data/o2 ~/o2'
+    
     alias mv='mv -i'  # prompt at overwrites
 
 
