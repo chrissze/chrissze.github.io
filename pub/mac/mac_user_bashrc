@@ -38,7 +38,7 @@ echo "hi I'm $USER  .bashrc start"
 
 
     # OVH
-    alias o1='ssh -p 55555 cs@51.68.155.102'
+    alias o1='ssh -p 55555 cs@149.56.19.226'
 
     alias o2='ssh -p 55555 cs@217.182.200.125'
 
