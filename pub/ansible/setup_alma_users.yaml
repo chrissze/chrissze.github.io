@@ -1,53 +1,65 @@
 #!/usr/bin/env -S ansible-playbook
 
-  # If the regexp line is omitted in lineinfile, there might be duplicate entries.
+# If the regexp line is omitted in lineinfile, there might be duplicate entries.
 
-  # create: false: Prevents accidental creation of the /etc/shadow file if it’s missing.
+# create: false: Prevents accidental creation of the /etc/shadow file if it’s missing.
 
-  # If visudo validates the syntax as correct, Ansible applies the changes to /etc/sudoers. %s is the placeholder for the temporary file.
-  
-  # In visudo command, the -c option tells visudo to check the syntax of a sudoers file. The -f option allows you to specify an alternate sudoers file to validate.
+# If visudo validates the syntax as correct, Ansible applies the changes to /etc/sudoers. %s is the placeholder for the temporary file.
 
+# In visudo command, the -c option tells visudo to check the syntax of a sudoers file. The -f option allows you to specify an alternate sudoers file to validate.
 
 ---
-- name: SETUP ALMA USERS
-  hosts: localhost
+- name: SETUP ALMA USER
+  hosts: o1
   become: yes
   vars:
-    USER1: "almalinux"
-    USER2: "cs"
+      USER1: 'cs'
+      USER2: 'almalinux'
 
   tasks:
+      - name: TASK 1 - Create docker group
+        ansible.builtin.group:
+            name: docker
+            state: present
 
-    - name: Create docker group
-      ansible.builtin.group:
-        name: docker
-        state: present
+      - name: TASK 2 - Create user cs and add to docker group
+        ansible.builtin.user:
+            name: cs
+            groups: docker
+            append: yes
+            state: present
+            home: /home/cs
+            create_home: yes
 
+      - name: TASK 3 - Set password hash for user cs in /etc/shadow
+        ansible.builtin.lineinfile:
+            path: /etc/shadow
+            regexp: '^cs:'
+            line: 'cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::'
+            create: false
+            state: present
 
-    - name: Create user cs and add to docker group
-      ansible.builtin.user:
-        name: cs
-        groups: docker
-        append: yes
-        state: present
-        home: /home/cs
-        create_home: yes
+      - name: TASK 4 - Ensure user cs has sudo privilege without password
+        ansible.builtin.lineinfile:
+            path: /etc/sudoers
+            regexp: '^cs ALL=.*'
+            line: 'cs ALL=(ALL) NOPASSWD:ALL'
+            validate: 'visudo -cf %s'
+            state: present
 
+      - name: TASK 5 - Ensure ~/.ssh folder exists
+        ansible.builtin.file:
+            path: '/home/{{ USER1 }}/.ssh'
+            state: directory
+            mode: '0700'
+            owner: '{{ USER1 }}'
+            group: '{{ USER1 }}'
 
-    - name: Set password hash for user cs in /etc/shadow
-      ansible.builtin.lineinfile:
-        path: /etc/shadow
-        regexp: "^cs:"
-        line: "cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::"
-        create: false
-        state: present
-
-
-    - name: Ensure user cs has sudo privilege without password
-      ansible.builtin.lineinfile:
-        path: /etc/sudoers
-        regexp: "^cs ALL=.*"
-        line: "cs ALL=(ALL) NOPASSWD:ALL"
-        validate: 'visudo -cf %s'
-        state: present
+      - name: TASK 6 - Fetch user public key
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/authorized_keys'
+            dest: '/home/{{ USER1 }}/.ssh/authorized_keys'
+            mode: '0400'
+            owner: '{{ USER1 }}'
+            group: '{{ USER1 }}'
+            force: no
