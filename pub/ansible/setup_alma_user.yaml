@@ -4,6 +4,11 @@
 
   # create: false: Prevents accidental creation of the /etc/shadow file if it’s missing.
 
+  # If visudo validates the syntax as correct, Ansible applies the changes to /etc/sudoers. %s is the placeholder for the temporary file.
+  
+  # In visudo command, the -c option tells visudo to check the syntax of a sudoers file. The -f option allows you to specify an alternate sudoers file to validate.
+
+
 ---
 - name: SETUP ALMA USER
   hosts: localhost
