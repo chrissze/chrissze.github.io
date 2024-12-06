@@ -1,0 +1,47 @@
+#!/usr/bin/env -S ansible-playbook
+
+  # If the regexp line is omitted in lineinfile, there might be duplicate entries.
+
+  # create: false: Prevents accidental creation of the /etc/shadow file if it’s missing.
+
+---
+- name: SETUP ALMA USER
+  hosts: localhost
+  vars:
+    USER1: "almalinux"
+    USER2: "cs"
+
+  tasks:
+
+    - name: Create docker group
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+
+    - name: Create user cs and add to docker group
+      ansible.builtin.user:
+        name: cs
+        groups: docker
+        append: yes
+        state: present
+        home: /home/cs
+        create_home: yes
+
+
+    - name: Set password hash for user cs in /etc/shadow
+      ansible.builtin.lineinfile:
+        path: /etc/shadow
+        regexp: "^cs:"
+        line: "cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::"
+        create: false
+        state: present
+
+
+    - name: Ensure user cs has sudo privilege without password
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: "^cs ALL=.*"
+        line: "cs ALL=(ALL) NOPASSWD:ALL"
+        validate: 'visudo -cf %s'
+        state: present
