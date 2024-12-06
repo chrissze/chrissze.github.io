@@ -1,0 +1,27 @@
+AllowAgentForwarding no
+
+AllowTcpForwarding yes
+
+AuthenticationMethods publickey
+
+ChallengeResponseAuthentication no
+
+LoginGraceTime 120
+
+LogLevel VERBOSE
+
+MaxAuthTries 3
+
+MaxStartups 2
+
+PasswordAuthentication no
+
+PermitRootLogin no
+
+PermitUserEnvironment no
+
+Port 55555
+
+PrintLastLog no
+
+Subsystem sftp /usr/libexec/openssh/sftp-server
