@@ -10,8 +10,9 @@
 
 
 ---
-- name: SETUP ALMA USER
+- name: SETUP ALMA USERS
   hosts: localhost
+  become: yes
   vars:
     USER1: "almalinux"
     USER2: "cs"
