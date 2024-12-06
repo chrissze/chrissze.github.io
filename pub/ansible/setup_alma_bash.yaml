@@ -1,8 +1,8 @@
 #!/usr/bin/env -S ansible-playbook
 
 ---
-- name: SETUP ALMA BASH
-  hosts: o2
+- name: ADHOC
+  hosts: o1
   vars:
     USER1: "almalinux"
     USER2: "cs"
@@ -11,11 +11,22 @@
 
 
     # FORCED overwrite
-    - name: TASK 3 - Fetch USER bashrc
+    - name: TASK 2 - Fetch USER bashrc
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/user_bashrc"
         dest: "/home/{{ USER2 }}/.bashrc"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes         # FORCED overwrite
+
+    # FORCED overwrite
+    - name: TASK 3 - Fetch USER bash_profile
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/user_bash_profile"
+        dest: "/home/{{ USER2 }}/.bash_profile"
         mode: '0644'
         owner: "{{ USER2 }}"
         group: "{{ USER2 }}"
