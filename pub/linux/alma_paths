@@ -1,0 +1,19 @@
+
+$HOME/.nix-profile/bin
+
+
+
+
+# ORIGINAL USER PATH BELOW OF FRESH ALMA9
+
+$HOME/.local/bin
+
+$HOME/bin
+
+/usr/local/bin
+
+/usr/bin
+
+/usr/local/sbin
+
+/usr/sbin
