@@ -31,15 +31,8 @@
             home: /home/cs
             create_home: yes
 
-      - name: TASK 3 - Set password hash for user cs in /etc/shadow
-        ansible.builtin.lineinfile:
-            path: /etc/shadow
-            regexp: '^cs:'
-            line: 'cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::'
-            create: false
-            state: present
 
-      - name: TASK 4 - Ensure user cs has sudo privilege without password
+      - name: TASK 3 - Ensure user cs has sudo privilege without password
         ansible.builtin.lineinfile:
             path: /etc/sudoers
             regexp: '^cs ALL=.*'
@@ -47,7 +40,28 @@
             validate: 'visudo -cf %s'
             state: present
 
-      - name: TASK 5 - Ensure ~/.ssh folder exists
+      # cs password hint: mac pw
+      - name: TASK 4 - Set password hash for user cs in /etc/shadow
+        ansible.builtin.lineinfile:
+            path: /etc/shadow
+            regexp: '^cs:'
+            line: 'cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::'
+            create: false
+            state: present
+
+      # root password hint: St Paul grade 12 arts class
+      - name: TASK 5 - Set password hash for root in /etc/shadow
+        ansible.builtin.lineinfile:
+            path: /etc/shadow
+            regexp: '^root:'
+            line: 'root:$6$rounds=100000$EznEqr238B4Z3Rtb$qwB/VyigFE1kO.EK15i7KXnCbE2NMVzS/XQPA/cakwr9VP6m/Qbc9mLt6ruDGIxNJYw.ezfx4BpgfTsTCRi.G0:20066:0:99999:7:::'
+            create: false
+            state: present
+
+
+
+
+      - name: TASK 6 - Ensure ~/.ssh folder exists
         ansible.builtin.file:
             path: '/home/{{ USER1 }}/.ssh'
             state: directory
@@ -55,7 +69,9 @@
             owner: '{{ USER1 }}'
             group: '{{ USER1 }}'
 
-      - name: TASK 6 - Fetch user public key
+
+
+      - name: TASK 7 - Fetch user public key
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/authorized_keys'
             dest: '/home/{{ USER1 }}/.ssh/authorized_keys'
