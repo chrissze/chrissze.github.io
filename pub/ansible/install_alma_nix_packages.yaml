@@ -2,8 +2,17 @@
 
 ---
 - name: INSTALL NIX PACKAGES
+
   hosts: localhost
+
   become: no
+
+  pre_tasks:
+    - name: Ensure the playbook is not run as root
+      fail:
+        msg: "This playbook cannot be run as root."
+      when: ansible_user_id == 'root'
+
   tasks:
 
     # fedora already has nc, ss, tmux
@@ -18,10 +27,14 @@
 
         name:
           - bat
+          
           - nmap
-          - ookla-speedtest
+          
+          - ookla-speedtest  # binary is speedtest
+          
           - tldr
       register: term
 
     - debug:
         var: term.stdout_lines
+cs@o2:/data/o2/ansible $
