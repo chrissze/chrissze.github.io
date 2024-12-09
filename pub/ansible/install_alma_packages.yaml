@@ -1,0 +1,63 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: INSTALL ALMA PACKAGES
+
+  hosts: localhost
+
+  become: yes
+
+  vars:
+    ME: "cs"
+
+  tasks:
+
+    - name: Ensure dnf is updated
+      dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+
+    - name: Install EPEL
+      ansible.builtin.dnf:
+        name:
+          - dnf-plugins-core
+          - epel-release
+        state: present
+
+
+    - name: Ensure dnf is updated after adding EPEL repo
+      dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+
+    - name: Install packages
+      ansible.builtin.dnf:
+        name:
+          - cifs-utils       # for samba client
+
+          - firewalld
+
+          - nano
+
+          - samba-client
+
+          - setroubleshoot   # audit2allow, sealert, semanage
+
+          - smartmontools
+
+          - wget
+
+          - yum-utils        # for needs-restarting -r
+
+        state: present
+
+
+    - name: Install EPEL packages
+      ansible.builtin.dnf:
+        name:
+          - ansible
+        state: present
