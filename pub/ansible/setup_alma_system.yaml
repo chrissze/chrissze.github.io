@@ -1,0 +1,30 @@
+#!/usr/bin/env -S ansible-playbook
+
+
+---
+- name: SETUP ALMA SYSTEM
+  hosts: localhost
+  become: yes
+  vars:
+      ME: 'cs'
+
+  tasks:
+
+    - name: HOST 1 - Set the system hostname
+      ansible.builtin.hostname:
+        name: o1
+
+    - name: HOST 2 - Update /etc/hosts with the new hostname
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: '127.0.1.1 o1'
+        state: present
+
+    - name: HOST 3 - Verify the new hostname
+      ansible.builtin.shell: hostnamectl status
+      register: hostname_check
+
+    - name: HOST 4 - Debug the new hostname
+      ansible.builtin.debug:
+        msg: "Hostname successfully set to: {{ hostname_check.stdout }}"
