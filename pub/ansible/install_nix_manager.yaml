@@ -11,7 +11,7 @@
 
 ---
 - name: INSTALL NIX
-  hosts: fuji
+  hosts: localhost
   become: no   # Single-user install does not need sudo
 
   pre_tasks:
