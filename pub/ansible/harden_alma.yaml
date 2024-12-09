@@ -83,9 +83,6 @@
         state: stopped
         enabled: false
       loop:
-        - cups
-        - avahi-daemon
-        - bluetooth
         - rpcbind
 
 
