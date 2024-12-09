@@ -100,8 +100,11 @@
       loop:
         - rpcbind  # samba and NFSv4 do not require rpcbind
 
-    - name: Enable auditing
+    - name: Enable systemd services
       ansible.builtin.service:
-        name: auditd
+        name: "{{ item }}"
         state: started
         enabled: true
+      loop:
+        - auditd
+        - fail2ban
