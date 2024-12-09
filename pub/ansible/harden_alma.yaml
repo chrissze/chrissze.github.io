@@ -4,9 +4,15 @@
 ---
 - name: HARDEN ALMA
   hosts: localhost
-  become: yes
   vars:
     ME: 'cs'
+
+  pre_tasks:
+    - name: Ensure the playbook is run as root
+      fail:
+        msg: "This playbook should be run as root."
+      when: ansible_user_id != 'root'
+
 
   tasks:
 
@@ -42,7 +48,6 @@
         - cockpit
         - dhcpv6-client   # dynamic IPv6
         - ssh
-      notify: reload_firewalld
 
 
     - name: Configure firewall rules
@@ -53,7 +58,30 @@
       loop:
         - http
         - https
-      notify: reload_firewalld
+
+
+
+
+    - name: reload_firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
+
+    # after changing selinux config, reboot to take effect
+    - name: Enabled SELinux in config
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: 'SELINUX=enforcing'
+
+
+    - name: Set SELinux type
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUXTYPE='
+        line: 'SELINUXTYPE=targeted'
 
 
     - name: Ensure SELinux is enforcing
@@ -63,31 +91,17 @@
       failed_when: selinux_status.rc != 0
 
 
-    - name: Set SELinux to enforcing in config
-      ansible.builtin.lineinfile:
-        path: /etc/selinux/config
-        regexp: '^SELINUX='
-        line: 'SELINUX=enforcing'
 
+    - name: Disable unused systemd services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: stopped
+        enabled: false
+      loop:
+        - rpcbind  # samba and NFSv4 do not require rpcbind
 
     - name: Enable auditing
       ansible.builtin.service:
         name: auditd
         state: started
         enabled: true
-
-
-    - name: Disable unused services
-      ansible.builtin.systemd:
-        name: "{{ item }}"
-        state: stopped
-        enabled: false
-      loop:
-        - rpcbind
-
-
-  handlers:
-    - name: reload_firewalld
-      ansible.builtin.service:
-        name: firewalld
-        state: reloaded
