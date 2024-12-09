@@ -1,14 +1,14 @@
-#!/usr/bin/env -S ansible-playbook 
+#!/usr/bin/env -S ansible-playbook
 
 ---
-- name: Ansible Playbook for Docker Setup on ALMA
+- name: INSTALL ALMA DOCKER
 
-  hosts: localhost # MANUAL EDIT
+  hosts: localhost
 
   become: yes
-  
+
   vars:
-    ME: "cs"  # MANUAL EDIT
+    ME: "cs"
 
   tasks:
 
