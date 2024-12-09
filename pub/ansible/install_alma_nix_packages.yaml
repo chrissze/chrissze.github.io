@@ -33,6 +33,8 @@
           - ookla-speedtest  # binary is speedtest
           
           - tldr
+
+          - tmux
       register: term
 
     - debug:
