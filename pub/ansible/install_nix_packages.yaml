@@ -2,7 +2,7 @@
 
 ---
 - name: INSTALL NIX PACKAGES
-  hosts: fuji
+  hosts: localhost
   become: no
   tasks:
 
@@ -18,11 +18,10 @@
 
         name:
           - bat
-          - docker
           - nmap
           - ookla-speedtest
           - tldr
-      register: fedora
+      register: term
 
     - debug:
-        var: fedora.stdout_lines
+        var: term.stdout_lines
