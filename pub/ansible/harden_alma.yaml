@@ -1,0 +1,96 @@
+#!/usr/bin/env -S ansible-playbook
+
+
+---
+- name: HARDEN ALMA
+  hosts: localhost
+  become: yes
+  vars:
+    ME: 'cs'
+
+  tasks:
+
+    - name: Update all packages to the latest version
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+
+    - name: Install required security packages
+      ansible.builtin.dnf:
+        name:
+          - fail2ban
+          - firewalld
+          - audit
+        state: present
+
+
+    - name: Enable and start firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+
+    - name: Disable unused firewall services
+      ansible.builtin.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: disabled
+      loop:
+        - cockpit
+        - dhcpv6-client   # dynamic IPv6
+        - ssh
+      notify: reload_firewalld
+
+
+    - name: Configure firewall rules
+      ansible.builtin.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        state: enabled
+      loop:
+        - http
+        - https
+      notify: reload_firewalld
+
+
+    - name: Ensure SELinux is enforcing
+      ansible.builtin.command:
+        cmd: "setenforce 1"
+      register: selinux_status
+      failed_when: selinux_status.rc != 0
+
+
+    - name: Set SELinux to enforcing in config
+      ansible.builtin.lineinfile:
+        path: /etc/selinux/config
+        regexp: '^SELINUX='
+        line: 'SELINUX=enforcing'
+
+
+    - name: Enable auditing
+      ansible.builtin.service:
+        name: auditd
+        state: started
+        enabled: true
+
+
+    - name: Disable unused services
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        state: stopped
+        enabled: false
+      loop:
+        - cups
+        - avahi-daemon
+        - bluetooth
+        - rpcbind
+
+
+  handlers:
+    - name: reload_firewalld
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
