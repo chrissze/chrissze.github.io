@@ -1,0 +1,37 @@
+services:
+  postgresql:
+    image: bitnami/postgresql:17
+
+    restart: always   # auto start after reboot
+
+    container_name: pg17
+
+    environment:
+
+      - POSTGRESQL_DATABASE=mydb
+
+      - POSTGRESQL_USERNAME=postgres
+
+      - POSTGRESQL_PASSWORD=hP
+
+      - POSTGRESQL_PORT_NUMBER=5432              # default 5432
+
+      - POSTGRESQL_ALLOW_EMPTY_PASSWORD=no
+
+      - POSTGRESQL_PASSWORD_TYPE=scram-sha-256
+
+      - POSTGRESQL_ALLOW_REMOTE_CONNECTIONS=yes  # default yes
+
+    volumes:
+      - 'pgvol:/bitnami/postgresql'
+
+    ports:
+      - "5430:5432"
+
+volumes:
+  pgvol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /data/bitnami/postgresql
