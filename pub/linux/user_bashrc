@@ -2,6 +2,8 @@
 
 echo "$HOME/.bashrc    starts."
 
+curl -4 ifconfig.me
+
 # USER ALIAS
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
