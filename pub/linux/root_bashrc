@@ -59,6 +59,9 @@ curl -6 ifconfig.me && echo
     alias sysen='systemctl enable --now'
 
     alias sysres='systemctl restart'
+
+    alias upd='docker compose up -d && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
     
 
 ############
