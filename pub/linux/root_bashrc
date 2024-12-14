@@ -20,8 +20,6 @@ curl -6 ifconfig.me && echo
     alias cp='cp -i'  # prompt at overwrites
 
     alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
-
-    alias downv='docker compose down -v && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
     
 
     alias gpush="git add . && git commit -m 'cs' && git push"
