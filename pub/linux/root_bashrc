@@ -7,6 +7,9 @@ echo "I am $USER, /root/.bashrc    starts."
 # ROOT ALIAS #
 ##############
 
+
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
     alias cdvol='cd /var/lib/docker/volumes'
 
     alias cp='cp -i'  # prompt at overwrites
@@ -25,6 +28,10 @@ echo "I am $USER, /root/.bashrc    starts."
     alias hi=history
 
     alias mv='mv -i'  # prompt at overwrites
+
+
+    alias nls='docker network ls'
+
 
     alias psa='docker ps -a'
     
@@ -74,6 +81,7 @@ echo "I am $USER, /root/.bashrc    starts."
 
     clip() { cat "$@" | xsel -b; }
 
+    exec() { docker container exec -it "$@" /bin/bash; }
 
     faddt() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
