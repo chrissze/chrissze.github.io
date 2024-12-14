@@ -2,6 +2,11 @@
 
 echo "I am $USER, /root/.bashrc    starts."
 
+curl -4 ifconfig.me && echo
+
+curl -6 ifonfig.me && echo
+
+
 
 ##############
 # ROOT ALIAS #
