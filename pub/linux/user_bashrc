@@ -2,7 +2,8 @@
 
 echo "$HOME/.bashrc    starts."
 
-curl -4 ifconfig.me
+curl -4 ifconfig.me && echo
+curl -6 ifconfig.me && echo
 
 # USER ALIAS
 
