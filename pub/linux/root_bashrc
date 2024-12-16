@@ -48,6 +48,10 @@ curl -6 ifconfig.me && echo
     #password=hs
     alias samo2='mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
 
+    alias sea='sealert -a /var/log/audit/audit.log'
+
+    alias seprevent='cat /var/log/messages | grep "SELinux is preventing"'
+
     alias sou='source /root/.bash_profile'
 
     alias sys='systemctl status --no-pager'
