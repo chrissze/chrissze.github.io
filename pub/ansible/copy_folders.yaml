@@ -2,6 +2,8 @@
 
 # remote_dir and local_dir need to have a trailing slash/# This goal of this playbook is to copy a folder from o2 to o1, 'fetch' module does not support copy a whole folder.
 
+# RUN this playbook in local o1's tmux
+
 # RUN this playbook in o1, o1 is the local machine
 
 # o1 needs to define o2almalinux in o1's /etc/ansible/hosts
