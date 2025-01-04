@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# CHECK CURRENT FOLDER SIZE: 
+
+# du -sh       OR    du -s 
 
 
 
