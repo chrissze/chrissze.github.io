@@ -1,0 +1,38 @@
+#!/usr/bin/env -S ansible-playbook
+
+# local_folder needs to have a trailing slash/
+
+
+# This goal of this playbook is to copy a file from o2 to o1, 'fetch' module does not support copy a whole folder.
+
+# RUN this playbook in o1, o1 is the local machine
+
+# o1 needs to define o2almalinux in o1's /etc/ansible/hosts
+
+# o2 is the remote server
+
+
+---
+- name: Copy remote folder to localhost
+
+  hosts: o2almalinux
+
+  gather_facts: no
+
+  vars:
+    remote_file: /tmp/dir2/file2
+    local_folder: /tmp/dir1/
+
+  tasks:
+    - name: Ensure destination directory exists on localhost
+      ansible.builtin.file:
+        path: "{{ local_folder }}"
+        state: directory
+        mode: '0755'
+      delegate_to: localhost
+
+    - name: Copy remote folder to localhost
+      ansible.builtin.fetch:
+        src: "{{ remote_file }}"
+        dest: "{{ local_folder }}"
+        flat: yes
