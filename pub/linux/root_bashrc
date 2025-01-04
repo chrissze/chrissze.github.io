@@ -93,21 +93,22 @@ curl -6 ifconfig.me && echo
 
     exec() { docker container exec -it "$@" /bin/bash; }
 
-    faddt() { firewall-cmd --permanent --zone=public --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    #  --zone=public does not work in Fedora
+    addt() { firewall-cmd --permanent --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    faddu() { firewall-cmd --permanent --zone=public --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    addu() { firewall-cmd --permanent --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    fadds() { firewall-cmd --permanent --zone=public --add-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+    adds() { firewall-cmd --permanent --add-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    falls() { firewall-cmd --get-services ; }
+    alls() { firewall-cmd --get-services ; }
 
     finfo() { firewall-cmd --info-service="$@" ; }
 
-    frmt() { firewall-cmd --permanent --zone=public --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    rmt() { firewall-cmd --permanent --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    frmu() { firewall-cmd --permanent --zone=public --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+    rmu() { firewall-cmd --permanent --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
-    frms() { firewall-cmd --permanent --zone=public --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+    rms() { firewall-cmd --permanent --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
     
