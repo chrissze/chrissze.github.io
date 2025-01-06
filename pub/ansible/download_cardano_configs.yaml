@@ -1,5 +1,9 @@
 #!/usr/bin/env -S ansible-playbook
 
+  # (1) Go to cardano-node github to view the latest config files. 
+
+    # https://github.com/intersectmbo/cardano-node/releases > Download > configuration files 
+
 ---
 - name: DOWNLOAD CARDANO CONFIGS
   hosts: localhost
