@@ -1,0 +1,137 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: DOWNLOAD CARDANO CONFIGS
+  hosts: localhost
+  become: yes
+  vars:
+    USER1: "cs"
+    USER2: "almalinux"
+
+  tasks:
+
+
+    # config file name is determined by start-node.sh --config
+    - name: RELAY 1 - config.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/config.json"
+        dest: "/usr/node/config.json"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes
+
+
+    # Byron file name is determined by config.json
+    - name: RELAY 2 - byron-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/byron-genesis.json"
+        dest: "/usr/node/byron-genesis.json"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes
+
+    # Shelley file name is determined by config.json
+    - name: RELAY 3 - shelley-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/shelley-genesis.json"
+        dest: "/usr/node/shelley-genesis.json"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes
+
+
+    # Alonzo file name is determined by config.json
+    - name: RELAY 4 - alonzo-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/alonzo-genesis.json"
+        dest: "/usr/node/alonzo-genesis.json"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes
+
+
+
+    # Conway file name is determined by config.json
+    - name: RELAY 5 - conway-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/conway-genesis.json"
+        dest: "/usr/node/conway-genesis.json"
+        mode: '0644'
+        owner: "{{ USER2 }}"
+        group: "{{ USER2 }}"
+        force: yes
+
+
+
+
+    # config file name is determined by start-node.sh --config
+    - name: BP 1 - config-bp.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/config-bp.json"
+        dest: "/data/bp/config-bp.json"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    # Byron file name is determined by config.json
+    - name: BP 2 - byron-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/byron-genesis.json"
+        dest: "/data/bp/byron-genesis.json"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+    # Shelley file name is determined by config.json
+    - name: BP 3 - shelley-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/shelley-genesis.json"
+        dest: "/data/bp/shelley-genesis.json"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    # Alonzo file name is determined by config.json
+    - name: BP 4 - alonzo-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/alonzo-genesis.json"
+        dest: "/data/bp/alonzo-genesis.json"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+
+    # Conway file name is determined by config.json
+    - name: BP 5 - conway-genesis.json
+      ansible.builtin.get_url:
+        url: "https://book.play.dev.cardano.org/environments/mainnet/conway-genesis.json"
+        dest: "/data/bp/conway-genesis.json"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    - name: BP 6 - Replace EKG port 12788 with 12789 in BP config.json
+      ansible.builtin.replace:
+        path: "/data/bp/config-bp.json"
+        regexp: '12788'
+        replace: '12789'
+
+
+    - name: BP 7 - Replace Prometheus port 12798 with 12799 in BP config.json
+      ansible.builtin.replace:
+        path: "/data/bp/config-bp.json"
+        regexp: '12798'
+        replace: '12799'
