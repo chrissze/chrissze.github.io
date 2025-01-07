@@ -39,8 +39,7 @@ echo "hi I'm $USER  .bashrc start"
 
     # OVH
     alias o1='ssh -p 55555 cs@149.56.19.226'
-
-    alias o2='ssh -p 55555 cs@217.182.200.125'
+    alias o1a='ssh -p 55555 almalinux@149.56.19.226'
 
 
     alias pipup='pip3 install --upgrade pip'
