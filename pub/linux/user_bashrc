@@ -48,7 +48,7 @@ curl -6 ifconfig.me && echo
     
     alias pipup='pip3 install --upgrade pip'
     
-    alias pipr='pip3 install -r requirements.txt'
+    alias pipr='source ../venv/bin/activate && pip3 install -r requirements.txt'
     
     alias psa='docker ps -a'
     
