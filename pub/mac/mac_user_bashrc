@@ -44,7 +44,7 @@ echo "hi I'm $USER  .bashrc start"
 
     alias pipup='pip3 install --upgrade pip'
 
-    alias pipr='pip3 list && pip3 install -r requirements.txt && pip3 list'
+    alias pipr='source ../venv/bin/activate && pip3 list && pip3 install -r requirements.txt && pip3 list'
 
     alias psa='docker ps -a'
 
