@@ -72,7 +72,6 @@ echo "hi I'm $USER  .bashrc start"
 # USER EXPORTS #
 ################
 
-    export AIRTABLE_API_KEY='patQopJmBT5e4Co5j.9de14fd230cccb34efb8e00bfb6802a05266b7fa3c9cb205fcfe0dd5f5c0a6ff'
 
     export DJANGO_SETTINGS_MODULE=config.devsettings
 
