@@ -4,5 +4,23 @@ if [ -f ~/.bashrc ]; then
 	. ~/.bashrc
 fi
 
+
+
+#############################
+# USER BASH_PROFILE EXPORTS #
+#############################
+
+
+    export PGHOST='localhost'
+
+    export PGDATABASE='postgres'
+
+    export PGUSER='postgres'
+
+    export PGPASSWORD='hP'
+
+    export PGPORT=5432
+
+
 echo "hi I'm $USER  .bash_profile 644 ends."
 
