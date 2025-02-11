@@ -10,6 +10,11 @@ fi
 # USER BASH_PROFILE EXPORTS #
 #############################
 
+    export AIRTABLE_API_KEY='xxxx'
+
+    export DJANGO_SECRET='abcd'
+
+    export DJANGO_SETTINGS_MODULE=nuthosting_web.settings
 
     export PGHOST='localhost'
 
@@ -20,7 +25,6 @@ fi
     export PGPASSWORD='hP'
 
     export PGPORT=5432
-
 
 echo "hi I'm $USER  .bash_profile 644 ends."
 
