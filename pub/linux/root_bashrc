@@ -104,6 +104,8 @@ curl -6 ifconfig.me && echo
 
     finfo() { firewall-cmd --info-service="$@" ; }
 
+    listen() { netstat -tunlp | grep ":$1" && ss -tunlp | grep ":$1" && lsof -i -P -n | grep LISTEN | grep ":$1"; }
+
     rmt() { firewall-cmd --permanent --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
 
     rmu() { firewall-cmd --permanent --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
