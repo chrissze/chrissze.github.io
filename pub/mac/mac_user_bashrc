@@ -65,6 +65,8 @@ echo "hi I'm $USER  .bashrc start"
 
     alias sou='source ~/.bash_profile'
 
+    alias sulo='sudo --login'
+
     alias venv='source venv/bin/activate'
 
 
