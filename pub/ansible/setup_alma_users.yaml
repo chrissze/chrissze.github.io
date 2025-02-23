@@ -84,12 +84,14 @@
             force: no
 
 
-      - name: TASK 7 - Set global Git user.name
+      # VERIFY: git config --global user.name
+      - name: TASK 8 - Set global Git user.name
         become_user: '{{ USER1 }}'
         command: git config --global user.name "o2cs"
 
 
-      - name: TASK 8 - Set global Git user.email
+      # VERIFY: git config --global user.email
+      - name: TASK 9 - Set global Git user.email
         become_user: '{{ USER1 }}'
         command: git config --global user.email "chris_sze@yahoo.com"
 
