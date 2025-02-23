@@ -1,5 +1,8 @@
 #!/usr/bin/env -S ansible-playbook
 
+# ENSURE SELINUX IS ENABLED BEFORE CHANGING SSH PORT TO 5555
+    # sestatus
+
 #1 Run by root or add sudo when run this playbook
     
     # sudo ./setup.yaml
