@@ -70,6 +70,8 @@
 
 
     # after changing selinux config, reboot to take effect
+    # make sure port 55555 enabled in SELINUX
+    # I should enable SELINUX before SSHD port change
     - name: Enabled SELinux in config
       ansible.builtin.lineinfile:
         path: /etc/selinux/config
