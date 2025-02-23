@@ -34,8 +34,6 @@
           
           - ookla-speedtest  # binary is speedtest
           
-          - ss
-
           - tldr
 
           - tmux
