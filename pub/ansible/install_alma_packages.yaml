@@ -41,6 +41,8 @@
 
           - firewalld
 
+          - lsof             # check listen ports
+
           - nano
 
           - net-tools        # for netstat
