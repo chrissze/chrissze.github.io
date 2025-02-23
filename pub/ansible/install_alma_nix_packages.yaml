@@ -28,15 +28,18 @@
         name:
           - bat
           
+          - nettools   # for netstat
+
           - nmap
           
           - ookla-speedtest  # binary is speedtest
           
+          - ss
+
           - tldr
 
           - tmux
-      register: term
+      register: terminal
 
     - debug:
-        var: term.stdout_lines
-cs@o2:/data/o2/ansible $
+        var: terminal.stdout_lines

@@ -43,6 +43,8 @@
 
           - nano
 
+          - net-tools        # for netstat
+
           - samba-client
 
           - setroubleshoot   # audit2allow, sealert, semanage
