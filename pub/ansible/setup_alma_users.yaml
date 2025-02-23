@@ -10,7 +10,7 @@
 
 ---
 - name: SETUP ALMA USER
-  hosts: o1
+  hosts: localhost
   become: yes
   vars:
       USER1: 'cs'
@@ -21,6 +21,7 @@
         ansible.builtin.group:
             name: docker
             state: present
+
 
       - name: TASK 2 - Create user cs and add to docker group
         ansible.builtin.user:
@@ -40,6 +41,7 @@
             validate: 'visudo -cf %s'
             state: present
 
+
       # cs password hint: mac pw
       - name: TASK 4 - Set password hash for user cs in /etc/shadow
         ansible.builtin.lineinfile:
@@ -48,6 +50,7 @@
             line: 'cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::'
             create: false
             state: present
+
 
       # root password hint: St Paul grade 12 arts class
       - name: TASK 5 - Set password hash for root in /etc/shadow
@@ -80,9 +83,11 @@
             group: '{{ USER1 }}'
             force: no
 
+
       - name: TASK 7 - Set global Git user.name
         become_user: '{{ USER1 }}'
         command: git config --global user.name "o2cs"
+
 
       - name: TASK 8 - Set global Git user.email
         become_user: '{{ USER1 }}'
