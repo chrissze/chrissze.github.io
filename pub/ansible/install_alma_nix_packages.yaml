@@ -27,6 +27,8 @@
 
         name:
           - bat
+
+          - lsof       # check listen ports
           
           - nettools   # for netstat
 
