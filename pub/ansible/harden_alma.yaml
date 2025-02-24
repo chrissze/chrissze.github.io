@@ -47,7 +47,6 @@
       loop:
         - cockpit
         - dhcpv6-client   # dynamic IPv6
-        - ssh
 
 
     - name: Configure firewall rules
@@ -68,7 +67,8 @@
         state: reloaded
 
 
-
+    # If I directly change SELINUX from 'disabled' to 'enforcing', the system failed to boot, 
+    # I need to changed from 'disabled' to 'permissive', reboot, then change it to 'enforcing'
     # after changing selinux config, reboot to take effect
     # make sure port 55555 enabled in SELINUX
     # I should enable SELINUX before SSHD port change
@@ -76,7 +76,7 @@
       ansible.builtin.lineinfile:
         path: /etc/selinux/config
         regexp: '^SELINUX='
-        line: 'SELINUX=enforcing'
+        line: 'SELINUX=permissive'
 
 
     - name: Set SELinux type
@@ -84,13 +84,6 @@
         path: /etc/selinux/config
         regexp: '^SELINUXTYPE='
         line: 'SELINUXTYPE=targeted'
-
-
-    - name: Ensure SELinux is enforcing
-      ansible.builtin.command:
-        cmd: "setenforce 1"
-      register: selinux_status
-      failed_when: selinux_status.rc != 0
 
 
 
