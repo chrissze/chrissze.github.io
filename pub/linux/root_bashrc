@@ -79,6 +79,8 @@ curl -6 ifconfig.me && echo
 
     export NIXPKGS_ALLOW_UNFREE=1
 
+    export PS1="\u@\h:\w # "
+
     export VISUAL='nano'
 
 
