@@ -74,7 +74,7 @@
 
 
 
-      - name: TASK 7 - Fetch user public key
+      - name: TASK 7 - Fetch user public key authorized_keys
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/authorized_keys'
             dest: '/home/{{ USER1 }}/.ssh/authorized_keys'
@@ -84,7 +84,17 @@
             force: no
 
 
-      - name: TASK 8 - Fetch user ssh peer config
+      - name: TASK 8 - Fetch user public key authorized_keys2
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/authorized_keys2'
+            dest: '/home/{{ USER1 }}/.ssh/authorized_keys2'
+            mode: '0400'
+            owner: '{{ USER1 }}'
+            group: '{{ USER1 }}'
+            force: no
+
+
+      - name: TASK 9 - Fetch user ssh peer config
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/ssh_peer_config'
             dest: '/home/{{ USER1 }}/.ssh/config'
@@ -95,13 +105,13 @@
 
 
       # VERIFY: git config --global user.name
-      - name: TASK 9 - Set global Git user.name
+      - name: TASK 10 - Set global Git user.name
         become_user: '{{ USER1 }}'
         command: git config --global user.name "o2cs"
 
 
       # VERIFY: git config --global user.email
-      - name: TASK 10 - Set global Git user.email
+      - name: TASK 11 - Set global Git user.email
         become_user: '{{ USER1 }}'
         command: git config --global user.email "chris_sze@yahoo.com"
 
