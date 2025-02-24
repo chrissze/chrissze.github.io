@@ -22,7 +22,7 @@
         state: latest
         update_cache: yes
 
-
+    # selinux-policy-devel is optional, it is used for later inspection.
     - name: Install required security packages
       ansible.builtin.dnf:
         name:
@@ -30,6 +30,7 @@
           - firewalld
           - audit
           - selinux-policy-targeted
+          - selinux-policy-devel
           - libselinux-utils
           - policycoreutils
         state: present
