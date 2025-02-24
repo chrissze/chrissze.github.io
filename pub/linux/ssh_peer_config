@@ -1,0 +1,27 @@
+
+Host o1
+    HostName 149.56.19.226
+    Port 55555
+    User cs
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa
+
+    
+Host o1rescue
+    HostName 149.56.19.226
+    Port 22
+    User root
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/id_rsa
+
+
+Host o2
+    HostName 51.75.60.94
+    Port 55555
+    User cs
+
+    
+Host o2rescue
+    HostName 51.75.60.94
+    Port 22
+    User root
