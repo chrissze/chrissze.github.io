@@ -23,7 +23,8 @@
               - firewalld
               - setroubleshoot
             state: present
-    
+
+        # VERIFY: # semanage port -l | grep ssh_port_t
         - name: Add port 55555 to SSH SELinux context 
           ansible.builtin.command:
             cmd: semanage port -a -t ssh_port_t -p tcp 55555
