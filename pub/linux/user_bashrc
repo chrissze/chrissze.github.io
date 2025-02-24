@@ -72,7 +72,7 @@ curl -6 ifconfig.me && echo
     
     alias sysen='sudo systemctl enable --now'
     
-    alias sulo='sudo -i bash -c "cd $(pwd); exec bash --login"'
+    alias sulo='sudo bash -c "cd $(pwd); exec bash --login"'
     
     alias tip='cardano-cli query tip --mainnet'
     
