@@ -29,6 +29,9 @@
           - fail2ban
           - firewalld
           - audit
+          - selinux-policy-targeted
+          - libselinux-utils
+          - policycoreutils
         state: present
 
 
