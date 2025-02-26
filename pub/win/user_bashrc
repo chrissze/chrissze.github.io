@@ -1,0 +1,5 @@
+
+
+  alias pvenv='python -m venv venv && source venv/Scripts/activate'
+
+  alias sou='source ~/.bashrc'
