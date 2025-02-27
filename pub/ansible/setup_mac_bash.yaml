@@ -1,0 +1,78 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: SETUP MAC BASH
+  hosts: localhost
+  become: yes
+  vars:
+    USER1: "p"
+    USER2: "almalinux"
+
+  tasks:
+
+
+    # - name: TASK 1 - Fetch user /etc/paths
+    #   ansible.builtin.get_url:
+    #     url: "https://chrissze.github.io/pub/linux/alma_paths"
+    #     dest: "/etc/paths"
+    #     mode: '0644'
+    #     owner: "{{ USER1 }}"
+    #     group: "{{ USER1 }}"
+    #     force: no
+    
+  
+    # - name: TASK 2 - Fetch ROOT /etc/rootpaths
+    #   become: yes
+    #   ansible.builtin.get_url:
+    #     url: "https://chrissze.github.io/pub/linux/alma_rootpaths"
+    #     dest: "/etc/rootpaths"
+    #     mode: '0644'
+    #     owner: root
+    #     force: no
+
+  
+
+    # FORCED overwrite
+    - name: TASK 3 - Fetch USER bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/mac/user_bashrc"
+        dest: "/Users/{{ USER1 }}/.bashrc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "staff"
+        force: yes         # FORCED overwrite
+
+    # FORCED overwrite
+    - name: TASK 4 - Fetch USER bash_profile
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/mac/user_bash_profile"
+        dest: "/Users/{{ USER1 }}/.bash_profile"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "staff"
+        force: yes         # FORCED overwrite
+
+
+     
+    - name: TASK 5 - Fetch ROOT bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/mac/root_bashrc"
+        dest: "/root/.bashrc"
+        mode: '0644'
+        owner: root
+        force: yes # FORCED overwrite
+
+
+    
+    - name: TASK 6 - Fetch ROOT bash_profile
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/mac/root_bash_profile"
+        dest: "/root/.bash_profile"
+        mode: '0644'
+        owner: root
+        force: yes # FORCED overwrite
+
