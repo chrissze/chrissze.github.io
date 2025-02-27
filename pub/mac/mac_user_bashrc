@@ -16,7 +16,11 @@ echo "hi I'm $USER  .bashrc start"
 
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
+    alias clonebrew='git clone git@github.com:chrissze/brew.git'
+
     alias clonedimsumpy='git clone git@github.com:chrissze/dimsumpy.git'
+
+    alias cloneexamples='git clone git@github.com:chrissze/examples.git'
 
     alias clonepizzapy='git clone git@github.com:chrissze/pizzapy.git'
 
