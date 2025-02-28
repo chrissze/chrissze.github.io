@@ -5,8 +5,7 @@
   hosts: localhost
   become: yes
   vars:
-    USER1: "p"
-    USER2: "almalinux"
+    USER1: "chris"
 
   tasks:
 
@@ -36,7 +35,7 @@
     - name: TASK 3 - Fetch USER bashrc
       become: yes
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/mac/user_bashrc"
+        url: "https://chrissze.github.io/pub/mac/mac_user_bashrc"
         dest: "/Users/{{ USER1 }}/.bashrc"
         mode: '0644'
         owner: "{{ USER1 }}"
@@ -47,7 +46,7 @@
     - name: TASK 4 - Fetch USER bash_profile
       become: yes
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/mac/user_bash_profile"
+        url: "https://chrissze.github.io/pub/mac/mac_user_bash_profile"
         dest: "/Users/{{ USER1 }}/.bash_profile"
         mode: '0644'
         owner: "{{ USER1 }}"
@@ -59,7 +58,7 @@
     - name: TASK 5 - Fetch ROOT bashrc
       become: yes
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/mac/root_bashrc"
+        url: "https://chrissze.github.io/pub/mac/mac_root_bashrc"
         dest: "/root/.bashrc"
         mode: '0644'
         owner: root
@@ -70,7 +69,7 @@
     - name: TASK 6 - Fetch ROOT bash_profile
       become: yes
       ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/mac/root_bash_profile"
+        url: "https://chrissze.github.io/pub/mac/mac_root_bash_profile"
         dest: "/root/.bash_profile"
         mode: '0644'
         owner: root
