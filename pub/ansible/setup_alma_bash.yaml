@@ -2,7 +2,7 @@
 
 ---
 - name: SETUP ALMA BASH
-  hosts: o1
+  hosts: localhost
   become: yes
   vars:
     USER1: "cs"
