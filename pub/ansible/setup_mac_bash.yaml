@@ -1,4 +1,9 @@
-#!/usr/bin/env -S ansible-playbook
+#!/usr/bin/env -S ansible-playbook --ask-become-pass
+
+
+# RESOLVE ROOT PASSWORD METHOD 1: ansible-playbook --ask-become-pass
+
+# RESOLVE ROOT PASSWORD METHOD 2: chris ALL=(ALL) NOPASSWD: ALL    (visudo)
 
 ---
 - name: SETUP MAC BASH
