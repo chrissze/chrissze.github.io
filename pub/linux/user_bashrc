@@ -12,7 +12,11 @@ curl -6 ifconfig.me && echo
 
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
+    alias clonebrew='git clone git@github.com:chrissze/brew.git'
+
     alias clonedimsumpy='git clone git@github.com:chrissze/dimsumpy.git'
+
+    alias cloneexamples='git clone git@github.com:chrissze/examples.git'
 
     alias clonefullpizza='git clone git@github.com:chrissze/pizzapy.git && git clone git@github.com:chrissze/batterypy.git && git clone git@github.com:chrissze/dimsumpy.git'
 
