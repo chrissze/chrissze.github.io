@@ -64,7 +64,7 @@
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_root_bashrc"
-        dest: "/root/.bashrc"
+        dest: "/var/root/.bashrc"
         mode: '0644'
         owner: root
         force: yes # FORCED overwrite
@@ -75,7 +75,7 @@
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_root_bash_profile"
-        dest: "/root/.bash_profile"
+        dest: "/var/root/.bash_profile"
         mode: '0644'
         owner: root
         force: yes # FORCED overwrite
