@@ -49,7 +49,13 @@ curl -6 ifconfig.me && echo
     alias pmg='python3 manage.py makemigrations && python3 manage.py migrate'
     
     alias prun='python3 manage.py runserver'
-    
+
+
+    alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
+
+    alias pipun="pip freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip uninstall -y "
+
+
     alias pipup='pip3 install --upgrade pip'
     
     alias pipr='source ../venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && pip list'
@@ -60,7 +66,6 @@ curl -6 ifconfig.me && echo
 
     alias py=python3
 
-    alias pyun="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' "
 
     alias re="rsync -avP -e 'ssh -p 55555'"
 
