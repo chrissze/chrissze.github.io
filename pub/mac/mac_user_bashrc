@@ -111,9 +111,9 @@ echo "hi I'm $USER  .bashrc start"
         if [ -z "$1" ]; then
             ls -alhp
         else
-            shopt -s nocaseglob  # Enable case-insensitive globbing
-            ls -adhlp "$1"* ."$1"*
-            shopt -u nocaseglob  # Disable case-insensitive globbing
+            shopt -s nocaseglob     # Enable case-insensitive globbing
+            ls -adhlp "$1"* ."$1"*  # -d look at directory itself, no need to go inside
+            shopt -u nocaseglob     # Disable case-insensitive globbing
         fi
     }
 
