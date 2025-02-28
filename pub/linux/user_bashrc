@@ -60,6 +60,8 @@ curl -6 ifconfig.me && echo
 
     alias py=python3
 
+    alias pyun="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' "
+
     alias re="rsync -avP -e 'ssh -p 55555'"
 
     alias rm='rm -i'
