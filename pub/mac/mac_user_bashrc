@@ -48,6 +48,10 @@ echo "hi I'm $USER  .bashrc start"
     alias o1a='ssh -p 55555 almalinux@149.56.19.226'
 
 
+    alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
+
+    alias pipun="pip freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip uninstall -y "
+
     alias pipup='pip3 install --upgrade pip'
 
     alias pipr='source ../venv/bin/activate && pip3 list && pip3 install -r requirements.txt && pip3 list'
@@ -57,8 +61,6 @@ echo "hi I'm $USER  .bashrc start"
     alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && which python3 && python3 -V &&  pip3 -V &&  pip3 list'
 
     alias py='python3'
-
-    alias pyun="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' "
 
 
     alias re="rsync -avP -e 'ssh -p 55555'"
