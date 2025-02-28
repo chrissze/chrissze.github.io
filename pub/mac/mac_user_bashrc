@@ -104,11 +104,16 @@ echo "hi I'm $USER  .bashrc start"
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
-    la() {
+
+    # la might be a mac system alias, run `alias la`
+      
+    ll() {
         if [ -z "$1" ]; then
-            ls -ahlp
+            ls -alhp
         else
-            shopt -s dotglob nocaseglob; ls -adhlp [$1]* .[$1]*; shopt -u dotglob nocaseglob;
+            shopt -s nocaseglob  # Enable case-insensitive globbing
+            ls -adhlp "$1"* ."$1"*
+            shopt -u nocaseglob  # Disable case-insensitive globbing
         fi
     }
 
