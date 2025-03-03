@@ -44,9 +44,9 @@ echo "hi I'm $USER  .bashrc start"
 
 
     # OVH
-    alias o1='ssh -p 55555 cs@149.56.19.226'
-    alias o1a='ssh -p 55555 almalinux@149.56.19.226'
+    alias o1='ssh o1'
 
+    alias o2='ssh o2'
 
     alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
 
