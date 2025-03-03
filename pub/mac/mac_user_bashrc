@@ -67,6 +67,8 @@ echo "hi I'm $USER  .bashrc start"
 
     alias rm='rm -i'
 
+    alias rmd='rm -frI'
+
 
     # I cannot use rs alias due to Mac SIP protected rs command
     alias rus=rust-script
