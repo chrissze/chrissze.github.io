@@ -10,7 +10,7 @@
   hosts: localhost
   become: yes
   vars:
-    USER1: "chris"
+    USER1: "cs"
 
   tasks:
 
