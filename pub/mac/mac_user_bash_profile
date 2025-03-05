@@ -19,6 +19,7 @@ fi
     # to make rust compiler woking, xcode 15 in MacOS 15 Sequoia
     export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
+    # python asyncpg's default connection env
     export PGHOST='localhost'
 
     export PGDATABASE='postgres'
