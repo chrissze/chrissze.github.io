@@ -88,16 +88,12 @@ echo "hi I'm $USER  .bashrc start"
 ################
 
 
-    export DJANGO_SETTINGS_MODULE=config.devsettings
-
     export EDITOR="/usr/bin/nano"
 
     export HISTSIZE=500
 
     export HISTFILESIZE=500
 
-    # to make rust compiler woking, xcode 15 in MacOS 15 Sequoia
-    export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
     export PS1="[\u@MAC \w]\n$ "
 
