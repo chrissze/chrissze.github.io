@@ -14,7 +14,10 @@ fi
 
     export DJANGO_SECRET='abcd'
 
-    export DJANGO_SETTINGS_MODULE=nuthosting_web.settings
+    export DJANGO_SETTINGS_MODULE='nuthosting.settings'
+
+    # to make rust compiler woking, xcode 15 in MacOS 15 Sequoia
+    export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
     export PGHOST='localhost'
 
@@ -25,6 +28,10 @@ fi
     export PGPASSWORD='hP'
 
     export PGPORT=5432
+
+    # to make python nuitka compiler working
+    export SDKROOT='/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk'
+
 
 echo "hi I'm $USER  .bash_profile 644 ends."
 
