@@ -89,7 +89,7 @@ curl -6 ifconfig.me && echo
 # ROOT FUNCTIONS #
 ##################
 
-    cd() { builtin cd "$@" && ls -laph && echo && pwd && echo; }
+    cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
     clip() { cat "$@" | xsel -b; }
 
