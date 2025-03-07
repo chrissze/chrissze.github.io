@@ -44,7 +44,7 @@ echo "hi I'm $USER  .bashrc starts"
 # ROOT FUNCTIONS #
 ##################
 
-    cd() { builtin cd "$@" && ls; }
+    cd() { builtin cd -P "$@" && ls; }
 
 
     la() {
