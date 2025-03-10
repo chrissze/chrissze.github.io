@@ -134,6 +134,9 @@ curl -6 ifconfig.me && echo
         fi
     }
 
+    sscopy() { echo "ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy" ; }
+
+
 # USER PATH
     
     if [ -f /etc/paths ]; then
