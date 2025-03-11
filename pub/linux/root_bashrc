@@ -127,7 +127,7 @@ curl -6 ifconfig.me && echo
     
     ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
-    sscopy() { echo "ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy" ; }
+    sss() { echo; echo "  ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy"; echo; echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo; }
 
 #############
 # ROOT PATH #
