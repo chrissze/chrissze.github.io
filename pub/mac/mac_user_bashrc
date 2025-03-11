@@ -106,6 +106,16 @@ echo "hi I'm $USER  .bashrc start"
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo ; }
 
+    ffm() {
+        if [[ $# -eq 1 ]]; then
+            base_name="${1%.*}"
+            ffmpeg -i "$1" -vcodec h264 -acodec aac "${base_name}.mp4"
+        elif [[ $# -eq 2 ]]; then
+            ffmpeg -i "$1" -vcodec h264 -acodec aac "$2"
+        else
+            echo "USAGE: ffm input.mov output.mp4"
+        fi
+    }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
