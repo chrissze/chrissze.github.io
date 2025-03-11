@@ -134,8 +134,7 @@ curl -6 ifconfig.me && echo
         fi
     }
 
-    sscopy() { echo "ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy" ; }
-
+    sss() { echo; echo "  ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy"; echo; echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo; }
 
 # USER PATH
     
