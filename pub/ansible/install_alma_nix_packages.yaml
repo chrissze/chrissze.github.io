@@ -36,9 +36,12 @@
           
           - ookla-speedtest  # binary is speedtest
           
+          - p7zip
           - tldr
 
           - tmux
+          - unzip
+          - zip
       register: terminal
 
     - debug:
