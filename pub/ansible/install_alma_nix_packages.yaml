@@ -38,10 +38,12 @@
           
           - p7zip
           - tldr
+          - tinyxxd        # binaries are xxd tinyxxd
 
           - tmux
           - unzip
           - zip
+          
       register: terminal
 
     - debug:
