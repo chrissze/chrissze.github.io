@@ -15,7 +15,10 @@ curl -6 ifconfig.me && echo
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+
     alias cdvol='cd /var/lib/docker/volumes'
+
+    alias cdwww='cd /opt/composes/nginx/wwwvol'
 
     alias cp='cp -i'  # prompt at overwrites
 
