@@ -11,6 +11,7 @@ curl -6 ifconfig.me && echo
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+    alias cdwww='cd /opt/composes/nginx/wwwvol/'
 
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
