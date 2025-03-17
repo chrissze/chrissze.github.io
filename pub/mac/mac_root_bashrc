@@ -37,7 +37,7 @@ echo "hi I'm $USER  .bashrc starts"
 
     export PS1="\w# "
 
-    export PYTHONPATH="/opt/homebrew/opt/pyside@2/lib/python3.9/site-packages/"
+
 
 
 ##################
