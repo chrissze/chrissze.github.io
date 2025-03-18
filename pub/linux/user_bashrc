@@ -32,7 +32,7 @@ curl -6 ifconfig.me && echo
     
     alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
-    alias gpush="git add . && git commit -m 'cs' && git push"
+    alias gpush='git add . && git commit -m "minor update" && git push'
     
     alias gpull="git stash && git fetch --all && git reset --hard origin master"
     
