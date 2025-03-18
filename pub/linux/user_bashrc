@@ -161,8 +161,12 @@ curl -6 ifconfig.me && echo
         mkdir static_root;
         mkdir templates;
         cd ..;
-    }
 
+        echo -e "UPDATE settings.py: \n";
+        echo -e "  STATIC_ROOT = BASE_DIR / 'static_root' ";
+        echo -e "  STATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]";
+        echo -e "  TEMPLATES: \n    'DIRS': [BASE_DIR / 'templates'],";
+    }
 
 # USER PATH
     
