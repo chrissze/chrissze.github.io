@@ -161,7 +161,7 @@ echo "hi I'm $USER  .bashrc start"
         sed -i '' "s/'DIRS': \[\]/'DIRS': [ BASE_DIR \/ 'templates' ]/" "$1/settings.py";
 
         cd ..;
-        echo -e "UPDATED settings.py: \n";
+        echo -e "UPDATED $1/settings.py: \n";
         echo -e "  STATIC_ROOT = BASE_DIR / 'static_root' ";
         echo -e "  STATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]";
         echo -e "  TEMPLATES: \n    'DIRS': [ BASE_DIR / 'templates' ],";
