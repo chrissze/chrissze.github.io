@@ -154,12 +154,17 @@ echo "hi I'm $USER  .bashrc start"
         mkdir extra_files;
         mkdir static_root;
         mkdir templates;
-        cd ..;
 
-        echo -e "UPDATE settings.py: \n";
+        echo -e "\nSTATIC_ROOT = BASE_DIR / 'static_root'" | tee -a "$1/settings.py";
+        echo -e "\nSTATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]" | tee -a "$1/settings.py";
+        # For macOS (BSD sed)
+        sed -i '' "s/'DIRS': \[\]/'DIRS': [ BASE_DIR \/ 'templates' ]/" "$1/settings.py";
+
+        cd ..;
+        echo -e "UPDATED settings.py: \n";
         echo -e "  STATIC_ROOT = BASE_DIR / 'static_root' ";
         echo -e "  STATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]";
-        echo -e "  TEMPLATES: \n    'DIRS': [BASE_DIR / 'templates'],";
+        echo -e "  TEMPLATES: \n    'DIRS': [ BASE_DIR / 'templates' ],";
     }
 
 
