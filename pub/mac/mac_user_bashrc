@@ -137,6 +137,27 @@ echo "hi I'm $USER  .bashrc start"
     # required Mac .ssh/config settings for $1
     sscopy() { ssh "$1" "cat $2" | pbcopy; }
 
+    startpro() { 
+        if [ ! -d "venv" ]; then
+            python3 -m venv venv
+        fi
+        source venv/bin/activate;
+        pip install --upgrade pip;
+        
+        mkdir "$1_project"; 
+        cd "$1_project"; 
+        touch requirements.txt;
+        echo -e "Django\ngunicorn\nuvicorn" > requirements.txt;
+        pip install -r requirements.txt;
+        django-admin startproject "$1" .;
+        
+        mkdir extra_files;
+        mkdir static_root;
+        mkdir templates;
+        cd ..;
+    }
+
+
 
 
 
