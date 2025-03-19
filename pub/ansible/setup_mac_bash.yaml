@@ -38,7 +38,7 @@
 
     # FORCED overwrite
     - name: TASK 3 - Fetch USER bashrc
-      become: yes
+      become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bashrc"
         dest: "/Users/{{ USER1 }}/.bashrc"
@@ -49,7 +49,7 @@
 
     # FORCED overwrite
     - name: TASK 4 - Fetch USER bash_profile
-      become: yes
+      become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bash_profile"
         dest: "/Users/{{ USER1 }}/.bash_profile"
@@ -70,7 +70,7 @@
         force: yes # FORCED overwrite
 
 
-    
+
     - name: TASK 6 - Fetch ROOT bash_profile
       become: yes
       ansible.builtin.get_url:
