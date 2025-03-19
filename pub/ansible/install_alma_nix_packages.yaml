@@ -27,7 +27,9 @@
 
         name:
           - bat
-
+          
+          - emacx-nox
+          
           - lsof       # check listen ports
           
           - nettools   # for netstat
