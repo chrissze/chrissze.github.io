@@ -112,11 +112,10 @@ echo "hi I'm $USER  .bashrc start"
     ffm() {
         if [[ $# -eq 1 ]]; then
             base_name="${1%.*}"
+            ffmpeg -i "$1" -acodec aac "${base_name}.aac"
             ffmpeg -i "$1" -vcodec h264 -acodec aac "${base_name}.mp4"
-        elif [[ $# -eq 2 ]]; then
-            ffmpeg -i "$1" -vcodec h264 -acodec aac "$2"
         else
-            echo "USAGE: ffm input.mov output.mp4"
+            echo "USAGE: ffm input.mov"
         fi
     }
 
