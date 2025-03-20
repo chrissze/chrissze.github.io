@@ -135,7 +135,7 @@ curl -6 ifconfig.me && echo
     ffm() {
         if [[ $# -eq 1 ]] && [[ -e "$1" ]]; then
             base_name="${1%.*}";
-            extension="${original_file##*.}"
+            extension="${original_file##*.}";
             aac_file="${base_name}.aac";
             mp4_file="${base_name}.mp4";
 
@@ -149,12 +149,12 @@ curl -6 ifconfig.me && echo
             ffmpeg -i "$input_file" -acodec aac "$aac_file";
             ffmpeg -i "$input_file" -vcodec h264 -acodec aac "$mp4_file";
             ls -la;
-            echo
+            echo;
             echo "  rsync -avP cs@$HOSTNAME:$(realpath "$aac_file") .";
-            echo
+            echo;
             echo "  rsync -avP cs@$HOSTNAME:$(realpath "$mp4_file") .";
         else
-            echo "Usage: $0 <filename>"
+            echo "Usage: $0 <filename>";
         fi
     }
 
