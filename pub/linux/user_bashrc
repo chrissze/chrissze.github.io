@@ -148,7 +148,10 @@ curl -6 ifconfig.me && echo
 
             ffmpeg -i "$input_file" -acodec aac "$aac_file";
             ffmpeg -i "$input_file" -vcodec h264 -acodec aac "$mp4_file";
+            ls -la;
+            echo
             echo "  rsync -avP cs@$HOSTNAME:$(realpath "$aac_file") .";
+            echo
             echo "  rsync -avP cs@$HOSTNAME:$(realpath "$mp4_file") .";
         else
             echo "Usage: $0 <filename>"
