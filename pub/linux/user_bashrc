@@ -151,6 +151,7 @@ curl -6 ifconfig.me && echo
             ls -laph;
             echo;
             echo "  rsync -avP $USER@$HOSTNAME:$(realpath "$aac_file") .  &&  rsync -avP $USER@$HOSTNAME:$(realpath "$mp4_file") .";
+            echo;
         else
             echo "Usage: $0 <filename>";
         fi
