@@ -130,6 +130,22 @@ curl -6 ifconfig.me && echo
     clip() { cat "$@" | xsel -b; }
 
     exec() { docker container exec -it "$@" /bin/bash; }
+
+
+    ffm() {
+        if [[ $# -eq 1 ]]; then
+            base_name="${1%.*}";
+            aac_file="${base_name}.aac";
+            mp4_file="${base_name}.mp4";
+
+            ffmpeg -i "$1" -acodec aac "$aac_file";
+            ffmpeg -i "$1" -vcodec h264 -acodec aac "$mp4_file";
+            echo "  rsync -avP cs@$HOSTNAME:$(realpath '$aac_file') .";
+            echo "  rsync -avP cs@$HOSTNAME:$(realpath '$mp4_file') .";
+        else
+            echo "USAGE: ffm input.mov";
+        fi
+    }
     
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
