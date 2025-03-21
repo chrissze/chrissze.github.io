@@ -8,7 +8,7 @@
 ---
 - name: SETUP MAC BASH
   hosts: localhost
-  become: yes
+  become: no
   vars:
     USER1: "cs"
 
@@ -41,9 +41,9 @@
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bashrc"
-        dest: "/Users/{{ USER1 }}/.bashrc"
+        dest: "/Users/{{ ansible_user_id }}/.bashrc"
         mode: '0644'
-        owner: "{{ USER1 }}"
+        owner: "{{ ansible_user_id }}"
         group: "staff"
         force: yes         # FORCED overwrite
 
@@ -52,9 +52,9 @@
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bash_profile"
-        dest: "/Users/{{ USER1 }}/.bash_profile"
+        dest: "/Users/{{ ansible_user_id }}/.bash_profile"
         mode: '0644'
-        owner: "{{ USER1 }}"
+        owner: "{{ ansible_user_id }}"
         group: "staff"
         force: yes         # FORCED overwrite
 
