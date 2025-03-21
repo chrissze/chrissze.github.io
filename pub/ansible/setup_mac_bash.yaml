@@ -8,10 +8,6 @@
 ---
 - name: SETUP MAC BASH
   hosts: localhost
-  become: no
-  vars:
-    USER1: "cs"
-
   tasks:
 
 
@@ -20,8 +16,8 @@
     #     url: "https://chrissze.github.io/pub/linux/alma_paths"
     #     dest: "/etc/paths"
     #     mode: '0644'
-    #     owner: "{{ USER1 }}"
-    #     group: "{{ USER1 }}"
+    #     owner: "{{ ansible_user_id }}"
+    #     group: "staff"
     #     force: no
     
   
