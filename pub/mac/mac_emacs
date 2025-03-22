@@ -1,0 +1,79 @@
+
+
+
+
+
+
+;; BACKUP AND AUTOSAVES
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+;; END BACKUP AND AUTOSAVES
+
+
+
+
+
+;; CYCLE PASTES
+(defvar my-kill-ring-index 0
+  "Index of the current item in the kill ring to be pasted.")
+
+(defun my-paste-next-from-kill-ring ()
+  "Paste the next item from the kill ring."
+  (interactive)
+  (let ((kill-ring-length (length kill-ring)))
+    (when (>= my-kill-ring-index kill-ring-length)
+      (setq my-kill-ring-index 0)) ; Reset index if it exceeds the kill ring length
+    (if kill-ring
+        (progn
+          (insert (nth my-kill-ring-index kill-ring))
+          (setq my-kill-ring-index (1+ my-kill-ring-index)))
+      (message "Kill ring is empty."))))
+
+(global-set-key (kbd "<f10>") 'my-paste-next-from-kill-ring)
+;; END CYCLE PASTES
+
+
+
+
+;; SHORTCUTS
+(global-set-key (kbd "<f1>") 'save-buffer)       ; SAVE C-x C-s
+
+(global-set-key (kbd "<f3>") 'previous-buffer) ; 
+(global-set-key (kbd "<f4>") 'next-buffer) ;
+(global-set-key (kbd "<f5>") 'query-replace) ; replace with y n
+(global-set-key (kbd "<f6>") 'replace-string) ; replace
+(global-set-key (kbd "<f7>") 'find-file) ; open file C-x C-f
+(global-set-key (kbd "<f8>") 'kill-ring-save) ; copy Alt-w
+(global-set-key (kbd "<f9>") "\C-a\C- \C-n\C-w") ; cut single line
+
+(global-set-key (kbd "<f12>") (lambda () 
+                               (interactive) 
+                               (save-some-buffers t) ; Save all buffers without asking
+                               (save-buffers-kill-emacs))) ; Quit Emacs
+;; END SHORTCUTS
+
+
+
+;; TABS TO 4 SPACES OR PREVIOUS LINE INDENT
+(setq-default indent-tabs-mode nil)  ;; Use spaces instead of tabs
+(setq-default tab-width 4)           ;; Set tab width to 4 spaces
+(setq-default standard-indent 4)     ;; Ensure standard indentation is 4 spaces
+
+(defun enforce-4-space-indent ()
+  "Enforce 4 spaces for indentation in programming and text modes."
+  (setq indent-tabs-mode nil)         ;; No tabs, only spaces
+  (setq tab-width 4)                  ;; Set tab width to 4 spaces
+  (setq standard-indent 4))           ;; Ensure standard indentation is 4 spaces
+
+(add-hook 'prog-mode-hook 'enforce-4-space-indent)
+(add-hook 'text-mode-hook 'enforce-4-space-indent)
+;; END TABS TO 4 SPACES OR PREVIOUS LINE INDENT
+
+
+
+
+
+
+
+
+
