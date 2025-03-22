@@ -12,25 +12,53 @@
 
 
 
-
-;; CYCLE PASTES
-(defvar my-kill-ring-index 0
-  "Index of the current item in the kill ring to be pasted.")
-
-(defun my-paste-next-from-kill-ring ()
-  "Paste the next item from the kill ring."
+;; F9 CUT LINE
+(defun select-and-cut-current-line ()
+  "Select and cut the current line, even at the end of the buffer."
   (interactive)
-  (let ((kill-ring-length (length kill-ring)))
-    (when (>= my-kill-ring-index kill-ring-length)
-      (setq my-kill-ring-index 0)) ; Reset index if it exceeds the kill ring length
-    (if kill-ring
-        (progn
-          (insert (nth my-kill-ring-index kill-ring))
-          (setq my-kill-ring-index (1+ my-kill-ring-index)))
-      (message "Kill ring is empty."))))
+  (beginning-of-line)  ; Move to the beginning of the line
+  (set-mark (point))   ; Set the mark at the beginning of the line
+  (end-of-line)        ; Move to the end of the line
+  (unless (eobp)       ; If not at the end of the buffer, move forward one character
+    (forward-char))
+  (kill-region (mark) (point))) ; Cut the selected region
 
-(global-set-key (kbd "<f10>") 'my-paste-next-from-kill-ring)
-;; END CYCLE PASTES
+;; Bind F9 to the select-and-cut-current-line function
+(global-set-key (kbd "<f9>") 'select-and-cut-current-line)
+;; END F9 CUT LINE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; F10 CYCLE PASTES
+(defun my-paste-and-pop-from-kill-ring ()
+  "Paste the most recent item from the kill ring and remove it from the kill ring."
+  (interactive)
+  ;; Check if the kill ring is empty
+  (if (not kill-ring)
+      (message "Kill ring is empty.")
+    ;; Insert the most recent item from the kill ring
+    (insert (car kill-ring))
+    ;; Remove the most recent item from the kill ring
+    (setq kill-ring (cdr kill-ring))))
+
+(global-set-key (kbd "<f10>") 'my-paste-and-pop-from-kill-ring)
+;; END F10 CYCLE PASTES
 
 
 
@@ -44,7 +72,7 @@
 (global-set-key (kbd "<f6>") 'replace-string) ; replace
 (global-set-key (kbd "<f7>") 'find-file) ; open file C-x C-f
 (global-set-key (kbd "<f8>") 'kill-ring-save) ; copy Alt-w
-(global-set-key (kbd "<f9>") "\C-a\C- \C-n\C-w") ; cut single line
+
 
 (global-set-key (kbd "<f12>") (lambda () 
                                (interactive) 
