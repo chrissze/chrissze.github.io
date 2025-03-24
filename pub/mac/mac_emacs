@@ -100,6 +100,26 @@
 
 
 
+;; COPY LINE BELOW
+(defun copy-current-line-and-paste-below ()
+  "Copy the current line and paste it on a new line below."
+  (interactive)
+  (beginning-of-line)
+  (set-mark (point))
+  (end-of-line)
+  (open-line 1)    ; Create a new blank line
+  (kill-ring-save (mark) (point)) ; Copy the line
+  (unless (eobp)
+    (open-line 1)    ; Create a new blank line
+    (forward-char)) ; include newline if possible
+  (beginning-of-line)
+  (forward-line 1) ; Move to the next line
+  (yank)           ; Paste the copied line
+  (beginning-of-line)) ; Move cursor to start of new line
+(global-set-key (kbd "S-<down>") 'copy-current-line-and-paste-below)
+;; END COPY LINE BELOW
+
+
 
 
 
