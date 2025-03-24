@@ -24,7 +24,7 @@
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_emacs"
-        dest: "/home/{{ ansible_usr_id }}/.emacs"
+        dest: "/home/{{ ansible_user_id }}/.emacs"
         mode: '0644'
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_id }}"
@@ -35,7 +35,7 @@
       ansible.builtin.file:
         path: "/home/{{ ansible_user_id }}/.emacs.d"
         state: directory
-        mode: '0644'
+        mode: '0755'
 
 
     - name: TASK 4 - Ensure .emacs.d/backups directory exists
@@ -43,11 +43,11 @@
       ansible.builtin.file:
         path: "/home/{{ ansible_user_id }}/.emacs.d/backups"
         state: directory
-        mode: '0644'
+        mode: '0755'
         
     - name: TASK 5 - Ensure .emacs.d/autosaves directory exists
       become: no
       ansible.builtin.file:
         path: "/home/{{ ansible_user_id }}/.emacs.d/autosaves"
         state: directory
-        mode: '0644'
+        mode: '0755'
