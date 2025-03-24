@@ -9,11 +9,11 @@
   hosts: localhost
   become: yes
   tasks:
-    - name: Ensure Ansible, PostgreSQL, and MySQL are installed
+    - name: TASK 1 - INSTALL PACKAGES BY DNF
       ansible.builtin.dnf:
         name:
           - ansible
-          - mysql-server
+          - emacs-nox
         state: present
         update_cache: yes
 
@@ -21,7 +21,7 @@
       ansible.builtin.dnf:
         name:
           - "libreoffice*"
-          - "java-21-openjdk-headless"          
+          - "java-21-openjdk-headless"
           - "geolite2-city"
           - "gnome-user-docs"
           - "nvidia-gpu-firmware"
@@ -35,10 +35,5 @@
         state: absent
         autoremove: yes
 
-    - name: Enable and start MySQL
-      ansible.builtin.systemd:
-        name: mysqld
-        enabled: yes
-        state: started
 
 
