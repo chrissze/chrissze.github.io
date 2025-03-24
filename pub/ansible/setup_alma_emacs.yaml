@@ -1,0 +1,53 @@
+#!/usr/bin/env -S ansible-playbook
+
+---
+- name: SETUP ALMA BASH
+  hosts: localhost
+  
+  pre_tasks:
+    - name: Ensure the playbook is not run as root
+      fail:
+        msg: "This playbook cannot be run as root."
+      when: ansible_user_id == 'root'
+
+  tasks:
+
+    - name: TASK 1 - INSTALL EMACS-NOX BY DNF
+      become: yes
+      ansible.builtin.dnf:
+        name:
+          - emacs-nox
+        state: present
+        update_cache: yes
+        
+    - name: TASK 2 - Fetch .emacs
+      become: no
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/mac/mac_emacs"
+        dest: "/home/{{ ansible_usr_id }}/.emacs"
+        mode: '0644'
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        force: yes
+    
+    - name: TASK 3 - Ensure .emacs.d/ directory exists
+      become: no
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user_id }}/.emacs.d"
+        state: directory
+        mode: '0644'
+
+
+    - name: TASK 4 - Ensure .emacs.d/backups directory exists
+      become: no
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user_id }}/.emacs.d/backups"
+        state: directory
+        mode: '0644'
+        
+    - name: TASK 5 - Ensure .emacs.d/autosaves directory exists
+      become: no
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user_id }}/.emacs.d/autosaves"
+        state: directory
+        mode: '0644'
