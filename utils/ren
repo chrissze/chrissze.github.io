@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+
+"""
+    What this program do:
+        - make all characters lowercase.
+        - convert all (, spaces and underscores into dashes in the middle.
+        - remove all leading and trailing spaces.
+        - remove certain characters  ) ,
+
+    Rename a file to make all characters lower case and replace all spaces to dashes.
+
+    I should add execution permission to the file: chmod 777 renamed.py.
+
+    I could save 'renamed' program into /usr/local/bin.
+
+    strip():
+        The strip() method in Python does not remove consecutive spaces in the middle of strings. The strip() method only removes leading and trailing whitespace characters (including spaces, tabs, and newline characters) from a string.
+
+    This program renames multiple files in one line command by the for loop below.
+    
+    renamed Usage:
+        ./renamed.py File1 File2 File3
+    
+"""
+
+
+import os
+import re
+import sys
+
+
+def rename_file(file_path):
+    """        
+        .join() below will remove leading and trailing spaces and replace multiple consecutive spaces in the middle.
+    """
+    characters_to_remove = r'[\)\],]'
+
+    characters_to_space = r'[\(\[_-]'
+
+    directory, original_filename = os.path.split(file_path)
+    
+    lower_filename = original_filename.lower()
+    
+    shorter_filename = re.sub(characters_to_remove, '', lower_filename)
+    
+    spaced_filename = re.sub(characters_to_space, ' ', shorter_filename)
+    
+    dashed_filename = '-'.join(spaced_filename.split())
+    
+    new_file_path = os.path.join(directory, dashed_filename)
+    
+    os.rename(file_path, new_file_path)
+
+    print(f"'{original_filename}' renamed to: '{dashed_filename}'")
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: renamed <file_path1> <file_path2>")
+        sys.exit(1)
+    
+    for file in sys.argv[1:]:
+        rename_file(file)
+
+
+    
