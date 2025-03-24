@@ -18,5 +18,5 @@ sudo dnf -y remove skopeo # Container management tool; remove if not used.
 sudo dnf -y remove thunderbird rhythmbox cheese gnome-maps gnome-photos gnome-weather simple-scan  
 
 # clean up
-sudo dnf autoremove
+sudo dnf -y autoremove
 
