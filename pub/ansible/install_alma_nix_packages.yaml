@@ -28,7 +28,7 @@
         name:
           - bat
           
-          - emacx-nox
+          - emacs-nox
           
           - lsof       # check listen ports
           
