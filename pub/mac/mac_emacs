@@ -116,7 +116,10 @@
   (forward-line 1) ; Move to the next line
   (yank)           ; Paste the copied line
   (beginning-of-line)) ; Move cursor to start of new line
+
+
 (global-set-key (kbd "C-<down>") 'copy-current-line-and-paste-below)
+; Turn off Mac Ctrl-Down Shortcuts: Systems settings > Search keyboard shortcuts > Mission Control > turn off Ctrl Down
 ;; END COPY LINE BELOW
 
 
