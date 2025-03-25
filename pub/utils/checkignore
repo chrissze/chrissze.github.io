@@ -47,7 +47,7 @@ def print_ignores(target_dir: str) -> list[str]:
     ignored_str_paths: set[str] = get_ignored_paths(target_path)
 
     if not ignored_str_paths:
-        print(f"No ignored files found. Program exit.")
+        print(f"No ignored files found. \n\n {ignores}")
         return
 
     sorted_ignores: list[str] = sorted(ignored_str_paths)
