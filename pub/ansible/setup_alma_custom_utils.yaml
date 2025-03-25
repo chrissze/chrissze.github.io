@@ -9,7 +9,7 @@
       - name: TASK 1 - Fetch ren
         become: yes
         ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/utils/ren'
+            url: 'https://chrissze.github.io/pub/utils/ren'
             dest: '/usr/local/bin/ren'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
@@ -19,17 +19,17 @@
       - name: TASK 2 - Fetch compare
         become: yes
         ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/utils/compare'
+            url: 'https://chrissze.github.io/pub/utils/compare'
             dest: '/usr/local/bin/compare'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
             group: '{{ ansible_user_id }}'
             force: yes
      
-      - name: TASK 1 - Fetch ren
+      - name: TASK 3 - Fetch gitcompare
         become: yes
         ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/utils/gitcompare'
+            url: 'https://chrissze.github.io/pub/utils/gitcompare'
             dest: '/usr/local/bin/gitcompare'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
