@@ -9,7 +9,7 @@ import hashlib
 from pathlib import Path
 
 
-ignores: list[str] = [ 'build/', '.build/', 'debug/', '.dist/', '.git/', '__pycache__/', '/target', 'venv/'  ]
+ignores: list[str] = [ 'build/', '.build/', 'debug/', '.dist/', '__pycache__/', 'target/', 'venv/'  ]
 
 
 def get_ignored_paths(root: Path) -> set[str]:
