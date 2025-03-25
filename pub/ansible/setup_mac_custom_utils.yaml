@@ -13,7 +13,7 @@
             dest: '/usr/local/bin/ren'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
-            group: '{{ ansible_user_id }}'
+            group: 'staff'
             force: yes
      
       - name: TASK 2 - Fetch compare
@@ -23,7 +23,7 @@
             dest: '/usr/local/bin/compare'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
-            group: '{{ ansible_user_id }}'
+            group: 'staff'
             force: yes
      
       - name: TASK 3 - Fetch gitcompare
@@ -33,7 +33,7 @@
             dest: '/usr/local/bin/gitcompare'
             mode: '0755'
             owner: '{{ ansible_user_id }}'
-            group: '{{ ansible_user_id }}'
+            group: 'staff'
             force: yes
 
 
