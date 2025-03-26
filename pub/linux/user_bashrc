@@ -108,6 +108,9 @@ curl -6 ifconfig.me && echo
     alias venv='source venv/bin/activate'
     
     alias vls='docker volume ls'
+
+    alias wgetwebb="wget --mirror  --convert-links  --page-requisites  --adjust-extension  --span-hosts  --wait=2  --limit-rate=1m  --user-agent='Mozilla/5.0'  --no-parent   https://webb-site.com"
+
     
     
 
