@@ -97,6 +97,9 @@ curl -6 ifconfig.me && echo
     alias tip='cardano-cli query tip --mainnet'
     
     alias tnode='tmux attach -t node'
+
+
+    alias trackwebb="httrack 'https://webb-site.com' -O .  --mirror   --depth=15   --robots=0   --ext-depth=1   --sockets=10  -F 'Mozilla/5.0' "
     
     alias tweb='tmux attach -t web'
 
