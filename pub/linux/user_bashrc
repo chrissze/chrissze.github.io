@@ -16,7 +16,11 @@ curl -6 ifconfig.me && echo
     alias cdpy='cd /opt/github/examples/python'
 
     alias cdpys='cd /opt/github/examples/python/scripting'
-    
+
+    alias cdt='cd /tmp'
+
+    alias cdvt='cd /var/tmp'
+
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
     alias clonebrew='git clone git@github.com:chrissze/brew.git'
