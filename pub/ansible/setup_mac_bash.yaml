@@ -76,3 +76,9 @@
         owner: root
         force: yes # FORCED overwrite
 
+
+
+    - name: TASK 7 - Source {{ ansible_user_id }} .bash_profile
+      shell: source /Users/{{ ansible_user_id }}/.bash_profile
+      args:
+        executable: /bin/bash
