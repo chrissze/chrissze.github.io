@@ -13,6 +13,9 @@ echo "hi I'm $USER  .bashrc start"
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+    alias cdan='cd /opt/github/chrissze.github.io/pub/ansible'
+
+
     alias cdex='cd /opt/github/examples'
 
     alias cdpy='cd /opt/github/examples/python'
