@@ -62,8 +62,8 @@
             owner: root
             force: yes
 
-      - name: TASK 7 - Source {{ ansible_user_id }} .bash_profile
-        shell: source /home/{{ ansible_user_id }}/.bash_profile
+      - name: TASK 7 - Source {{ ansible_user_id }} .bashrc
+        shell: source /home/{{ ansible_user_id }}/.bashrc
         args:
           executable: /bin/bash
 

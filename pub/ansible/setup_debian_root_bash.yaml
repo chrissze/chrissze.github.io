@@ -19,6 +19,12 @@
   hosts: localhost
 
   tasks:
+    - name: TASK 1 - Set user {{ ansible_user_id }} as a sudoer
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^SELINUXTYPE='
+        line: '{{ ansible_user_id }} ALL=(ALL) NOPASSWD: ALL'
+        state: present
 
 
       # FORCED overwrite

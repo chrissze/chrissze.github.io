@@ -1,0 +1,41 @@
+#!/usr/bin/env -S ansible-playbook  --ask-become-pass
+
+
+---
+- name: CHECK DEBIAN SYSTEM INFO
+  hosts: localhost
+  tasks:
+
+    - name: TASK 1 - CHECK BECOME NO ansible_user_id '{{ ansible_user_id }}' and whoami
+      become: no
+      command: whoami
+      register: whoami_output
+      changed_when: false  # Avoids marking the task as "changed"
+
+    - debug:
+        var: whoami_output.stdout
+
+
+    - name: TASK 2 - CHECK BECOME YES ansible_user_id '{{ ansible_user_id }}' and whoami
+      become: yes
+      command: whoami
+      register: whoami_output
+      changed_when: false  # Avoids marking the task as "changed"
+
+    - debug:
+        var: whoami_output.stdout
+
+
+
+
+    # for register the user as a sudoer
+    - name: TASK - READ DEBIAN /etc/sudoers BY slurp
+      become: yes
+      slurp:
+        src: /etc/sudoers
+      register: sudoers_content
+
+    - name: Decode and print the content line by line
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ (sudoers_content.content | b64decode).splitlines() }}"
