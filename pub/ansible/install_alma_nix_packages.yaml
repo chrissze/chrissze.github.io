@@ -39,11 +39,17 @@
           - ookla-speedtest  # binary is speedtest
           
           - p7zip
+          
+          - symlinks
+
           - tldr
+          
           - tinyxxd        # binaries are xxd tinyxxd
 
           - tmux
+          
           - unzip
+          
           - zip
           
       register: terminal
