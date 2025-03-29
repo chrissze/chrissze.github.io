@@ -12,9 +12,15 @@
       ansible.builtin.package:
         name:
           - curl
+
           - firewalld
+
           - openssh-server
+
+          - symlinks
+
           - xorgxrdp
+
           - xrdp
 
         state: present
