@@ -3,7 +3,7 @@
 
 ---
 - name: INSTALL APT PACKAGES
-  hosts: deb
+  hosts: localhost
   become: yes
 
   tasks:
@@ -13,11 +13,15 @@
         name:
           - curl
           - firewalld
+          - openssh-server
+          - xorgxrdp
+          - xrdp
+
         state: present
 
     - name: Uninstall debain packages
       ansible.builtin.package:
         name:
           - ufw
-        
+
         state: absent

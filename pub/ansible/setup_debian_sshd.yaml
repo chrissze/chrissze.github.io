@@ -6,10 +6,20 @@
 
 ---
 - name: SSHD
-  hosts: debian
+  hosts: localhost
   become: yes
   
   tasks:
+
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - curl
+          - firewalld
+          - openssh-server
+        state: present
+
+
 
     - name: Open TCP ports in firewalld
       ansible.posix.firewalld:

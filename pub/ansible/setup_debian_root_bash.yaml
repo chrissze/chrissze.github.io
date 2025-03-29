@@ -20,15 +20,6 @@
 
   tasks:
 
-      # FORCED overwrite
-      - name: TASK 1 - Fetch USER bashrc
-        become: no
-        ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/pub/linux/user_bashrc'
-            dest: "/home/{{ ansible_user_id }}/.bashrc"
-            mode: '0644'
-            owner: "{{ ansible_user_id }}"
-            force: yes
 
       # FORCED overwrite
       - name: TASK 2 - Fetch user /etc/paths
@@ -37,8 +28,8 @@
             url: 'https://chrissze.github.io/pub/linux/debian_paths'
             dest: '/etc/paths'
             mode: '0644'
-            owner: "{{ ansible_user_id }}"
-            group: "{{ ansible_user_id }}"
+            owner: "cs"
+            group: "cs"
             force: yes
 
 
@@ -62,8 +53,8 @@
             owner: root
             force: yes
 
-      - name: TASK 7 - Source {{ ansible_user_id }} .bash_profile
-        shell: source /home/{{ ansible_user_id }}/.bash_profile
+      - name: TASK 7 - Source root .bash_profile
+        shell: source /root/.bashrc
         args:
           executable: /bin/bash
 
