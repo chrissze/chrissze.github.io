@@ -21,6 +21,7 @@ echo "hi I'm $USER  .bashrc start"
     alias cdpy='cd /opt/github/examples/python'
 
     alias cdpys='cd /opt/github/examples/python/scripting'
+    alias cds='cd /opt/github/examples/python/scripting'
 
     alias cdt='cd /tmp'
 
