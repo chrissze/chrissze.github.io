@@ -1,5 +1,9 @@
 #!/usr/bin/env -S ansible-playbook
 
+# ALSO WORKS ON: Debian
+
+
+
 ---
 - name: SETUP ALMA UTILS
   hosts: localhost
