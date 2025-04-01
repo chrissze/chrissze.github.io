@@ -3,7 +3,6 @@
 
 
 
-
 ;; BACKUP AND AUTOSAVES
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
@@ -12,7 +11,8 @@
 
 
 
-;; F9 CUT LINE
+
+;; CUT LINE F9
 (defun select-and-cut-current-line ()
   "Select and cut the current line, even at the end of the buffer."
   (interactive)
@@ -22,30 +22,15 @@
   (unless (eobp)       ; If not at the end of the buffer, move forward one character
     (forward-char))
   (kill-region (mark) (point))) ; Cut the selected region
-
 ;; Bind F9 to the select-and-cut-current-line function
 (global-set-key (kbd "<f9>") 'select-and-cut-current-line)
-;; END F9 CUT LINE
+;; END CUT LINE F9
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;; F10 CYCLE PASTES
+;; CYCLE PASTES F10
 (defun my-paste-and-pop-from-kill-ring ()
   "Paste the most recent item from the kill ring and remove it from the kill ring."
   (interactive)
@@ -56,25 +41,21 @@
     (insert (car kill-ring))
     ;; Remove the most recent item from the kill ring
     (setq kill-ring (cdr kill-ring))))
-
 (global-set-key (kbd "<f10>") 'my-paste-and-pop-from-kill-ring)
-;; END F10 CYCLE PASTES
+;; END CYCLE PASTES F10
+
 
 
 
 
 ;; SHORTCUTS
 (global-set-key (kbd "<f1>") 'save-buffer)       ; SAVE C-x C-s
-
 (global-set-key (kbd "<f3>") 'previous-buffer) ; 
 (global-set-key (kbd "<f4>") 'next-buffer) ;
 (global-set-key (kbd "<f5>") 'query-replace) ; replace with y n
 (global-set-key (kbd "<f6>") 'replace-string) ; replace
 (global-set-key (kbd "<f7>") 'find-file) ; open file C-x C-f
-(global-set-key (kbd "<f8>") 'kill-ring-save) ; copy Alt-w
-
-
-(global-set-key (kbd "<f12>") (lambda () 
+(global-set-key (kbd "<f8>") (lambda () 
                                (interactive) 
                                (save-some-buffers t) ; Save all buffers without asking
                                (save-buffers-kill-emacs))) ; Quit Emacs
@@ -82,20 +63,21 @@
 
 
 
+
+
 ;; TABS TO 4 SPACES OR PREVIOUS LINE INDENT
 (setq-default indent-tabs-mode nil)  ;; Use spaces instead of tabs
 (setq-default tab-width 4)           ;; Set tab width to 4 spaces
 (setq-default standard-indent 4)     ;; Ensure standard indentation is 4 spaces
-
 (defun enforce-4-space-indent ()
   "Enforce 4 spaces for indentation in programming and text modes."
   (setq indent-tabs-mode nil)         ;; No tabs, only spaces
   (setq tab-width 4)                  ;; Set tab width to 4 spaces
   (setq standard-indent 4))           ;; Ensure standard indentation is 4 spaces
-
 (add-hook 'prog-mode-hook 'enforce-4-space-indent)
 (add-hook 'text-mode-hook 'enforce-4-space-indent)
 ;; END TABS TO 4 SPACES OR PREVIOUS LINE INDENT
+
 
 
 
@@ -116,10 +98,8 @@
   (forward-line 1) ; Move to the next line
   (yank)           ; Paste the copied line
   (beginning-of-line)) ; Move cursor to start of new line
-
-
 (global-set-key (kbd "C-<down>") 'copy-current-line-and-paste-below)
-; Turn off Mac Ctrl-Down Shortcuts: Systems settings > Search keyboard shortcuts > Mission Control > turn off Ctrl Down
+; Turn off Mac Ctrl-Down Shortcuts: Systems settings > Search: Keyboard shortcuts > Mission Control > turn off Ctrl Down
 ;; END COPY LINE BELOW
 
 
