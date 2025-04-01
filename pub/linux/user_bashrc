@@ -19,6 +19,7 @@ curl -6 ifconfig.me && echo
     alias cdpy='cd /opt/github/examples/python'
 
     alias cdpys='cd /opt/github/examples/python/scripting'
+
     alias cds='cd /opt/github/examples/python/scripting'
 
     alias cdt='cd /tmp'
