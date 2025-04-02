@@ -45,6 +45,8 @@ echo "hi I'm $USER  .bashrc start"
 
     alias cp='cp -i'  # prompt at overwrites
 
+    alias fuji='ssh fuji'  # prompt at overwrites
+
     alias gpush='git add . && git commit -m "minor update" && git push'
 
     alias gpull="git fetch --all && git reset --hard origin/master"
