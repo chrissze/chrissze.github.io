@@ -66,16 +66,16 @@
 
 
 ;; TABS TO 4 SPACES OR PREVIOUS LINE INDENT
-(setq-default indent-tabs-mode nil)  ;; Use spaces instead of tabs
-(setq-default tab-width 4)           ;; Set tab width to 4 spaces
-(setq-default standard-indent 4)     ;; Ensure standard indentation is 4 spaces
-(defun enforce-4-space-indent ()
-  "Enforce 4 spaces for indentation in programming and text modes."
-  (setq indent-tabs-mode nil)         ;; No tabs, only spaces
-  (setq tab-width 4)                  ;; Set tab width to 4 spaces
-  (setq standard-indent 4))           ;; Ensure standard indentation is 4 spaces
-(add-hook 'prog-mode-hook 'enforce-4-space-indent)
-(add-hook 'text-mode-hook 'enforce-4-space-indent)
+(setq-default indent-tabs-mode nil) ; Always use spaces
+(setq-default tab-width 4)          ; Visual tab width
+(defun my/indent-region-or-insert-tab ()
+  "Indent region by 4 spaces if active, otherwise insert tab."
+  (interactive)
+  (if (use-region-p)
+      (let ((deactivate-mark nil))
+        (indent-rigidly (region-beginning) (region-end) 4))
+    (indent-for-tab-command)))
+(global-set-key (kbd "TAB") 'my/indent-region-or-insert-tab)
 ;; END TABS TO 4 SPACES OR PREVIOUS LINE INDENT
 
 
