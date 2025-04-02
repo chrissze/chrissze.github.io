@@ -21,6 +21,7 @@ echo "hi I'm $USER  .bashrc start"
     alias cdpy='cd /opt/github/examples/python'
 
     alias cdpys='cd /opt/github/examples/python/scripting'
+
     alias cds='cd /opt/github/examples/python/scripting'
 
     alias cdt='cd /tmp'
@@ -45,7 +46,9 @@ echo "hi I'm $USER  .bashrc start"
 
     alias cp='cp -i'  # prompt at overwrites
 
-    alias fuji='ssh fuji'  # prompt at overwrites
+    alias em='emacs' 
+
+    alias fuji='ssh fuji' 
 
     alias gpush='git add . && git commit -m "minor update" && git push'
 
