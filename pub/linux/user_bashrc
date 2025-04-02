@@ -5,7 +5,9 @@ echo "$HOME/.bashrc    starts."
 curl -4 ident.me && echo
 
 
-# USER ALIAS
+################
+# USER ALIAS   #
+################
 
     alias 7p='7z a -mhe=on -p -t7z' #archive.7z input_file_dir
 
@@ -125,9 +127,12 @@ curl -4 ident.me && echo
     alias wgetwebb="wget --mirror  --convert-links  --page-requisites  --adjust-extension  --span-hosts  --wait=2  --limit-rate=1m  --user-agent='Mozilla/5.0'  --no-parent   https://webb-site.com"
 
     
-    
 
-# USER ENV
+
+
+################
+# USER EXPORTS #
+################
 
     PS1="\u@\h:\w \\$ "
     
@@ -146,7 +151,12 @@ curl -4 ident.me && echo
     export PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}" ; source ~/prompts.sh'
 
 
-# USER FUNCTIONS
+
+
+
+##################
+# USER FUNCTIONS #
+##################
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
@@ -231,12 +241,20 @@ curl -4 ident.me && echo
     }
 
 
-# USER PATH
+
+
+
+################
+# USER PATH    #
+################
     
     if [ -f /etc/paths ]; then
         eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
         export PATH
     fi
+
+
+
 
 
 echo "$HOME/.bashrc    ends."
