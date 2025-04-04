@@ -2,34 +2,21 @@
 
 echo "$HOME/.bashrc    starts."
 
-curl -4 ident.me && echo
+curl -4 ifconfig.me && echo
+curl -6 ifconfig.me && echo
 
-
-################
-# USER ALIAS   #
-################
+# USER ALIAS
 
     alias 7p='7z a -mhe=on -p -t7z' #archive.7z input_file_dir
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
-
-    alias cdan='cd /opt/github/chrissze.github.io/pub/ansible'
-
-    alias cdex='cd /opt/github/examples'
+    alias cdwww='cd /opt/composes/nginx/wwwvol/'
 
     alias cdpy='cd /opt/github/examples/python'
 
     alias cdpys='cd /opt/github/examples/python/scripting'
-
-    alias cds='cd /opt/github/examples/python/scripting'
-
-    alias cdt='cd /tmp'
-
-    alias cdvt='cd /var/tmp'
-
-    alias cdwww='cd /opt/composes/nginx/wwwvol/'
-
+    
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
     alias clonebrew='git clone git@github.com:chrissze/brew.git'
@@ -50,8 +37,6 @@ curl -4 ident.me && echo
     alias cp='cp -i'  # prompt at overwrites
     
     alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
-
-    alias em='emacs'
 
     alias gpush='git add . && git commit -m "minor update" && git push'
     
@@ -112,9 +97,6 @@ curl -4 ident.me && echo
     alias tip='cardano-cli query tip --mainnet'
     
     alias tnode='tmux attach -t node'
-
-
-    alias trackwebb="httrack 'https://webb-site.com' -O .  --mirror   --depth=15   --robots=0   --ext-depth=1   --sockets=10  -F 'Mozilla/5.0' "
     
     alias tweb='tmux attach -t web'
 
@@ -123,16 +105,10 @@ curl -4 ident.me && echo
     alias venv='source venv/bin/activate'
     
     alias vls='docker volume ls'
-
-    alias wgetwebb="wget --mirror  --convert-links  --page-requisites  --adjust-extension  --span-hosts  --wait=2  --limit-rate=1m  --user-agent='Mozilla/5.0'  --no-parent   https://webb-site.com"
-
+    
     
 
-
-
-################
-# USER EXPORTS #
-################
+# USER ENV
 
     PS1="\u@\h:\w \\$ "
     
@@ -148,15 +124,8 @@ curl -4 ident.me && echo
 
     export PGDATA=/var/lib/pgsql/data
 
-    export PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}" ; source ~/prompts.sh'
 
-
-
-
-
-##################
-# USER FUNCTIONS #
-##################
+# USER FUNCTIONS
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
@@ -202,9 +171,10 @@ curl -4 ident.me && echo
     }
 
     sss() {
-        echo "  ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy"; echo;
         echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo;
         echo "  rsync -avP cs@$HOSTNAME:$(realpath $1) ." ; echo;
+        echo "  ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy"; echo;
+        echo "  code --remote ssh-remote+$HOSTNAME $(pwd)"; echo;
     }
 
 
@@ -241,20 +211,12 @@ curl -4 ident.me && echo
     }
 
 
-
-
-
-################
-# USER PATH    #
-################
+# USER PATH
     
     if [ -f /etc/paths ]; then
         eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
         export PATH
     fi
-
-
-
 
 
 echo "$HOME/.bashrc    ends."
