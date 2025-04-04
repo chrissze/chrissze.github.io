@@ -44,6 +44,13 @@ echo "hi I'm $USER  .bashrc start"
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
 
+    alias cofuji='code --remote ssh-remote+fuji /tmp'
+
+    alias coo1='code --remote ssh-remote+o1 /tmp'
+
+    alias coo2='code --remote ssh-remote+o2 /tmp'
+
+
     alias cp='cp -i'  # prompt at overwrites
 
     alias em='emacs' 
