@@ -30,7 +30,16 @@
     #     owner: root
     #     force: no
 
-  
+    - name: TASK 2 - Ensure prompts.sh file exists
+      become: no
+      ansible.builtin.file:
+        path: "/Users/{{ ansible_user_id }}/prompts.sh"
+        state: touch
+        owner: "{{ ansible_user_id }}"
+        group: "staff"
+        mode: '0644'
+
+
 
     # FORCED overwrite
     - name: TASK 3 - Fetch USER bashrc
