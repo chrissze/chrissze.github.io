@@ -12,7 +12,20 @@
 
   tasks:
 
-    - name: TASK 1 - Ensure USER prompts.sh file exists
+
+    - name: TASK 1 - Fetch user /etc/paths
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/alma_paths"
+        dest: "/etc/paths"
+        mode: '0644'
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        force: no
+    
+  
+
+    - name: TASK 2 - Ensure USER prompts.sh file exists
       become: no
       ansible.builtin.file:
         path: "/home/{{ ansible_user_id }}/prompts.sh"
@@ -21,15 +34,6 @@
         group: "{{ ansible_user_id }}"
         mode: '0644'
 
-
-    - name: TASK 2 - Ensure /root/prompts.sh file exists
-      become: yes
-      ansible.builtin.file:
-        path: "/root/prompts.sh"
-        state: touch
-        owner: "root"
-        group: "root"
-        mode: '0644'
 
 
     # FORCED overwrite
@@ -55,10 +59,39 @@
         force: yes         # FORCED overwrite
 
 
+    - name: TASK 5 - Source {{ ansible_user_id }} .bash_profile
+      become: no
+      shell: source /home/{{ ansible_user_id }}/.bash_profile
+      args:
+        executable: /bin/bash
 
-  
+
+
+
+
+
+    - name: TASK 6 - Fetch ROOT /etc/rootpaths
+      become: yes
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/alma_rootpaths"
+        dest: "/etc/rootpaths"
+        mode: '0644'
+        owner: root
+        force: no
+
+
+
+    - name: TASK 7 - Ensure /root/prompts.sh file exists
+      become: yes
+      ansible.builtin.file:
+        path: "/root/prompts.sh"
+        state: touch
+        owner: "root"
+        group: "root"
+        mode: '0644'
+
      
-    - name: TASK 5 - Fetch ROOT bashrc
+    - name: TASK 8 - Fetch ROOT bashrc
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/root_bashrc"
@@ -69,7 +102,7 @@
 
 
     
-    - name: TASK 6 - Fetch ROOT bash_profile
+    - name: TASK 9 - Fetch ROOT bash_profile
       become: yes
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/root_bash_profile"
@@ -79,22 +112,9 @@
         force: yes # FORCED overwrite
 
 
-    - name: TASK 7 - Fetch user /etc/paths
+
+    - name: TASK 10 - Source ROOT .bash_profile
       become: yes
-      ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/linux/alma_paths"
-        dest: "/etc/paths"
-        mode: '0644'
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        force: no
-    
-  
-    - name: TASK 8 - Fetch ROOT /etc/rootpaths
-      become: yes
-      ansible.builtin.get_url:
-        url: "https://chrissze.github.io/pub/linux/alma_rootpaths"
-        dest: "/etc/rootpaths"
-        mode: '0644'
-        owner: root
-        force: no
+      shell: source /root/.bash_profile
+      args:
+        executable: /bin/bash
