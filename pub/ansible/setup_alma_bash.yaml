@@ -8,11 +8,15 @@
     USER2: "almalinux"
 
 
+  pre_tasks:
+    - name: Ensure the playbook is not run as root
+      fail:
+        msg: "This playbook should not be run as root."
+      when: ansible_user_id == 'root'
+
 
 
   tasks:
-
-
     - name: TASK 1 - Fetch user /etc/paths
       become: yes
       ansible.builtin.get_url:
