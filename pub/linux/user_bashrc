@@ -129,6 +129,9 @@ curl -6 ifconfig.me && echo
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
+
+    cpt() { cp "$1" /tmp/ ; }
+
     clip() { cat "$@" | xsel -b; }
 
     exec() { docker container exec -it "$@" /bin/bash; }
