@@ -133,6 +133,8 @@ echo "hi I'm $USER  .bashrc start"
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo ; }
 
+    cpt() { cp "$1" /tmp/ ; }
+
     ffm() {
         if [[ $# -eq 1 ]]; then
             base_name="${1%.*}"
