@@ -51,7 +51,9 @@
         group: "{{  ansible_user_id  }}"
         force: yes         # FORCED overwrite
 
-    # FORCED overwrite
+
+
+    # DO NOT force overwrite to preserve Cardano settings
     - name: TASK 4 - Fetch USER bash_profile
       become: no
       ansible.builtin.get_url:
@@ -60,7 +62,7 @@
         mode: '0644'
         owner: "{{  ansible_user_id  }}"
         group: "{{  ansible_user_id  }}"
-        force: yes         # FORCED overwrite
+        force: no
 
 
     - name: TASK 5 - Source {{ ansible_user_id }} .bash_profile
@@ -113,7 +115,7 @@
         dest: "/root/.bash_profile"
         mode: '0644'
         owner: root
-        force: yes # FORCED overwrite
+        force: no # DO NOT FORCED overwrite
 
 
 
