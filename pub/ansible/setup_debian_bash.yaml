@@ -1,9 +1,6 @@
 #!/usr/bin/env -S ansible-playbook  --ask-become-pass
 
-#1 Make sure sshd_config have the following lines for initial password login after fresh install:
-# PasswordAuthentication yes
-# UsePAM yes
-# Subsystem sftp /usr/libexec/openssh/sftp-server
+
 
 #2 Set NOPASSWD in SUDOER file (/usr/sbin/visudo)
 
@@ -12,7 +9,7 @@
 # sudo visudo   (use vi to edit sudoer file)
 # cs    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
 
-#3 Target machine has /home/cs/.ssh/authorized_keys key-based login
+
 
 ---
 - name: POST debian
