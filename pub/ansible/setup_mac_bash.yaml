@@ -11,26 +11,8 @@
   tasks:
 
 
-    # - name: TASK 1 - Fetch user /etc/paths
-    #   ansible.builtin.get_url:
-    #     url: "https://chrissze.github.io/pub/linux/alma_paths"
-    #     dest: "/etc/paths"
-    #     mode: '0644'
-    #     owner: "{{ ansible_user_id }}"
-    #     group: "staff"
-    #     force: no
-    
-  
-    # - name: TASK 2 - Fetch ROOT /etc/rootpaths
-    #   become: yes
-    #   ansible.builtin.get_url:
-    #     url: "https://chrissze.github.io/pub/linux/alma_rootpaths"
-    #     dest: "/etc/rootpaths"
-    #     mode: '0644'
-    #     owner: root
-    #     force: no
 
-    - name: TASK 2 - Ensure prompts.sh file exists
+    - name: TASK 1 - Ensure prompts.sh file exists
       become: no
       ansible.builtin.file:
         path: "/Users/{{ ansible_user_id }}/prompts.sh"
@@ -41,8 +23,7 @@
 
 
 
-    # FORCED overwrite
-    - name: TASK 3 - Fetch USER bashrc
+    - name: TASK 2 - Fetch USER bashrc
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bashrc"
@@ -52,8 +33,9 @@
         group: "staff"
         force: yes         # FORCED overwrite
 
-    # FORCED overwrite
-    - name: TASK 4 - Fetch USER bash_profile
+
+
+    - name: TASK 3 - Fetch USER bash_profile
       become: no
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/mac/mac_user_bash_profile"
@@ -61,7 +43,19 @@
         mode: '0644'
         owner: "{{ ansible_user_id }}"
         group: "staff"
-        force: yes         # FORCED overwrite
+        force: no
+
+
+
+
+    - name: TASK 4 - Ensure ROOT prompts.sh file exists
+      become: yes
+      ansible.builtin.file:
+        path: "/var/root/prompts.sh"
+        state: touch
+        owner: "root"
+        group: "root"
+        mode: '0644'
 
 
      
@@ -83,11 +77,5 @@
         dest: "/var/root/.bash_profile"
         mode: '0644'
         owner: root
-        force: yes # FORCED overwrite
+        force: no
 
-
-
-    - name: TASK 7 - Source {{ ansible_user_id }} .bash_profile
-      shell: source /Users/{{ ansible_user_id }}/.bash_profile
-      args:
-        executable: /bin/bash
