@@ -162,6 +162,13 @@ echo "hi I'm $USER  .bashrc start"
 
     ree() { mkdir /tmp/ree && rsync -avP -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -avP /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
+    rso1() { rsync -avP "$1" cs@o1:/tmp/;}
+
+    rso2() { rsync -avP "$1" cs@o2:/tmp/;}
+
+    rsfuji() { rsync -avP "$1" cs@fuji:/tmp/;}
+
+
     # required Mac .ssh/config settings for $1
     sscopy() { ssh "$1" "cat $2" | pbcopy; }
 
