@@ -133,7 +133,8 @@ echo "hi I'm $USER  .bashrc start"
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo ; }
 
-    cpt() { cp "$1" /tmp/ ; }
+    cpt() { cp "$1" /tmp/tmp.py ; }
+
 
     ffm() {
         if [[ $# -eq 1 ]]; then
@@ -144,6 +145,8 @@ echo "hi I'm $USER  .bashrc start"
             echo "USAGE: ffm input.mov"
         fi
     }
+
+    fromt() { cp /tmp/tmp.py "$1"; }
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
