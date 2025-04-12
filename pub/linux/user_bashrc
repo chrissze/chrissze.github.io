@@ -130,7 +130,7 @@ curl -6 ifconfig.me && echo
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
 
-    cpt() { cp "$1" /tmp/ ; }
+    cpt() { cp "$1" /tmp/tmp.py ; }
 
     clip() { cat "$@" | xsel -b; }
 
@@ -162,6 +162,8 @@ curl -6 ifconfig.me && echo
         fi
     }
 
+
+    fromt() { cp /tmp/tmp.py "$1"; }
     
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
