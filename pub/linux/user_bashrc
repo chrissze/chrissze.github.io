@@ -1,11 +1,18 @@
 [ -z "$PS1" ] && return
 
+
+
 echo "$HOME/.bashrc    starts."
 
-curl -4 ifconfig.me && echo
-curl -6 ifconfig.me && echo
+curl -4 ident.me && echo
 
-# USER ALIAS
+
+
+
+################
+# USER ALIAS   #
+################
+
 
     alias 7p='7z a -mhe=on -p -t7z' #archive.7z input_file_dir
 
@@ -106,9 +113,12 @@ curl -6 ifconfig.me && echo
     
     alias vls='docker volume ls'
     
-    
 
-# USER ENV
+
+
+################
+# USER ENV     #
+################
 
     PS1="\u@\h:\w \\$ "
     
@@ -125,7 +135,11 @@ curl -6 ifconfig.me && echo
     export PGDATA=/var/lib/pgsql/data
 
 
-# USER FUNCTIONS
+
+
+##################
+# USER FUNCTIONS #
+##################
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
@@ -216,8 +230,11 @@ curl -6 ifconfig.me && echo
     }
 
 
-# USER PATH
-    
+
+################
+# USER PATH    #
+################
+
     if [ -f /etc/paths ]; then
         eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
         export PATH
