@@ -190,6 +190,7 @@ curl -4 ident.me && echo
     }
 
     poke() {
+        # poke ip-domain.com 80 
         nc -zv $1 $2;
         echo;
         nmap $1 -p $2;
