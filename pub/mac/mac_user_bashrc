@@ -162,6 +162,12 @@ echo "hi I'm $USER  .bashrc start"
         fi
     }
 
+    poke() {
+        # poke ip-domain.com 80 
+        nc -zv $1 $2;
+        echo;
+        nmap $1 -p $2;
+    }
 
     ree() { mkdir /tmp/ree && rsync -avP -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -avP /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
 
