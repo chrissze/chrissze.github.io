@@ -189,6 +189,12 @@ curl -4 ident.me && echo
         fi
     }
 
+    poke() {
+        nc -zv $1 $2;
+        echo;
+        nmap $1 -p $2;
+    }
+
     sss() {
         echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo;
         echo "  rsync -avP cs@$HOSTNAME:$(realpath $1) ." ; echo;
