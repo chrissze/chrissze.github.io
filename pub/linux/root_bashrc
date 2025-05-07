@@ -39,7 +39,7 @@ curl -6 ifconfig.me && echo
     alias nls='docker network ls'
 
 
-    alias psa='docker ps -a'
+    alias psa='docker ps -a | awk \'{print $0 "\n\n"}\''
     
     alias re="rsync -av -e 'ssh -p 55555'"
     
