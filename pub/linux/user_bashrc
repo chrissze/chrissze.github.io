@@ -74,7 +74,7 @@ curl -4 ident.me && echo
 
     alias pipup='pip3 install --upgrade pip'
     
-    alias pipr='source ../venv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt && pip list'
+    alias pipr='pip install -r requirements.txt && pip list'
     
     alias psa='docker ps -a'
     
