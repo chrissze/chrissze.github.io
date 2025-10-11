@@ -1,0 +1,71 @@
+#!/usr/bin/env -S ansible-playbook  --ask-become-pass
+
+#1 Make sure sshd_config have the following lines for initial password login after fresh install:
+# PasswordAuthentication yes
+# UsePAM yes
+# Subsystem sftp /usr/libexec/openssh/sftp-server
+
+#2 Set NOPASSWD in SUDOER file (/usr/sbin/visudo)
+
+# sudo usermod -aG wheel cs   (optional: add user to wheel group)
+
+# sudo visudo   (use vi to edit sudoer file)
+# cs    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
+
+#3 Target machine has /home/cs/.ssh/authorized_keys key-based login
+
+---
+- name: POST debian
+  hosts: localhost
+
+  tasks:
+
+      # FORCED overwrite
+      - name: TASK 1 - Fetch USER bashrc
+        become: no
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/user_bashrc'
+            dest: "/home/{{ ansible_user_id }}/.bashrc"
+            mode: '0644'
+            owner: "{{ ansible_user_id }}"
+            force: yes
+
+      # FORCED overwrite
+      - name: TASK 2 - Fetch user /etc/paths
+        become: yes
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/debian_paths'
+            dest: '/etc/paths'
+            mode: '0644'
+            owner: "{{ ansible_user_id }}"
+            group: "{{ ansible_user_id }}"
+            force: yes
+
+
+      # FORCED overwrite
+      - name: TASK 3 - Fetch ROOT bashrc
+        become: yes
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/root_bashrc'
+            dest: '/root/.bashrc'
+            mode: '0644'
+            owner: root
+            force: yes
+
+      # FORCED overwrite
+      - name: TASK 4 - Fetch ROOT /etc/rootpaths
+        become: yes
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/debian_rootpaths'
+            dest: '/etc/rootpaths'
+            mode: '0644'
+            owner: root
+            force: yes
+
+      - name: TASK 7 - Source {{ ansible_user_id }} .bashrc
+        shell: source /home/{{ ansible_user_id }}/.bashrc
+        args:
+          executable: /bin/bash
+
+
+
