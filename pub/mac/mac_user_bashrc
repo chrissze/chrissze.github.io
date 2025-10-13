@@ -59,8 +59,10 @@ echo "hi I'm $USER  .bashrc start"
 
     alias gpush='git add . && git commit -m "minor update" && git push'
 
-    alias gpull="git fetch --all && git reset --hard origin/master"
+    alias gp="git pull"
 
+    alias gpull='for d in */.git; do ( cd "${d%/.git}" && echo "==> $PWD" && git pull --ff-only ); done'
+ 
     alias hi=history
 
     alias mo2='sudo mount -t nfs -o resvport,vers=4 10.0.0.1:/data/o2 ~/o2'
