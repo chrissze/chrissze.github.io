@@ -47,7 +47,9 @@ curl -4 ident.me && echo
 
     alias gpush='git add . && git commit -m "minor update" && git push'
     
-    alias gpull="git stash && git fetch --all && git reset --hard origin master"
+    alias gp='git pull'
+
+    alias gpull='for d in */.git; do ( cd "${d%/.git}" && echo "==> $PWD" && git pull --ff-only ); done'
     
     alias hi=history
 
