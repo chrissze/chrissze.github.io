@@ -64,16 +64,13 @@
 
 
     - name: Add HTTP/HTTPS services to the default zone (permanent)
-      # applies to default zone because 'zone' is omitted
-      community.general.firewalld:
+      ansible.posix.firewalld:
         service: "{{ item }}"
-        state: enabled
         permanent: yes
-        immediate: yes     # apply now without separate reload
+        state: enabled
       loop:
         - http
         - https
-
 
 
 
