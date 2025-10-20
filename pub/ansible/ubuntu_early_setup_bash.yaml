@@ -2,7 +2,7 @@
 
 #1 RUN BY USER, COPY AND PASTES INTO /var/tmp/setup_bash.yaml
 
-
+#2 REQUIRES USER cs
 
 
 
@@ -18,7 +18,8 @@
 ---
 - name: POST UBUNTU INSTALL
   hosts: localhost
-
+  vars:
+      USER1: 'cs'
   tasks:
 
       # FORCED overwrite
@@ -26,10 +27,12 @@
         become: no
         ansible.builtin.get_url:
             url: 'https://chrissze.github.io/pub/linux/user_bashrc'
-            dest: "/home/{{ ansible_user_id }}/.bashrc"
+            dest: "/home/{{ USER1 }}/.bashrc"
             mode: '0644'
-            owner: "{{ ansible_user_id }}"
+            owner: "{{ USER1 }}"
+            group: "{{ USER1 }}"
             force: yes
+
 
       # FORCED overwrite
       - name: TASK 2 - Fetch user /etc/paths
@@ -38,8 +41,8 @@
             url: 'https://chrissze.github.io/pub/linux/debian_paths'
             dest: '/etc/paths'
             mode: '0644'
-            owner: "{{ ansible_user_id }}"
-            group: "{{ ansible_user_id }}"
+            owner: "{{ USER1 }}"
+            group: "{{ USER1 }}"
             force: yes
 
 
