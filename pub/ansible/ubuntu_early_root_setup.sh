@@ -9,4 +9,9 @@
 
 apt update && apt upgrade -y && apt autoremove -y && apt clean
 
-apt install ansible -y 
+apt install ansible needrestart -y 
+
+needrestart -r a
+
+
+# MIGHT NEED MANUALLY REBOOT
