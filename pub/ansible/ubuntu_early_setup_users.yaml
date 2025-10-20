@@ -51,7 +51,7 @@
             state: present
 
 
-      # cs password hint: HK lotteries
+      # cs password hint: HK lottery
       - name: TASK 4 - Set password hash for user cs in /etc/shadow
         ansible.builtin.lineinfile:
             path: /etc/shadow
