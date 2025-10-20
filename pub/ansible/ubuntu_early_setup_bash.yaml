@@ -1,5 +1,9 @@
 #!/usr/bin/env -S ansible-playbook  --ask-become-pass
 
+#1 RUN BY USER, COPY AND PASTES INTO /var/tmp/setup_bash.yaml
+
+
+
 
 
 #2 Set NOPASSWD in SUDOER file (/usr/sbin/visudo)
@@ -12,7 +16,7 @@
 
 
 ---
-- name: POST debian
+- name: POST UBUNTU INSTALL
   hosts: localhost
 
   tasks:
