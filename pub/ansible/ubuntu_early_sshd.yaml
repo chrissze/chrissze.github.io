@@ -2,12 +2,19 @@
 
 #1 RUN BY ROOT
 
+# DEBUG PORT 55555
+# nc -vz 127.0.0.1 55555   (should be OPEN)
+# firewall-cmd --reload
+# systemctl reload firewalld
+# systemctl restart ssh.socket
+# systemctl restart ssh
+
 
 ---
 - name: SSHD
   hosts: localhost
   become: yes
-  
+
   pre_tasks:
     - name: Ensure the playbook is run as root
       fail:
@@ -35,7 +42,6 @@
       loop:
         - 55555
 
-        
 
     - name: Reload firewalld to apply changes
       ansible.builtin.systemd:
@@ -70,9 +76,9 @@
     - name: Reload sshd to apply changes
       ansible.builtin.systemd:
         name: ssh.socket
-        state: restart
+        state: restarted
 
     - name: Reload sshd to apply changes
       ansible.builtin.systemd:
         name: ssh
-        state: reloaded
+        state: restarted
