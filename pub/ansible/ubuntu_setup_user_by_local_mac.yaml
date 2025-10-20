@@ -40,6 +40,7 @@
         name: 
           - ansible
           - git
+          - needrestart
           - tmux
         state: present
         update_cache: yes
