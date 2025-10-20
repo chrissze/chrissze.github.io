@@ -3,16 +3,16 @@
 
 $HOME/.cargo/bin
 
-$HOME/.local/bin
-
-$HOME/bin
-
 $HOME/.nix-profile/bin
 
 
 
 
-# ORIGINAL FRESH DEBIAN USER PATHS
+# ORIGINAL FRESH USER PATHS
+
+$HOME/bin
+
+$HOME/.local/bin
 
 /usr/local/sbin
 
