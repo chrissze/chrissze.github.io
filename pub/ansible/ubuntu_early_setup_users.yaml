@@ -1,5 +1,10 @@
 #!/usr/bin/env -S ansible-playbook
 
+# REQUIRED ansible PROGRAM INSTALLED
+
+# RUN BY ROOT - COPY AND PASTE INTO /var/tmp/setup_users.yaml, THEN chmod +x setup_users.yaml, FINALLY ./setup_users.yaml
+
+
 # If the regexp line is omitted in lineinfile, there might be duplicate entries.
 
 # create: false: Prevents accidental creation of the /etc/shadow file if it’s missing.
