@@ -58,5 +58,10 @@
 
     - name: Reload sshd to apply changes
       ansible.builtin.systemd:
+        name: ssh.socket
+        state: restart
+
+    - name: Reload sshd to apply changes
+      ansible.builtin.systemd:
         name: ssh
         state: reloaded
