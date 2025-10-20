@@ -232,9 +232,21 @@
         force: yes
 
 
+    # FORCED overwrite
+    - name: TASK 20 - Fetch USER .profile
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_user_dot_profile'
+        dest: "/home/{{ USER1 }}/.profile"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
 
     # FORCED overwrite
-    - name: TASK 20 - Fetch user /etc/paths
+    - name: TASK 21 - Fetch user /etc/paths
       become: yes
       ansible.builtin.get_url:
         url: 'https://chrissze.github.io/pub/linux/ubuntu_paths'
@@ -245,8 +257,22 @@
         force: yes
 
 
+
+    # NO overwrite
+    - name: TASK 22 - Fetch USER prompts.sh
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/prompts.sh'
+        dest: "/home/{{ USER1 }}/prompts.sh"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: no
+
+
+
     # FORCED overwrite
-    - name: TASK 21 - Fetch ROOT bashrc
+    - name: TASK  - Fetch ROOT bashrc
       become: yes
       ansible.builtin.get_url:
         url: 'https://chrissze.github.io/pub/linux/root_bashrc'
@@ -257,7 +283,7 @@
 
 
     # FORCED overwrite
-    - name: TASK 22 - Fetch ROOT /etc/rootpaths
+    - name: TASK  - Fetch ROOT /etc/rootpaths
       become: yes
       ansible.builtin.get_url:
         url: 'https://chrissze.github.io/pub/linux/ubuntu_rootpaths'
@@ -267,16 +293,6 @@
         force: yes
 
 
-    # NO overwrite
-    - name: TASK 23 - Fetch USER prompts.sh
-      become: yes
-      ansible.builtin.get_url:
-        url: 'https://chrissze.github.io/pub/linux/prompts.sh'
-        dest: "/home/{{ USER1 }}/prompts.sh"
-        mode: '0644'
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        force: no
 
 
 
