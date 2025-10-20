@@ -6,11 +6,22 @@
 
 # RERUN OK
 
+# RUN THE FOLLOWING TO MAKE SURE DOCKER SERVICE IS RUNNING
+# systemctl restart docker.socket
+# systemctl restart docker
 
 ---
 - name: Install Docker on Ubuntu 24
   hosts: localhost
   become: true
+
+
+  pre_tasks:
+    - name: Ensure the playbook is run as root
+      fail:
+        msg: "This playbook must be run as root (try with --become)."
+      when: ansible_effective_user_id != 'root'
+
   tasks:
 
     - name: TASK 1 - Collect service facts
