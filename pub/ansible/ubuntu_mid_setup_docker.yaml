@@ -20,7 +20,7 @@
     - name: Ensure the playbook is run as root
       fail:
         msg: "This playbook must be run as root (try with --become)."
-      when: ansible_effective_user_id != 'root'
+      when: ansible_user_id != 'root'
 
   tasks:
 
