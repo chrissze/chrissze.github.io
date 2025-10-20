@@ -1,39 +1,43 @@
+#!/usr/bin/env -S ansible-playbook --ask-become-pass
+
+
+
+
+# REQUIRES REMOTE UBUNTU HAVE USER cs
+
+# REQUIRES REMOTE UBUNTU HAVE PUBLIC KEY ~/.ssh/authorized_keys IN USER cs FOLDER
+
+# REQUIRES LOCAL MAC HAVE PRIVATE KEY
+
+# REQUIRES LOCAL MAC /etc/ansible/hosts HAVE A REMOTE UBUNTU SERVER ENTRY LIKE 
+# o1ubuntu  ansible_host=o1.xyz  ansible_user=ubuntu  ansible_port=22
 
 
 ---
 - name: Upload SSH key to remote user
-  hosts: all
+  hosts: o1ubuntu
   become: true
   vars:
-    remote_user: cs
+    USER1: cs
+    MACUSER: chris
     local_key_path: "/Users/cs/.ssh/id_rsa"   # path on your Mac (controller)
     local_pub_path: "/Users/cs/.ssh/id_rsa.pub"
-    remote_home: "/home/{{ remote_user }}"
-    remote_ssh_dir: "{{ remote_home }}/.ssh"
+    
 
   tasks:
-    - name: Ensure ~/.ssh exists with strict perms
+    - name: TASK - Ensure remote linux ~/.ssh exists with permission 0700
       ansible.builtin.file:
-        path: "{{ remote_ssh_dir }}"
+        path: "/home/{{ USER1 }}/.ssh"
         state: directory
-        owner: "{{ remote_user }}"
-        group: "{{ remote_user }}"
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
         mode: "0700"
 
-    - name: Upload private key (id_rsa) with 0600 perms
+    - name: TASK - Upload private key (id_rsa) with 0600 perms
       ansible.builtin.copy:
-        src: "{{ local_key_path }}"          # from the Ansible controller (your Mac)
-        dest: "{{ remote_ssh_dir }}/id_rsa"
-        owner: "{{ remote_user }}"
-        group: "{{ remote_user }}"
+        src: "/Users/{{ MACUSER }}/.ssh/id_rsa"
+        dest: "/home/{{ USER1 }}/.ssh/id_rsa"
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
         mode: "0600"
-      no_log: true                           # don’t leak key contents in logs
-
-    - name: (Optional) Upload public key (id_rsa.pub)
-      ansible.builtin.copy:
-        src: "{{ local_pub_path }}"
-        dest: "{{ remote_ssh_dir }}/id_rsa.pub"
-        owner: "{{ remote_user }}"
-        group: "{{ remote_user }}"
-        mode: "0644"
-      when: local_pub_path is file
+      no_log: true          # don’t leak key contents in logs
