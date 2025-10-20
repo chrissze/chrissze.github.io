@@ -166,7 +166,6 @@
 
     - name: TASK 14 - Set global Git identity for cs
       become: yes
-      become_user: "{{ USER1 }}"          # e.g., cs
       environment:
         HOME: "/home/{{ USER1 }}"         # ensure writes to /home/cs/.gitconfig
       community.general.git_config:
@@ -177,10 +176,6 @@
         - { name: "user.name",  value: "cs" }
         - { name: "user.email", value: "chris_sze@yahoo.com" }
     
-
-
-
-
 
     - name: TASK 15 - Ensure remote linux /data exists
       become: yes
