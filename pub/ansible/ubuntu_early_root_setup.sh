@@ -9,7 +9,7 @@
 
 apt update && apt upgrade -y && apt autoremove -y && apt clean
 
-apt install ansible docker needrestart -y 
+apt install ansible needrestart -y 
 
 needrestart -r a
 
