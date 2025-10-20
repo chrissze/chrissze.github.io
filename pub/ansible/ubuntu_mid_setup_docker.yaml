@@ -12,6 +12,18 @@
   hosts: localhost
   become: true
   tasks:
+
+    - name: TASK 1 - Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: TASK 2 - Stop and disable UFW if installed
+      ansible.builtin.systemd:
+        name: ufw
+        state: stopped
+        enabled: false
+        masked: false
+      when: "'ufw.service' in ansible_facts.services"
+
   
     - name: Remove conflicting packages
       become: true
@@ -22,12 +34,13 @@
           - docker-compose
           - docker-compose-v2
           - podman-docker
+          - ufw
         state: absent
       ignore_errors: true
 
 
 
-    - name: Install prerequisites
+    - name: Install prerequisites including firewalld
       become: true
       apt:
         name:
@@ -37,6 +50,30 @@
           - gnupg
         state: present
         update_cache: true
+
+
+
+    - name: Enable firewalld at boot and start it now
+      become: true
+      ansible.builtin.systemd:
+        name: firewalld
+        enabled: true
+        state: started
+        masked: false
+
+
+
+    - name: Add HTTP/HTTPS services to the default zone (permanent)
+      # applies to default zone because 'zone' is omitted
+      community.general.firewalld:
+        service: "{{ item }}"
+        state: enabled
+        permanent: yes
+        immediate: yes     # apply now without separate reload
+      loop:
+        - http
+        - https
+
 
 
 
@@ -58,25 +95,32 @@
         content: |
           deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu noble stable
 
+
     - name: Update apt cache
       apt:
         update_cache: true
 
-    - name: Install Docker Engine, CLI, containerd, Buildx, Compose v2
+
+    - name: Install Docker Engine for Ubuntu 24
       apt:
         name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-buildx-plugin
-          - docker-compose-plugin
+          - containerd
+          - docker.io
+          - docker-buildx
+          - docker-compose
+          - docker-compose-v2
+          - docker-clean
+          - docker-doc
+          - docker-registry
         state: present
+
 
     - name: Ensure docker started and enabled
       systemd:
         name: docker
         enabled: true
         state: started
+
 
     - name: Add user cs to docker group
       user:
