@@ -29,11 +29,6 @@
       become: true
       apt:
         name:
-          - docker.io
-          - docker-doc
-          - docker-compose
-          - docker-compose-v2
-          - podman-docker
           - ufw
         state: absent
       ignore_errors: true
