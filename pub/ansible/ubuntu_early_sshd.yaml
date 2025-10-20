@@ -38,7 +38,7 @@
         
 
     - name: Reload firewalld to apply changes
-      ansible.builtin.service:
+      ansible.builtin.systemd:
         name: firewalld
         state: reloaded
 
@@ -56,8 +56,7 @@
         mode: '0644'
         force: yes
 
-
     - name: Reload sshd to apply changes
-      ansible.builtin.service:
+      ansible.builtin.systemd:
         name: sshd
         state: reloaded
