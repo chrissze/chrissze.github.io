@@ -14,7 +14,7 @@
 
 
 ---
-- name: Upload SSH key to remote user
+- name: SETUP UBUNTU SERVER BY LOCAL MAC
   hosts: o1ubuntu
   become: true
   vars:
@@ -25,6 +25,23 @@
     
 
   tasks:
+  
+    - name: Update/upgrade and clean apt
+      become: true
+      ansible.builtin.apt:
+        update_cache: true      # apt update
+        upgrade: dist           # apt upgrade -y (dist-upgrade/full-upgrade)
+        autoremove: true        # apt autoremove -y
+        autoclean: true         # apt autoclean
+        clean: true             # apt clean
+
+    - name: Install Ansible
+      become: true
+      ansible.builtin.apt:
+        name: ansible
+        state: present          # apt install ansible -y
+    
+
     - name: TASK - Ensure remote linux ~/.ssh exists with permission 0700
       ansible.builtin.file:
         path: "/home/{{ USER1 }}/.ssh"
