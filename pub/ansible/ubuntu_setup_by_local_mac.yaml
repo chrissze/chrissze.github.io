@@ -3,9 +3,9 @@
 
 
 
-# REQUIRES REMOTE UBUNTU HAVE USER cs
+# REQUIRES REMOTE UBUNTU HAVE USER ubuntu
 
-# REQUIRES REMOTE UBUNTU HAVE PUBLIC KEY ~/.ssh/authorized_keys IN USER cs FOLDER
+# REQUIRES REMOTE UBUNTU HAVE PUBLIC KEY ~/.ssh/authorized_keys IN USER ubuntu FOLDER
 
 # REQUIRES LOCAL MAC HAVE PRIVATE KEY
 
@@ -16,7 +16,7 @@
 ---
 - name: SETUP UBUNTU SERVER BY LOCAL MAC
   hosts: o1ubuntu
-  become: true
+  become: yes
   vars:
     USER1: cs
     MACUSER: chris
@@ -25,7 +25,7 @@
   tasks:
   
     - name: TASK 1 - Update, upgrade and clean apt
-      become: true
+      become: yes
       ansible.builtin.apt:
         update_cache: true      # apt update
         upgrade: dist           # apt upgrade -y (dist-upgrade/full-upgrade)
@@ -35,11 +35,55 @@
 
 
     - name: TASK 2 - Install essential packages 
-      become: true
+      become: yes
       ansible.builtin.apt:
         name: ansible
         state: present
     
+
+
+    - name: TASK - Ensure remote linux /data exists
+      become: yes
+      ansible.builtin.file:
+        path: "/data"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+        
+    - name: TASK - Ensure remote linux /github exists
+      become: yes
+      ansible.builtin.file:
+        path: "/github"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+
+    - name: TASK - Ensure remote linux /opt exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: "0755"
+
+
+    - name: TASK - Ensure remote linux /opt/composes exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt/composes"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
 
     - name: TASK - Ensure remote linux ~/.ssh exists with permission 0700
       ansible.builtin.file:
@@ -48,6 +92,8 @@
         owner: "{{ USER1 }}"
         group: "{{ USER1 }}"
         mode: "0700"
+
+
 
     - name: TASK - Upload private key (id_rsa) with 0600 perms
       ansible.builtin.copy:
