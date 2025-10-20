@@ -32,13 +32,14 @@
 
       - name: TASK 2 - Create user cs and add to docker, sudo group
         ansible.builtin.user:
-            name: cs
+            name: '{{ USER1 }}'
             groups:
+              - '{{ USER1 }}'
               - docker
               - sudo
             append: yes
             state: present
-            home: /home/cs
+            home: '/home/{{ USER1 }}'
             create_home: yes
 
 
