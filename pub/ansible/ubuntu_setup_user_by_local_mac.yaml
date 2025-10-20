@@ -218,3 +218,52 @@
         group: "{{ USER1 }}"
         mode: "0755"
 
+
+    # FORCED overwrite
+    - name: TASK 19 - Fetch USER bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/user_bashrc'
+        dest: "/home/{{ USER1 }}/.bashrc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    # FORCED overwrite
+    - name: TASK 20 - Fetch user /etc/paths
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_paths'
+        dest: '/etc/paths'
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    # FORCED overwrite
+    - name: TASK 21 - Fetch ROOT bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/root_bashrc'
+        dest: '/root/.bashrc'
+        mode: '0644'
+        owner: root
+        force: yes
+
+
+    # FORCED overwrite
+    - name: TASK 22 - Fetch ROOT /etc/rootpaths
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_rootpaths'
+        dest: '/etc/rootpaths'
+        mode: '0644'
+        owner: root
+        force: yes
+
+
+
+
