@@ -2,12 +2,14 @@
 
 #1 RUN BY ROOT
 
-# DEBUG PORT 55555
+#2 DEBUG PORT 55555
 # nc -vz 127.0.0.1 55555   (should be OPEN)
 # firewall-cmd --reload
 # systemctl reload firewalld
 # systemctl restart ssh.socket
 # systemctl restart ssh
+
+#3 REBOOT TO CHECK IF I CAN SSH INTO CUSTOM PORT
 
 
 ---
