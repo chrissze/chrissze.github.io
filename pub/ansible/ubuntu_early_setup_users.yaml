@@ -41,6 +41,7 @@
             state: present
             home: '/home/{{ USER1 }}'
             create_home: yes
+            shell: /bin/bash     # ensures /bin/bash is the login shell
 
 
       - name: TASK 3 - Ensure user cs has sudo privilege without password
