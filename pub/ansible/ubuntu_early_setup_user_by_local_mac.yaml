@@ -41,6 +41,7 @@
           - ansible
           - git
           - needrestart
+          - nmap
           - tmux
         state: present
         update_cache: yes
