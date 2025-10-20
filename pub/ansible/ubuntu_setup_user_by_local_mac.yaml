@@ -39,6 +39,7 @@
       ansible.builtin.apt:
         name: 
           - ansible
+          - docker
           - git
           - needrestart
           - tmux
