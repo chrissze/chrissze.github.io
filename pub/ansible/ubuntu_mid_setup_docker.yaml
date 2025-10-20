@@ -112,8 +112,6 @@
         state: present
 
 
-
-
     
     - name: Ensure docker started and enabled
       become: true
