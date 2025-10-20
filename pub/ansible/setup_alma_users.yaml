@@ -31,6 +31,7 @@
             state: present
             home: /home/cs
             create_home: yes
+            shell: /bin/bash
 
 
       - name: TASK 3 - Ensure user cs has sudo privilege without password
