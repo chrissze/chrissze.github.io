@@ -9,7 +9,7 @@
 
 apt update && apt upgrade -y && apt autoremove -y && apt clean
 
-apt install ansible needrestart -y 
+apt install ansible needrestart nmap -y 
 
 needrestart -r a
 
