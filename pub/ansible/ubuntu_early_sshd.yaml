@@ -8,6 +8,13 @@
   hosts: localhost
   become: yes
   
+  pre_tasks:
+    - name: Ensure the playbook is run as root
+      fail:
+        msg: "This playbook must be run as root (try with --become)."
+      when: ansible_user_id != 'root'
+
+
   tasks:
 
     - name: Install packages
