@@ -232,6 +232,7 @@
         force: yes
 
 
+
     # FORCED overwrite
     - name: TASK 20 - Fetch user /etc/paths
       become: yes
@@ -265,6 +266,17 @@
         owner: root
         force: yes
 
+
+    # NO overwrite
+    - name: TASK 23 - Fetch USER prompts.sh
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/prompts.sh'
+        dest: "/home/{{ USER1 }}/prompts.sh"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: no
 
 
 
