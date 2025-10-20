@@ -1,0 +1,39 @@
+
+
+---
+- name: Upload SSH key to remote user
+  hosts: all
+  become: true
+  vars:
+    remote_user: cs
+    local_key_path: "/Users/cs/.ssh/id_rsa"   # path on your Mac (controller)
+    local_pub_path: "/Users/cs/.ssh/id_rsa.pub"
+    remote_home: "/home/{{ remote_user }}"
+    remote_ssh_dir: "{{ remote_home }}/.ssh"
+
+  tasks:
+    - name: Ensure ~/.ssh exists with strict perms
+      ansible.builtin.file:
+        path: "{{ remote_ssh_dir }}"
+        state: directory
+        owner: "{{ remote_user }}"
+        group: "{{ remote_user }}"
+        mode: "0700"
+
+    - name: Upload private key (id_rsa) with 0600 perms
+      ansible.builtin.copy:
+        src: "{{ local_key_path }}"          # from the Ansible controller (your Mac)
+        dest: "{{ remote_ssh_dir }}/id_rsa"
+        owner: "{{ remote_user }}"
+        group: "{{ remote_user }}"
+        mode: "0600"
+      no_log: true                           # don’t leak key contents in logs
+
+    - name: (Optional) Upload public key (id_rsa.pub)
+      ansible.builtin.copy:
+        src: "{{ local_pub_path }}"
+        dest: "{{ remote_ssh_dir }}/id_rsa.pub"
+        owner: "{{ remote_user }}"
+        group: "{{ remote_user }}"
+        mode: "0644"
+      when: local_pub_path is file
