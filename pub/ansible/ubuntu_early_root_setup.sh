@@ -1,6 +1,10 @@
 #/bin/bash
 
-# Both Ubuntu and Debian support 'apt full-upgrade', it will aggressively remove packages for resolutions, but 'apt upgrade' will NOT remove obsolete packages. 
+# Both Ubuntu and Debian support apt full-upgrade.
+
+# 'apt upgrade' upgrades packages without removing any; it may install new dependencies but skips upgrades that require removals.
+
+# 'apt full-upgrade' can add/remove packages to complete upgrades. Use apt autoremove to remove obsolete dependencies.
 
 
 apt update && apt upgrade -y && apt autoremove -y && apt clean
