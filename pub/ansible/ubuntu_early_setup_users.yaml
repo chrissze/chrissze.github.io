@@ -4,6 +4,9 @@
 
 # RUN BY ROOT - COPY AND PASTE INTO /var/tmp/setup_users.yaml, THEN chmod +x setup_users.yaml, FINALLY ./setup_users.yaml
 
+# RERUN OK
+
+
 
 # If the regexp line is omitted in lineinfile, there might be duplicate entries.
 
@@ -30,7 +33,9 @@
       - name: TASK 2 - Create user cs and add to docker group
         ansible.builtin.user:
             name: cs
-            groups: docker
+            groups: 
+              - docker
+              - sudo
             append: yes
             state: present
             home: /home/cs
