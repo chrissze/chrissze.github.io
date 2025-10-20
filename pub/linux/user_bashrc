@@ -119,7 +119,7 @@ curl -4 ident.me && echo
 
 
 ################
-# USER ENV     #
+# USER EXPORTS #
 ################
 
     PS1="\u@\h:\w \\$ "
@@ -136,7 +136,7 @@ curl -4 ident.me && echo
 
     export PGDATA=/var/lib/pgsql/data
 
-
+    export PROMPT_COMMAND='source ~/prompts.sh'
 
 
 ##################
