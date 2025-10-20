@@ -95,8 +95,6 @@ curl -4 ident.me && echo
     
     alias sha=sha256sum
     
-    alias sou='source ~/.bash_profile'
-    
     alias sys='systemctl status --no-pager'
     
     alias sysen='sudo systemctl enable --now'
@@ -197,6 +195,20 @@ curl -4 ident.me && echo
         echo;
         nmap $1 -p $2;
     }
+
+
+    sou() {
+        if [ -f "~/.bash_profile" ]; then
+            source ~/.bash_profile
+        fi
+
+        if [ -f "~/.profile" ]; then
+            source ~/.profile
+        fi
+
+    }
+
+
 
     sss() {
         echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo;
