@@ -38,7 +38,7 @@
       - name: TASK 2 - Fetch user /etc/paths
         become: yes
         ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/pub/linux/debian_paths'
+            url: 'https://chrissze.github.io/pub/linux/ubuntu_paths'
             dest: '/etc/paths'
             mode: '0644'
             owner: "{{ USER1 }}"
@@ -60,15 +60,11 @@
       - name: TASK 4 - Fetch ROOT /etc/rootpaths
         become: yes
         ansible.builtin.get_url:
-            url: 'https://chrissze.github.io/pub/linux/debian_rootpaths'
+            url: 'https://chrissze.github.io/pub/linux/ubuntu_rootpaths'
             dest: '/etc/rootpaths'
             mode: '0644'
             owner: root
             force: yes
 
-      - name: TASK 7 - Source {{ ansible_user_id }} .bashrc
-        shell: source /home/{{ ansible_user_id }}/.bashrc
-        args:
-          executable: /bin/bash
 
 
