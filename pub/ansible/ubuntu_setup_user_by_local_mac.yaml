@@ -37,8 +37,12 @@
     - name: TASK 2 - Install essential packages 
       become: yes
       ansible.builtin.apt:
-        name: ansible
+        name: 
+          - ansible
+          - git
+          - tmux
         state: present
+        update_cache: yes
 
 
     - name: TASK 3 - Create docker group
@@ -150,16 +154,29 @@
         force: no
 
 
-    - name: TASK 13 - Set global Git user.name
-      become_user: '{{ USER1 }}'
-      command: git config --global user.name "cs"
-      # VERIFY: git config --global user.name
+    - name: TASK 13 - Upload private key (id_rsa) with 0600 perms
+      ansible.builtin.copy:
+        src: "/Users/{{ MACUSER }}/.ssh/id_rsa"
+        dest: "/home/{{ USER1 }}/.ssh/id_rsa"
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0600"
+      no_log: true          # don’t leak key contents in logs
 
 
-    - name: TASK 14 - Set global Git user.email
-      become_user: '{{ USER1 }}'
-      command: git config --global user.email "chris_sze@yahoo.com"
-      # VERIFY: git config --global user.email
+    - name: TASK 14 - Set global Git identity for cs
+      become: yes
+      become_user: "{{ USER1 }}"          # e.g., cs
+      environment:
+        HOME: "/home/{{ USER1 }}"         # ensure writes to /home/cs/.gitconfig
+      community.general.git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: global
+      loop:
+        - { name: "user.name",  value: "cs" }
+        - { name: "user.email", value: "chris_sze@yahoo.com" }
+    
 
 
 
@@ -206,12 +223,3 @@
         group: "{{ USER1 }}"
         mode: "0755"
 
-
-    - name: TASK 19 - Upload private key (id_rsa) with 0600 perms
-      ansible.builtin.copy:
-        src: "/Users/{{ MACUSER }}/.ssh/id_rsa"
-        dest: "/home/{{ USER1 }}/.ssh/id_rsa"
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        mode: "0600"
-      no_log: true          # don’t leak key contents in logs
