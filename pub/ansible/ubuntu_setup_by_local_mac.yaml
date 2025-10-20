@@ -20,13 +20,11 @@
   vars:
     USER1: cs
     MACUSER: chris
-    local_key_path: "/Users/cs/.ssh/id_rsa"   # path on your Mac (controller)
-    local_pub_path: "/Users/cs/.ssh/id_rsa.pub"
     
 
   tasks:
   
-    - name: Update/upgrade and clean apt
+    - name: TASK 1 - Update, upgrade and clean apt
       become: true
       ansible.builtin.apt:
         update_cache: true      # apt update
@@ -35,11 +33,12 @@
         autoclean: true         # apt autoclean
         clean: true             # apt clean
 
-    - name: Install Ansible
+
+    - name: TASK 2 - Install essential packages 
       become: true
       ansible.builtin.apt:
         name: ansible
-        state: present          # apt install ansible -y
+        state: present
     
 
     - name: TASK - Ensure remote linux ~/.ssh exists with permission 0700
