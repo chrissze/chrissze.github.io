@@ -34,7 +34,32 @@
 
   tasks:
 
-    - name: Install packages
+    - name: TASK 1 - Collect service facts
+      ansible.builtin.service_facts:
+
+
+
+    - name: TASK 2 - Stop and disable UFW if installed
+      ansible.builtin.systemd:
+        name: ufw
+        state: stopped
+        enabled: false
+        masked: false
+      when: "'ufw.service' in ansible_facts.services"
+
+
+
+    - name: TASK 3 - Remove ufw packages
+      become: true
+      apt:
+        name:
+          - ufw
+        state: absent
+      ignore_errors: true
+
+
+
+    - name: TASK 4 - Install packages
       ansible.builtin.apt:
         name:
           - curl
@@ -44,51 +69,72 @@
 
 
 
-    - name: Open TCP ports in firewalld
+    - name: TASK 5 - Remove SSH service from firewalld
+      ansible.posix.firewalld:
+        service: ssh
+        permanent: yes
+        state: disabled
+        immediate: yes
+
+
+
+    - name: TASK 6 - Open TCP ports in firewalld
       ansible.posix.firewalld:
         port: "{{ item }}/tcp"
         permanent: yes
         state: enabled
+        immediate: yes
       loop:
         - 55555
 
 
-    - name: Reload firewalld to apply changes
+
+    - name: TASK 7 - Reload Systemd firewalld to apply changes
       ansible.builtin.systemd:
         name: firewalld
         state: reloaded
 
 
-    - name: Backup /etc/ssh/sshd_config
+
+    - name: TASK 8 - Backup /etc/ssh/sshd_config
       ansible.builtin.copy:
         src: /etc/ssh/sshd_config
         dest: "/etc/ssh/sshd_config.{{ ansible_date_time.time }}"
         backup: no
 
-    - name: Download file from web
+
+
+    - name: TASK 9 - Download sshd_config from web
       ansible.builtin.get_url:
         url: "https://chrissze.github.io/pub/linux/ubuntu_sshd_config"
         dest: "/etc/ssh/sshd_config"
         mode: '0644'
         force: yes
 
-    - name: Validate sshd config syntax
+
+
+    - name: TASK 10a - Validate sshd config syntax
       ansible.builtin.command: sshd -t
       register: sshd_check
       changed_when: false
 
-    - name: Fail if sshd config invalid
+
+
+    - name: TASK 10b - Fail if sshd config invalid
       ansible.builtin.fail:
         msg: "sshd config test failed: {{ sshd_check.stderr | default('unknown error') }}"
       when: sshd_check.rc != 0
 
 
-    - name: Reload sshd to apply changes
+
+    - name: TASK 11 - Restart ssh.socket to apply changes
       ansible.builtin.systemd:
         name: ssh.socket
         state: restarted
 
-    - name: Reload sshd to apply changes
+
+
+    - name: TASK 12 - Restart ssh service to apply changes
       ansible.builtin.systemd:
         name: ssh
         state: restarted
