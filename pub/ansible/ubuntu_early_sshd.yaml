@@ -2,12 +2,20 @@
 
 #1 RUN BY ROOT
 
-#2 DEBUG PORT 55555
-# nc -vz 127.0.0.1 55555   (should be OPEN)
-# firewall-cmd --reload
-# systemctl reload firewalld
-# systemctl restart ssh.socket
-# systemctl restart ssh
+#2 CONNECT PORTS FROM MAC AND LINUX 
+    # nc -zv o1.xyz 22      (should be CLOSED)
+    # nmap o1.xyz -p 22
+
+    # nc -zv localhost 22      (direct run from Linux)
+    # nmap 127.0.0.1 -p 22
+
+
+
+#3 RUN THE FOLLOWING TO TEST
+    # firewall-cmd --list-all
+    # firewall-cmd --reload
+    # systemctl restart ssh.socket
+    # systemctl restart ssh
 
 #3 REBOOT TO CHECK IF I CAN SSH INTO CUSTOM PORT
 
