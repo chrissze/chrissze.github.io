@@ -18,11 +18,21 @@ curl -4 ident.me && echo
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+    alias catpro='cat ~/prompts.sh'
+
+
+
+    alias cdan='cd /opt/github/chrissze.github.io/pub/ansible'
+
+    alias cdch='cd /opt/github/chrissze.github.io'
+
+    alias cde='cd /opt/github/examples'
+
+    alias cdg='cd /opt/github'
+
     alias cdwww='cd /opt/composes/nginx/wwwvol/'
 
-    alias cdg='cd /github'
 
-    alias cde='cd /github/examples'
     
     alias clonebatterypy='git clone git@github.com:chrissze/batterypy.git'
 
@@ -41,9 +51,15 @@ curl -4 ident.me && echo
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
 
+
+
+
+
     alias cp='cp -i'  # prompt at overwrites
     
     alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+    alias edpro='nano ~/prompts.sh'
 
     alias gpush='git add . && git commit -m "minor update" && git push'
     
