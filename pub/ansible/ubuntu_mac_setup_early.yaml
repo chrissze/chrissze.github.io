@@ -324,7 +324,7 @@
     - name: TASK 27 - Fetch nano programming language profiles
       become: yes
       ansible.builtin.get_url:
-        url: 'https://chrissze.github.io/pub/linux/nanorc/{{ item }}.nanorc'
+        url: 'https://chrissze.github.io/pub/nanorc/{{ item }}.nanorc'
         dest: "/usr/local/share/nano/{{ item }}.nanorc"
         mode: '0644'
         owner: "{{ USER1 }}"
@@ -332,7 +332,10 @@
         force: yes
       loop:
         - css
+        - haskell
         - html
+        - java
+        - javascript
         - python
         - rust
         - yaml
