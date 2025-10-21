@@ -191,8 +191,25 @@ curl -4 ident.me && echo
         fi
     }
 
+listen() {
+
+  echo "COMMAND: sudo ss -tunlp | grep $1"
+  sudo ss -tunlp | grep $1
+  echo -e "\n\n\n"
+
+  echo "COMMAND: sudo netstat -tunlp | grep $1"
+  sudo netstat -tunlp | grep $1
+  echo -e "\n\n\n"
+
+  echo "COMMAND: sudo lsof -i -nP | grep LISTEN | grep $1"
+  sudo lsof -i -nP | grep LISTEN | grep $1
+  echo -e "\n\n\n"
+
+}
+
+
     poke() {
-        # poke ip-domain.com 80 
+        # poke ip-or-domain.com 80 
         nc -zv $1 $2;
         echo;
         nmap $1 -p $2;
