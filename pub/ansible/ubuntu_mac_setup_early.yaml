@@ -222,29 +222,6 @@
 
 
 
-    - name: TASK - Ensure remote linux "/usr/local/share/nano" exists
-      become: yes
-      ansible.builtin.file:
-        path: "/usr/local/share/nano"
-        state: directory
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        mode: "0755"
-
-
-
-
-    # NO overwrite
-    - name: TASK - Fetch USER nanorc
-      become: yes
-      ansible.builtin.get_url:
-        url: 'https://chrissze.github.io/pub/linux/nanorc'
-        dest: "/home/{{ USER1 }}/.nanorc"
-        mode: '0644'
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        force: no
-
 
 
     # FORCED overwrite
@@ -286,20 +263,19 @@
 
 
     # NO overwrite
-    - name: TASK 22 - Fetch USER prompts.sh
+    - name: TASK 22 - Ensure prompts.sh exists (touch)
       become: yes
-      ansible.builtin.get_url:
-        url: 'https://chrissze.github.io/pub/linux/prompts.sh'
-        dest: "/home/{{ USER1 }}/prompts.sh"
-        mode: '0644'
+      ansible.builtin.file:
+        path: "/home/{{ USER1 }}/prompts.sh"
+        state: touch
+        mode: "0644"
         owner: "{{ USER1 }}"
         group: "{{ USER1 }}"
-        force: no
 
 
 
     # FORCED overwrite
-    - name: TASK  - Fetch ROOT bashrc
+    - name: TASK 23  - Fetch ROOT bashrc
       become: yes
       ansible.builtin.get_url:
         url: 'https://chrissze.github.io/pub/linux/root_bashrc'
@@ -310,7 +286,7 @@
 
 
     # FORCED overwrite
-    - name: TASK  - Fetch ROOT /etc/rootpaths
+    - name: TASK 24  - Fetch ROOT /etc/rootpaths
       become: yes
       ansible.builtin.get_url:
         url: 'https://chrissze.github.io/pub/linux/ubuntu_rootpaths'
@@ -319,6 +295,29 @@
         owner: root
         force: yes
 
+
+    - name: TASK 25 - Ensure remote linux "/usr/local/share/nano" exists
+      become: yes
+      ansible.builtin.file:
+        path: "/usr/local/share/nano"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+
+    # NO overwrite
+    - name: TASK 26 - Fetch USER nanorc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/nanorc'
+        dest: "/home/{{ USER1 }}/.nanorc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: no
 
 
 
