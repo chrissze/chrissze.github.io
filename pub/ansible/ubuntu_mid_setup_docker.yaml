@@ -2,13 +2,19 @@
 
 # REQUIRED ansible PROGRAM INSTALLED
 
-# RUN BY ROOT
-
-# RERUN OK
+# RUN BY ROOT, RERUN OK
 
 # RUN THE FOLLOWING TO MAKE SURE DOCKER SERVICE IS RUNNING
-# systemctl restart docker.socket
-# systemctl restart docker
+    # firewall-cmd --list-all
+    # firewall-cmd --reload
+    # systemctl restart docker.socket
+    # systemctl restart docker
+
+# TEST DOCKER:
+    # docker run --rm hello-world  (remove container after run)
+    # docker ps -a
+    # docker rmi hello-world
+
 
 ---
 - name: Install Docker on Ubuntu 24
