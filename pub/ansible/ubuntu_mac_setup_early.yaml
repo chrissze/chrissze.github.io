@@ -15,7 +15,7 @@
 
 ---
 - name: SETUP UBUNTU SERVER BY LOCAL MAC
-  hosts: o1ubuntu
+  hosts: o1
   become: yes
   vars:
     USER1: cs
