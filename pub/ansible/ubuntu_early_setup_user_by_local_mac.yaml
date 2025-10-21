@@ -20,10 +20,9 @@
   vars:
     USER1: cs
     MACUSER: chris
-    
 
   tasks:
-  
+
     - name: TASK 1 - Update, upgrade and clean apt
       become: yes
       ansible.builtin.apt:
@@ -188,20 +187,9 @@
         group: "{{ USER1 }}"
         mode: "0755"
 
-        
-    - name: TASK 16 - Ensure remote linux /github exists
-      become: yes
-      ansible.builtin.file:
-        path: "/github"
-        state: directory
-        owner: "{{ USER1 }}"
-        group: "{{ USER1 }}"
-        mode: "0755"
 
 
-
-
-    - name: TASK 17 - Ensure remote linux /opt exists
+    - name: TASK 16 - Ensure remote linux /opt exists
       become: yes
       ansible.builtin.file:
         path: "/opt"
@@ -209,6 +197,18 @@
         owner: "root"
         group: "root"
         mode: "0755"
+
+
+
+    - name: TASK 17 - Ensure remote linux /opt/github exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt/github"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
 
 
     - name: TASK 18 - Ensure remote linux /opt/composes exists
@@ -219,6 +219,32 @@
         owner: "{{ USER1 }}"
         group: "{{ USER1 }}"
         mode: "0755"
+
+
+
+    - name: TASK - Ensure remote linux "/usr/local/share/nano" exists
+      become: yes
+      ansible.builtin.file:
+        path: "/usr/local/share/nano"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+
+    # NO overwrite
+    - name: TASK - Fetch USER nanorc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/nanorc'
+        dest: "/home/{{ USER1 }}/.nanorc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: no
+
 
 
     # FORCED overwrite
