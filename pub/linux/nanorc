@@ -1,0 +1,14 @@
+set autoindent
+
+set linenumbers
+
+set softwrap
+
+set tabsize 4
+
+set tabstospaces
+
+
+# `include` line will cause error if the folder does not exist, I should create the folder uncomment it. 
+
+#include "/usr/local/share/nano/*.nanorc"
