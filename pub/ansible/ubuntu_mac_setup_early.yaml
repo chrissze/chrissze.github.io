@@ -211,7 +211,21 @@
 
 
 
-    - name: TASK 18 - Ensure remote linux /opt/composes exists
+    - name: TASK 18 - Create symlink /github -> /opt/github
+      become: yes
+      ansible.builtin.file:
+        src: /opt/github
+        dest: /github
+        state: link
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0777"
+        follow: false     # <- apply ownership to the symlink itself
+        force: no
+
+
+
+    - name: TASK  - Ensure remote linux /opt/composes exists
       become: yes
       ansible.builtin.file:
         path: "/opt/composes"
