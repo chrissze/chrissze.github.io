@@ -36,8 +36,9 @@
     - name: TASK 2 - Install essential packages 
       become: yes
       ansible.builtin.apt:
-        name: 
+        name:
           - ansible
+          - emacs-nox
           - git
           - needrestart
           - nmap
