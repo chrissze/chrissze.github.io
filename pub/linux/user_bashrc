@@ -201,7 +201,7 @@ curl -4 ident.me && echo
 
     la() {
         if [ -z "$1" ]; then
-            ls -ahlp
+            ls -lap color=auto 
         else
             shopt -s dotglob nocaseglob; ls -adhlp "$1"* ."$1"* 2>/dev/null; shopt -u dotglob nocaseglob;
         fi
