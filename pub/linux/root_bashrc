@@ -70,9 +70,9 @@ curl -6 ifconfig.me && echo
 
     
 
-############
-# ROOT ENV #
-############
+################
+# ROOT EXPORTS #
+################
     
     export EDITOR='nano'
     
@@ -82,6 +82,8 @@ curl -6 ifconfig.me && echo
     export HISTFILESIZE=500
 
     export NIXPKGS_ALLOW_UNFREE=1
+    
+    export PROMPT_COMMAND='source /home/cs/prompts.sh'
 
     export PS1="[\u@\h:\w] # "
 
