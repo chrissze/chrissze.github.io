@@ -13,5 +13,16 @@ apt install ansible git needrestart nmap -y
 
 needrestart -r a
 
+# CHECK FIREWALL
+
+systemctl status ufw
+
+systemctl status firewalld
+
+
+
+
+
+
 
 # MIGHT NEED MANUALLY REBOOT
