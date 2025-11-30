@@ -25,4 +25,7 @@ systemctl status firewalld
 
 
 
-# MIGHT NEED MANUALLY REBOOT
+# MANUALLY EDIT
+  # add ~/.ssh/id_rsa   (400, owned by debian user, for git clone)
+  # mkdir /github   (owned by debian user)
+  # git clone chris
