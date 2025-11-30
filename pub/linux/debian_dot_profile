@@ -1,0 +1,50 @@
+
+
+
+# EXTERNAL LINKED FILE ARE ALL HERE
+
+
+
+  
+################
+# SOURCE FILES #
+################
+
+  if [ -f "$HOME/.bashrc" ]; then
+	  . "$HOME/.bashrc"
+  fi
+
+  
+###################
+# DEBIAN SPECIFIC #
+###################
+
+
+###########
+# EXPORTS #
+###########
+  
+    export PROMPT_COMMAND='source $HOME/prompts.sh'
+
+
+
+  
+##################
+# USER FUNCTIONS #
+##################
+
+    sou() {
+      if [[ -r "$HOME/.profile" ]]; then
+        source "$HOME/.profile"
+      fi
+    }
+  
+################
+# USER PATH    #
+################
+
+    if [ -f /etc/paths ]; then
+        eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/paths | paste -sd ":" -)
+        export PATH
+    fi
+
