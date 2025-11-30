@@ -1,6 +1,8 @@
 #!/usr/bin/env -S ansible-playbook --ask-become-pass
 
+# MANUAL TASK: in /etc/xrdp/xrdp.ini > [Xorg] [Xvnc] sessions, uncomment it if they are comment out
 
+# replace username / password value 'ask' to true system login debian and its password, then restart systemd xrdp
 
 ---
 - name: INSTALL XFCE4
@@ -10,6 +12,9 @@
     USER1: debian
 
   tasks:
+
+
+
 
     - name: TASK 1 - Update, upgrade and clean apt
       become: yes
@@ -25,6 +30,7 @@
       become: yes
       ansible.builtin.apt:
         name:
+          - dbus-x11
           - xrdp
           - xorgxrdp
           - xfce4
