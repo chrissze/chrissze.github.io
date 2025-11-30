@@ -38,8 +38,8 @@
       copy:
         dest: /home/{{ USER1 }}/.xsession
         content: "startxfce4"
-        owner: {{ USER1 }}
-        group: {{ USER1 }}
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
         mode: '0644'
 
 
@@ -47,13 +47,30 @@
       copy:
         dest: /home/{{ USER1 }}/.xinitrc
         content: "exec startxfce4"
-        owner: {{ USER1 }}
-        group: {{ USER1 }}
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
         mode: '0644'
 
 
+    - name: TASK 5 - Open TCP ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+      loop:
+        - 3389
 
 
 
+
+
+    - name: TASK 6 - Ensure xrdp started and enabled
+      become: true
+      ansible.builtin.systemd:
+        name: xrdp
+        enabled: true
+        state: started
+        masked: false
 
 
