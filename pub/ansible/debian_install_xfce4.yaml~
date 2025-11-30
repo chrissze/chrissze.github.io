@@ -1,0 +1,50 @@
+#!/usr/bin/env -S ansible-playbook --ask-become-pass
+
+
+
+---
+- name: INSTALL XFCE4
+  hosts: localhost
+
+  vars:
+    USER1: debian
+
+  tasks:
+
+    - name: TASK 1 - Update, upgrade and clean apt
+      become: yes
+      ansible.builtin.apt:
+        update_cache: true      # apt update
+        upgrade: dist           # apt upgrade -y (dist-upgrade/full-upgrade)
+        autoremove: true        # apt autoremove -y
+        autoclean: true         # apt autoclean
+        clean: true             # apt clean
+
+
+    - name: TASK 2 - Install essential packages
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - xrdp
+          - xorgxrdp
+          - xfce4
+          - xfce4-goodies
+        state: present
+        update_cache: yes
+
+
+
+    - name: TASK 3 - Create ~/.xsession
+      copy:
+        dest: /home/{{ USER1 }}/.xsession
+        content: "startxfce4"
+        owner: {{ USER1 }}
+        group: {{ USER1 }}
+        mode: '0644'
+
+
+
+
+
+
+
