@@ -6,7 +6,6 @@ echo "I am $USER, /root/.bashrc    starts."
 
 
 
-echo "I am $USER, /root/.bashrc    ends."
 
 
 echo "I am $USER, /root/.bashrc    ends."
