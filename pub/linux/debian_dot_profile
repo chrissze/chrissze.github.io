@@ -33,6 +33,36 @@
 # USER FUNCTIONS #
 ##################
 
+
+
+    clip() { cat "$@" | xsel -b; }
+
+    exec() { docker container exec -it "$@" /bin/bash; }
+
+    #  --zone=public does not work in Fedora
+    addt() { firewall-cmd --permanent --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    addu() { firewall-cmd --permanent --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    adds() { firewall-cmd --permanent --add-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    alls() { firewall-cmd --get-services ; }
+
+    finfo() { firewall-cmd --info-service="$@" ; }
+
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
+    listen() { netstat -tunlp | grep ":$1" && ss -tunlp | grep ":$1" && lsof -i -P -n | grep LISTEN | grep ":$1"; }
+
+    rmt() { firewall-cmd --permanent --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    rmu() { firewall-cmd --permanent --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    rms() { firewall-cmd --permanent --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+
+
+
     sou() {
       if [[ -r "$HOME/.profile" ]]; then
         source "$HOME/.profile"
