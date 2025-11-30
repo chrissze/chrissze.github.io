@@ -11,13 +11,21 @@
     - name: Install packages
       ansible.builtin.package:
         name:
+          - ansible
+
           - aptitude
-          
+
           - curl
 
           - firewalld
 
+          - git
+
+          - nmap
+
           - openssh-server
+
+          - python3-venv
 
           - symlinks
 
