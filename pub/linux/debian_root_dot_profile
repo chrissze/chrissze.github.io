@@ -1,5 +1,44 @@
 
-# EXTERNAL LINKED FILE ARE ALL HERE
+curl -4 ident.me && echo
+  
+
+##############
+# ROOT ALIAS #
+##############
+
+
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+
+    alias cdvol='cd /var/lib/docker/volumes'
+
+    alias cdwww='cd /opt/composes/nginx/wwwvol'
+
+
+    alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+
+
+    alias fw='firewall-cmd'  # DO NOT USE fi BECAUSE fi IS THE CLOSING OF if.
+
+    alias fls='firewall-cmd --list-all'
+
+    alias hi=history
+
+
+    alias nls='docker network ls'
+
+
+    alias psa='docker ps -a | awk '\''{print $0 "\n\n"}'\'
+
+
+    alias rm='rm -i'
+
+
+    alias sys='systemctl status --no-pager'
+
+    alias upd='docker compose up -d && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && firewall-cmd --reload && echo'
+
 
 
 
