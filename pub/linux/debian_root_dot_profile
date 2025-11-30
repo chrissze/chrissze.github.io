@@ -1,3 +1,6 @@
+[ -z "$PS1" ] && return       # for scp, rsync
+
+echo "I am $USER, /root/.profile    starts."
 
 curl -4 ident.me && echo
   
@@ -94,3 +97,7 @@ curl -4 ident.me && echo
         eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/rootpaths | paste -sd ":" -)
         export PATH
     fi
+
+
+
+echo "I am $USER, /root/.profile    ends."
