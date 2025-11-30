@@ -1,0 +1,52 @@
+
+
+
+# EXTERNAL LINKED FILE ARE ALL HERE
+
+
+
+  
+################
+# SOURCE FILES #
+################
+
+  if [ -f "/root/.bashrc" ]; then
+	  . "/root/.bashrc"
+  fi
+
+  
+###################
+# DEBIAN SPECIFIC #
+###################
+
+
+###########
+# EXPORTS #
+###########
+  
+    export PROMPT_COMMAND='source /home/debian/prompts.sh'
+
+
+
+  
+##################
+# ROOT FUNCTIONS #
+##################
+
+    sou() {
+      if [[ -r "/root/.profile" ]]; then
+        source "/root/.profile"
+      fi
+    }
+
+
+
+
+################
+# ROOT PATH    #
+################
+
+    if [ -f /etc/rootpaths ]; then
+        eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/rootpaths | paste -sd ":" -)
+        export PATH
+    fi
