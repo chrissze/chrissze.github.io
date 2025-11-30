@@ -15,11 +15,11 @@ needrestart -r a
 
 # CHECK FIREWALL
 
+systemctl status firewalld  # pre-installed on OVH Debian 13
+
 systemctl status ufw
 
-systemctl status firewalld
-
-
+firewall-cmd --list-all  #  active services: dhcpv6-client ssh
 
 
 
