@@ -1,0 +1,358 @@
+#!/usr/bin/env -S ansible-playbook --ask-become-pass
+
+
+
+
+# REQUIRES REMOTE DEBIAN HAVE USER debian
+
+# REQUIRES REMOTE LINUX HAVE PUBLIC KEY ~/.ssh/authorized_keys IN USER debian FOLDER
+
+# REQUIRES LOCAL MAC HAVE PRIVATE KEY
+
+# REQUIRES LOCAL MAC /etc/ansible/hosts HAVE A REMOTE DEBAIN SERVER ENTRY LIKE 
+# o1debian  ansible_host=o1.xyz  ansible_user=debian  ansible_port=22
+
+
+---
+- name: SETUP SERVER BY LOCAL MAC
+  hosts: o1debian
+  become: yes
+  vars:
+    USER1: debian
+    MACUSER: chris
+
+  tasks:
+
+    - name: TASK 1 - Update, upgrade and clean apt
+      become: yes
+      ansible.builtin.apt:
+        update_cache: true      # apt update
+        upgrade: dist           # apt upgrade -y (dist-upgrade/full-upgrade)
+        autoremove: true        # apt autoremove -y
+        autoclean: true         # apt autoclean
+        clean: true             # apt clean
+
+
+    - name: TASK 2 - Install essential packages 
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - ansible
+          - emacs-nox
+          - git
+          - needrestart
+          - nmap
+          - tmux
+        state: present
+        update_cache: yes
+
+
+    - name: TASK 3 - Create docker group
+      become: yes
+      ansible.builtin.group:
+        name: docker
+        state: present
+
+
+    - name: TASK 4 - Create user cs and add to docker, sudo group
+      become: yes
+      ansible.builtin.user:
+        name: '{{ USER1 }}'
+        groups:
+          - '{{ USER1 }}'
+          - docker
+          - sudo
+        append: yes
+        state: present
+        home: '/home/{{ USER1 }}'
+        create_home: yes
+        shell: /bin/bash     # ensures /bin/bash is the login shell
+
+
+    - name: TASK 5 - Ensure user cs has sudo privilege without password
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        regexp: '^cs ALL=.*'
+        line: 'cs ALL=(ALL) NOPASSWD:ALL'
+        validate: 'visudo -cf %s'
+        state: present
+
+
+    # cs password hint: HK lottery
+    - name: TASK 6 - Set password hash for user cs in /etc/shadow
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/shadow
+        regexp: '^cs:'
+        line: 'cs:$6$F4xFZOCHLFeHs5.5$2ruyjxl3qjDNSm93dpQHs325uqzb4v26bbggT.HYozE1HL6xh3Vfkdk2jjATo.vJhW/QNGOKnQjt.f7QXGbjQ/:19999:0:99999:7:::'
+        create: false
+        state: present
+
+
+    # root password hint: St Paul grade 12 arts class
+    - name: TASK 7 - Set password hash for root in /etc/shadow
+      become: yes
+      ansible.builtin.lineinfile:
+          path: /etc/shadow
+          regexp: '^root:'
+          line: 'root:$6$rounds=100000$EznEqr238B4Z3Rtb$qwB/VyigFE1kO.EK15i7KXnCbE2NMVzS/XQPA/cakwr9VP6m/Qbc9mLt6ruDGIxNJYw.ezfx4BpgfTsTCRi.G0:20066:0:99999:7:::'
+          create: false
+          state: present
+
+
+    # ubuntu password hint: hk universities in 90s
+    - name: TASK 8 - Set password hash for user ubuntu in /etc/shadow
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/shadow
+        regexp: '^ubuntu:'
+        line: 'ubuntu:$y$j9T$b9.T0sLcnk3Tu/0TaIdEp1$oYTTSkIVSaNvaL07w6CyqLm02JH59Yl6iDgCHqgVAQ3:20381:0:99999:7:::'
+        create: false
+        state: present
+
+
+
+    - name: TASK 9 - Ensure remote linux ~/.ssh exists with permission 0700
+      become: yes
+      ansible.builtin.file:
+        path: "/home/{{ USER1 }}/.ssh"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0700"
+
+
+    - name: TASK 10 - Fetch user public key authorized_keys
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/authorized_keys'
+        dest: '/home/{{ USER1 }}/.ssh/authorized_keys'
+        mode: '0400'
+        owner: '{{ USER1 }}'
+        group: '{{ USER1 }}'
+        force: no
+
+
+    - name: TASK 11 - Fetch user public key authorized_keys2
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/authorized_keys2'
+        dest: '/home/{{ USER1 }}/.ssh/authorized_keys2'
+        mode: '0400'
+        owner: '{{ USER1 }}'
+        group: '{{ USER1 }}'
+        force: no
+
+
+    - name: TASK 12 - Fetch user ssh peer config
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ssh_peer_config'
+        dest: '/home/{{ USER1 }}/.ssh/config'
+        mode: '0644'
+        owner: '{{ USER1 }}'
+        group: '{{ USER1 }}'
+        force: no
+
+
+    - name: TASK 13 - Upload private key (id_rsa) with 0600 perms
+      ansible.builtin.copy:
+        src: "/Users/{{ MACUSER }}/.ssh/id_rsa"
+        dest: "/home/{{ USER1 }}/.ssh/id_rsa"
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0600"
+      no_log: true          # don’t leak key contents in logs
+
+
+    - name: TASK 14 - Set global Git identity for cs
+      become: yes
+      environment:
+        HOME: "/home/{{ USER1 }}"         # ensure writes to /home/cs/.gitconfig
+      community.general.git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: global
+      loop:
+        - { name: "user.name",  value: "cs" }
+        - { name: "user.email", value: "chris_sze@yahoo.com" }
+    
+
+    - name: TASK 15 - Ensure remote linux /data exists
+      become: yes
+      ansible.builtin.file:
+        path: "/data"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+    - name: TASK 16 - Ensure remote linux /opt exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: "0755"
+
+
+
+    - name: TASK 17 - Ensure remote linux /opt/github exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt/github"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+    - name: TASK 18 - Create symlink /github -> /opt/github
+      become: yes
+      ansible.builtin.file:
+        src: /opt/github
+        dest: /github
+        state: link
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0777"
+        follow: false     # <- apply ownership to the symlink itself
+        force: no
+
+
+
+    - name: TASK  - Ensure remote linux /opt/composes exists
+      become: yes
+      ansible.builtin.file:
+        path: "/opt/composes"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+
+
+    # FORCED overwrite
+    - name: TASK 19 - Fetch USER bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/user_bashrc'
+        dest: "/home/{{ USER1 }}/.bashrc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+    # FORCED overwrite
+    - name: TASK 20 - Fetch USER .profile
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_user_dot_profile'
+        dest: "/home/{{ USER1 }}/.profile"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+
+    # FORCED overwrite
+    - name: TASK 21 - Fetch user /etc/paths
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_paths'
+        dest: '/etc/paths'
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+
+
+
+    # NO overwrite
+    - name: TASK 22 - Ensure prompts.sh exists (touch)
+      become: yes
+      ansible.builtin.file:
+        path: "/home/{{ USER1 }}/prompts.sh"
+        state: touch
+        mode: "0644"
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+
+
+
+    # FORCED overwrite
+    - name: TASK 23  - Fetch ROOT bashrc
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/root_bashrc'
+        dest: '/root/.bashrc'
+        mode: '0644'
+        owner: root
+        force: yes
+
+
+    # FORCED overwrite
+    - name: TASK 24  - Fetch ROOT /etc/rootpaths
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/ubuntu_rootpaths'
+        dest: '/etc/rootpaths'
+        mode: '0644'
+        owner: root
+        force: yes
+
+
+    - name: TASK 25 - Ensure remote linux "/usr/local/share/nano" exists
+      become: yes
+      ansible.builtin.file:
+        path: "/usr/local/share/nano"
+        state: directory
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        mode: "0755"
+
+
+
+
+    # NO overwrite
+    - name: TASK 26 - Fetch USER nanorc config
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/linux/nanorc'
+        dest: "/home/{{ USER1 }}/.nanorc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: no
+
+
+    # FORCED overwrite
+    - name: TASK 27 - Fetch nano programming language profiles
+      become: yes
+      ansible.builtin.get_url:
+        url: 'https://chrissze.github.io/pub/nanorc/{{ item }}.nanorc'
+        dest: "/usr/local/share/nano/{{ item }}.nanorc"
+        mode: '0644'
+        owner: "{{ USER1 }}"
+        group: "{{ USER1 }}"
+        force: yes
+      loop:
+        - css
+        - haskell
+        - html
+        - java
+        - javascript
+        - python
+        - rust
+        - yaml
+
+

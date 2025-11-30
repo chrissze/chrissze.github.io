@@ -7,7 +7,7 @@
 # sudo usermod -aG wheel cs   (optional: add user to wheel group)
 
 # sudo visudo   (use vi to edit sudoer file)
-# cs    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
+# debian    ALL=(ALL)       NOPASSWD: ALL  (add this line at the bottom)
 
 
 
