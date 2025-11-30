@@ -1,6 +1,4 @@
 
-
-
 # EXTERNAL LINKED FILE ARE ALL HERE
 
 
@@ -10,9 +8,16 @@
 # SOURCE FILES #
 ################
 
+
+  if [ -f "/home/debian/.bashrc" ]; then
+	  . "/home/debian/.bashrc"
+  fi
+
+
   if [ -f "/root/.bashrc" ]; then
 	  . "/root/.bashrc"
   fi
+
 
   
 ###################
