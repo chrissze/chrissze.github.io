@@ -105,7 +105,7 @@ curl -4 ident.me && echo
 
     alias re="rsync -avP -e 'ssh -p 55555'"
 
-    alias rm='rm -i'
+    alias rm='rm -i'      # confirm before delete
 
     #username=xx
     #password=hs
