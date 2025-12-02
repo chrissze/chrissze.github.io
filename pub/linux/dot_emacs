@@ -1,13 +1,149 @@
 
 
+;;;;;;;;;;;;;;;;;;
+;; GENERAL
+;;;;;;;;;;;;;;;;;;
 
 
+;; Enable this line to paste in emacs
 (setq select-enable-clipboard t)
 
 
-(setq auto-save-default nil)
 
-(setq make-backup-files nil)
+
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;
+;; BACKUP AND AUTOSAVES
+;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
+;; (setq auto-save-default nil)  ;;  disable auto-save
+
+;; (setq make-backup-files nil)  ;; disable backup files
+
+;; END BACKUP AND AUTOSAVES
+
+
+
+;;;;;;;;;;;;;;;;
+;; F9 CUT LINE
+;;;;;;;;;;;;;;;;
+
+(defun select-and-cut-current-line ()
+  "Select and cut the current line, even at the end of the buffer."
+  (interactive)
+  (beginning-of-line)  ; Move to the beginning of the line
+  (set-mark (point))   ; Set the mark at the beginning of the line
+  (end-of-line)        ; Move to the end of the line
+  (unless (eobp)       ; If not at the end of the buffer, move forward one character
+    (forward-char))
+  (kill-region (mark) (point))) ; Cut the selected region
+
+;; Bind F9 to the select-and-cut-current-line function
+(global-set-key (kbd "<f9>") 'select-and-cut-current-line)
+
+;; END F9 CUT LINE
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; F10 CYCLE PASTES
+;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun my-paste-and-pop-from-kill-ring ()
+  "Paste the most recent item from the kill ring and remove it from the kill ring."
+  (interactive)
+  ;; Check if the kill ring is empty
+  (if (not kill-ring)
+      (message "Kill ring is empty.")
+    ;; Insert the most recent item from the kill ring
+    (insert (car kill-ring))
+    ;; Remove the most recent item from the kill ring
+    (setq kill-ring (cdr kill-ring))))
+
+(global-set-key (kbd "<f10>") 'my-paste-and-pop-from-kill-ring)
+
+;; END F10 CYCLE PASTES
+
+
+
+;;;;;;;;;;;;;;;;
+;; SHORTCUTS
+;;;;;;;;;;;;;;;;
+
+
+(global-set-key (kbd "<f1>") 'save-buffer)       ; SAVE C-x C-s
+
+(global-set-key (kbd "<f3>") 'previous-buffer) ; 
+(global-set-key (kbd "<f4>") 'next-buffer) ;
+(global-set-key (kbd "<f5>") 'query-replace) ; replace with y n
+(global-set-key (kbd "<f6>") 'replace-string) ; replace
+(global-set-key (kbd "<f7>") 'find-file) ; open file C-x C-f
+
+
+(global-set-key (kbd "<f8>") (lambda () 
+                               (interactive) 
+                               (save-some-buffers t) ; Save all buffers without asking
+                               (save-buffers-kill-emacs))) ; Quit Emacs
+
+;; END SHORTCUTS
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; TABS TO 4 SPACES OR PREVIOUS LINE INDENT
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq-default indent-tabs-mode nil) ; Always use spaces
+(setq-default tab-width 4)          ; Visual tab width
+(defun my/indent-region-or-insert-tab ()
+  "Indent region by 4 spaces if active, otherwise insert tab."
+  (interactive)
+  (if (use-region-p)
+      (let ((deactivate-mark nil))
+        (indent-rigidly (region-beginning) (region-end) 4))
+    (indent-for-tab-command)))
+(global-set-key (kbd "TAB") 'my/indent-region-or-insert-tab)
+
+;; END TABS TO 4 SPACES OR PREVIOUS LINE INDENT
+
+
+
+;;;;;;;;;;;;;;;;;;;
+;; COPY LINE BELOW
+;;;;;;;;;;;;;;;;;;;
+
+(defun copy-current-line-and-paste-below ()
+  "Copy the current line and paste it on a new line below."
+  (interactive)
+  (beginning-of-line)
+  (set-mark (point))
+  (end-of-line)
+  (open-line 1)    ; Create a new blank line
+  (kill-ring-save (mark) (point)) ; Copy the line
+  (unless (eobp)
+    (open-line 1)    ; Create a new blank line
+    (forward-char)) ; include newline if possible
+  (beginning-of-line)
+  (forward-line 1) ; Move to the next line
+  (yank)           ; Paste the copied line
+  (beginning-of-line)) ; Move cursor to start of new line
+
+
+(global-set-key (kbd "C-<down>") 'copy-current-line-and-paste-below)
+; Turn off Mac Ctrl-Down Shortcuts: Systems settings > Search keyboard shortcuts > Mission Control > turn off Ctrl Down
+
+;; END COPY LINE BELOW
+
+
+
 
 
 
@@ -46,3 +182,4 @@
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
+;; END SYNTAX HIGHLIGHT
