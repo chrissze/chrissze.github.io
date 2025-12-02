@@ -8,3 +8,41 @@
 (setq auto-save-default nil)
 
 (setq make-backup-files nil)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;
+;; SYNTAX HIGHLIGHT
+;;;;;;;;;;;;;;;;;;;;;
+
+;; C Mode
+(add-to-list 'auto-mode-alist '("\\.c\\'" . c-mode))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c-mode))
+
+;; CSS Mode
+(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
+
+
+;; HTML Mode
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . html-mode))
+
+;; Java Mode
+(add-to-list 'auto-mode-alist '("\\.java\\'" . java-mode))
+
+
+;; JavaScript Mode
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.mjs\\'" . js-mode))  ; For modern JS
+
+;; PHP Mode
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+
+;; PYTHON MODE
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+
+
+;; YAML MODE
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+

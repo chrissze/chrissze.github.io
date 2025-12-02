@@ -167,6 +167,7 @@ curl -4 ident.me && echo
     # apt install xsel
     # pbcopy file1
     # pbcopy < file1
+    # xsel -b < file1
     pbcopy() { cat "$@" | xsel -b; }
 
     exec() { docker container exec -it "$@" /bin/bash; }
