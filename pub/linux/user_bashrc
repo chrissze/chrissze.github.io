@@ -61,7 +61,9 @@ curl -4 ident.me && echo
 
     alias edpro='nano ~/prompts.sh'
 
-    alias emr='emacs  -nw  -f  split-window-right'
+    alias em='emacs'
+
+    alias emr='emacs  -f  split-window-right'
 
     alias gpush='git add . && git commit -m "minor update" && git push'
     
