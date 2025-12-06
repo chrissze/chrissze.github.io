@@ -48,12 +48,14 @@ echo "hi I'm $USER  .bashrc start"
 
     alias coo1='code --remote ssh-remote+o1 /tmp'
 
-    alias coo2='code --remote ssh-remote+o2 /tmp'
+    alias codi='code-insiders'
 
 
     alias cp='cp -i'  # prompt at overwrites
 
     alias em='emacs' 
+
+    alias emr='emacs -nw -f split-window-right' 
 
     alias fuji='ssh fuji' 
 
