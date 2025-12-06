@@ -135,6 +135,11 @@ echo "hi I'm $USER  .bashrc start"
 
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo ; }
 
+
+
+
+    ch() { local url="https://$1.com"; chromium --incognito "$url" > /dev/null 2>&1 & }
+
     cpt() { cp "$1" /tmp/tmp.py ; }
 
 
