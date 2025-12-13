@@ -53,6 +53,10 @@ echo "hi I'm $USER  .bashrc start"
 
     alias cp='cp -i'  # prompt at overwrites
 
+    alias edpro='nano ~/prompts.sh'
+    
+    alias edrc='nano ~/.bashrc'
+
     alias em='emacs' 
 
     alias emr='emacs -nw -f split-window-right' 
@@ -82,6 +86,8 @@ echo "hi I'm $USER  .bashrc start"
     alias pipup='pip3 install --upgrade pip'
 
     alias pipr='pip3 install -r requirements.txt && pip3 list'
+
+    alias pro='nano ~/prompts.sh'
 
     alias psa='docker ps -a'
 
