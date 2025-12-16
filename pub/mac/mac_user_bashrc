@@ -1,6 +1,12 @@
 echo "hi I'm $USER  .bashrc start"
 
+##################
+# AUTO RUN TASKS #
+##################
 
+defaults write com.apple.Finder AppleShowAllFiles -bool NO; osascript -e 'tell application "Finder" to quit'
+
+curl ident.me
 
 
 
@@ -95,6 +101,7 @@ echo "hi I'm $USER  .bashrc start"
 
     alias py='python3'
 
+    alias qf="defaults write com.apple.Finder AppleShowAllFiles -bool NO; osascript -e 'tell application \"Finder\" to quit'"
 
     alias re="rsync -avP -e 'ssh -p 55555'"
 
