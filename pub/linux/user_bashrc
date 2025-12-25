@@ -243,7 +243,13 @@ listen() {
     }
 
 
-    rus() { rustc "$1" -o main && echo -e "\nRUN main PROGRAM\n" && ./main ; }
+    rus() {
+        binary_name=$(basename "$1" .rs);
+        rustc "$1" -o $binary_name;
+        echo -e "\nRUN ${binary_name} PROGRAM\n";
+        ./$binary_name ;
+    }
+
 
     sou() {   
       if [[ -r "$HOME/.bash_profile" ]]; then
