@@ -197,6 +197,7 @@ curl ident.me
 
     rsfuji() { rsync -avP "$1" cs@fuji:/tmp/;}
 
+    rus() { rustc "$1" -o main && echo -e "\nRUN main PROGRAM\n" && ./main ;}
 
     # required Mac .ssh/config settings for $1
     sscopy() { ssh "$1" "cat $2" | pbcopy; }

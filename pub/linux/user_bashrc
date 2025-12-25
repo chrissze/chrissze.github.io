@@ -242,6 +242,9 @@ listen() {
         nmap $1 -p $2;
     }
 
+
+    rus() { rustc "$1" -o main && echo -e "\nRUN main PROGRAM\n" && ./main ; }
+
     sou() {   
       if [[ -r "$HOME/.bash_profile" ]]; then
         source "$HOME/.bash_profile"
