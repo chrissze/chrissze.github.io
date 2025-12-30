@@ -1,8 +1,26 @@
 #!/usr/bin/env -S ansible-playbook
 
+# REQUIRED ansible PROGRAM INSTALLED
 
+# RUN BY ROOT, RERUN OK
 
+# RUN THE FOLLOWING TO MAKE SURE DOCKER SERVICE IS RUNNING
+    # firewall-cmd --list-all
+    # firewall-cmd --reload
+    # systemctl restart docker.socket
+    # systemctl restart docker
 
+# TEST DOCKER:
+    # docker run --rm hello-world  (remove container after run)
+    # docker ps -a
+    # docker rmi hello-world
+
+# TEST IF NORMAL USER cs CAN RUN DOCKER
+    # I should logout and re-login to make sure cs is effectively in group docker
+    #  $ groups cs    (should include docker group)
+    #  $ docker ps -a
+    
+    
 ---
 - name: Install Docker on Debian 12 (bookworm)
   hosts: localhost
