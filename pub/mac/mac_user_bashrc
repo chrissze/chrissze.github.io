@@ -97,6 +97,12 @@ curl ident.me
 
     alias psa='docker ps -a'
 
+    
+    alias pullpi='cd /opt/github/pizza/batterypy && git pull; cd /opt/github/pizza/dimsumpy && git pull; cd /opt/github/pizza/pizzapy && git pull'
+
+    alias pushpi='cd /opt/github/pizza/batterypy && git add . && git commit -m "batterypy update" && git push; cd /opt/github/pizza/dimsumpy && git add . && git commit -m "dimsumpy update" && git push; cd /opt/github/pizza/pizzapy && git add . && git commit -m "pizzapy update" && git push'
+
+
     alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && which python3 && python3 -V &&  pip3 -V &&  pip3 list'
 
     alias py='python3'
