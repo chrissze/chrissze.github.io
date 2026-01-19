@@ -169,7 +169,7 @@ curl -4 ident.me && echo
     cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
 
 
-    cpt() { cp "$1" /tmp/tmp.py ; }
+    cpt() { cp -R "$1" /tmp/ ; }
 
     # apt install xsel
     # pbcopy file1

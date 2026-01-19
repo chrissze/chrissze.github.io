@@ -159,7 +159,7 @@ curl ident.me
 
     ch() { local url="https://$1.com"; chromium --incognito "$url" > /dev/null 2>&1 & }
 
-    cpt() { cp "$1" /tmp/tmp.py ; }
+    cpt() { cp -R "$1" /tmp/ ; }
 
 
     ffm() {
