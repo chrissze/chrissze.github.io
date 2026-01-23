@@ -69,7 +69,6 @@ curl ident.me
 
     alias fuji='ssh fuji' 
 
-    alias gpush='git add . && git commit -m "minor update" && git push'
 
     alias gp="git pull"
 
@@ -81,9 +80,6 @@ curl ident.me
     
     alias mv='mv -i'  # prompt at overwrites
 
-
-    # OVH
-    alias o1='ssh o1'
 
     alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
 
@@ -173,6 +169,21 @@ curl ident.me
     }
 
     fromt() { cp /tmp/tmp.py "$1"; }
+
+
+    gpush() {
+        git add .
+
+        if [ -n "$1" ]; then
+            git commit -m "$1"
+        else
+            git commit -m "minor update"
+        fi
+
+        git push;
+    }
+
+
 
     hit() { touch "$@" && chmod 755 "$@" && ls -la; }
 
