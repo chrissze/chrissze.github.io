@@ -1,0 +1,252 @@
+echo "hi I'm $USER  .bashrc start"
+
+##################
+# AUTO RUN TASKS #
+##################
+
+curl ident.me
+
+
+
+
+##################
+### USER ALIAS ###
+##################
+
+    alias ap=ansible-playbook
+
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+    alias cdan='cd /opt/github/chrissze.github.io/pub/ansible'
+
+
+    alias cdex='cd /opt/github/examples'
+
+    alias cdpy='cd /opt/github/examples/python'
+
+    alias cdpys='cd /opt/github/examples/python/scripting'
+
+    alias cds='cd /opt/github/examples/python/scripting'
+
+    alias cdt='cd /tmp'
+
+    alias cdvt='cd /var/tmp'
+
+
+    alias clonebrew='git clone git@github.com:chrissze/brew.git'
+
+    alias clonechris='git clone git@github.com:chrissze/chrissze.github.io.git'
+
+    alias clonedimsumpy='git clone git@github.com:chrissze/dimsumpy.git'
+
+    alias cloneexamples='git clone git@github.com:chrissze/examples.git'
+
+    alias clonepizzapy='git clone git@github.com:chrissze/pizzapy.git'
+
+
+    alias clonescript='git clone git@github.com:chrissze/script.git'
+
+
+    alias coo1='code --remote ssh-remote+o1 /tmp'
+
+    alias codi='code-insiders'
+
+
+    alias cp='cp -i'  # prompt at overwrites
+
+    alias edpro='nano ~/prompts.sh'
+    
+    alias edrc='nano ~/.bashrc'
+
+    alias em='emacs' 
+
+    alias emr='emacs -nw -f split-window-right' 
+
+    alias fuji='ssh fuji' 
+
+
+    alias gp="git pull"
+
+    alias gpull='for d in */.git; do ( cd "${d%/.git}" && echo "==> $PWD" && git pull --ff-only ); done'
+ 
+    alias hi=history
+
+    alias mo2='sudo mount -t nfs -o resvport,vers=4 10.0.0.1:/data/o2 ~/o2'
+    
+    alias mv='mv -i'  # prompt at overwrites
+
+
+    alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
+
+    alias pipun="pip freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip uninstall -y "
+
+    alias pipup='pip3 install --upgrade pip'
+
+    alias pipr='pip3 install -r requirements.txt && pip3 list'
+
+    alias pro='nano ~/prompts.sh'
+
+    alias psa='docker ps -a'
+
+    
+    alias pullpi='cd /opt/github/pizza/batterypy && git pull; cd /opt/github/pizza/dimsumpy && git pull; cd /opt/github/pizza/pizzapy && git pull'
+
+    alias pushpi='cd /opt/github/pizza/batterypy && git add . && git commit -m "batterypy update" && git push; cd /opt/github/pizza/dimsumpy && git add . && git commit -m "dimsumpy update" && git push; cd /opt/github/pizza/pizzapy && git add . && git commit -m "pizzapy update" && git push'
+
+
+    alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && which python3 && python3 -V &&  pip3 -V &&  pip3 list'
+
+    alias py='python3'
+
+    alias qf="defaults write com.apple.Finder AppleShowAllFiles -bool NO; osascript -e 'tell application \"Finder\" to quit'"
+
+    alias re="rsync -avP -e 'ssh -p 55555'"
+
+    alias rm='rm -i'
+
+    alias rmd='rm -frI'
+
+
+    # I cannot use rs alias due to Mac SIP protected rs command
+    alias rus=rust-script
+
+
+    alias sha='shasum -a 256'
+
+    alias sou='source ~/.bash_profile'
+
+    alias sulo='sudo --login'
+
+    alias venv='source venv/bin/activate'
+
+
+################
+# USER EXPORTS #
+################
+
+
+    export EDITOR="/usr/bin/nano"
+
+    export HISTSIZE=500
+
+    export HISTFILESIZE=500
+
+    export PROMPT_COMMAND='source ~/prompts.sh'
+
+
+
+
+
+##################
+# USER FUNCTIONS #
+##################
+
+    cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo ; }
+
+
+
+    cpt() { cp -R "$1" /tmp/ ; }
+
+
+    ffm() {
+        if [[ $# -eq 1 ]]; then
+            base_name="${1%.*}"
+            ffmpeg -i "$1" -acodec aac "${base_name}.aac"
+            ffmpeg -i "$1" -vcodec h264 -acodec aac "${base_name}.mp4"
+        else
+            echo "USAGE: ffm input.mov"
+        fi
+    }
+
+    fromt() { cp /tmp/tmp.py "$1"; }
+
+
+    gpush() {
+        git add .
+
+        if [ -n "$1" ]; then
+            git commit -m "$1"
+        else
+            git commit -m "minor update"
+        fi
+
+        git push;
+    }
+
+
+
+    la() {
+        # la might be a mac system alias, run `alias la`, in that case, changed to ll()
+        if [ -z "$1" ]; then
+            ls -alhp
+        else
+            shopt -s nocaseglob     # Enable case-insensitive globbing
+            ls -adhlp "$1"* ."$1"*  # -d look at directory itself, no need to go inside
+            shopt -u nocaseglob     # Disable case-insensitive globbing
+        fi
+    }
+
+    poke() {
+        # poke ip-domain.com 80 
+        nc -zv $1 $2;
+        echo;
+        nmap $1 -p $2;
+    }
+
+    ree() { mkdir /tmp/ree && rsync -avP -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -avP /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
+
+    rso1() { rsync -avP "$1" cs@o1:/tmp/;}
+
+    rso2() { rsync -avP "$1" cs@o2:/tmp/;}
+
+    rsfuji() { rsync -avP "$1" cs@fuji:/tmp/;}
+
+
+    rus() {
+        binary_name=$(basename "$1" .rs);
+        rustc "$1" -o $binary_name;
+        echo -e "\nRUN ${binary_name} PROGRAM\n";
+        ./$binary_name ;
+    }
+
+
+    # required Mac .ssh/config settings for $1
+    sscopy() { ssh "$1" "cat $2" | pbcopy; }
+
+    startpro() { 
+        if [ ! -d "venv" ]; then
+            python3 -m venv venv
+        fi
+        source venv/bin/activate;
+        pip install --upgrade pip;
+        
+        mkdir "$1_project"; 
+        cd "$1_project"; 
+        touch requirements.txt;
+        echo -e "Django\ngunicorn\nuvicorn" > requirements.txt;
+        pip install -r requirements.txt;
+        django-admin startproject "$1" .;
+        
+        mkdir extra_files;
+        mkdir static_root;
+        mkdir templates;
+
+        # For macOS (BSD sed)
+        sed -i.original "s/ALLOWED_HOSTS = \[\]/ALLOWED_HOSTS = [ '*' ]/" "$1/settings.py";
+        sed -i "" "s/'DIRS': \[\]/'DIRS': [ BASE_DIR \/ 'templates' ]/" "$1/settings.py";
+        echo -e "\nSTATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]" | tee -a "$1/settings.py";
+        echo -e "\nSTATIC_ROOT = BASE_DIR / 'static_root'" | tee -a "$1/settings.py";
+
+        cd ..;
+        echo -e "UPDATED $1/settings.py: \n";
+        echo -e "  ALLOWED_HOSTS = [ '*' ]";
+        echo -e "  TEMPLATES: \n    'DIRS': [ BASE_DIR / 'templates' ],";
+        echo -e "  STATIC_ROOT = BASE_DIR / 'static_root' ";
+        echo -e "  STATICFILES_DIRS = [ BASE_DIR / 'extra_files' ]";
+    }
+
+
+
+
+echo "hi I'm $USER  .bashrc ends"
+
