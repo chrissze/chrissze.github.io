@@ -64,3 +64,8 @@
             owner: root
             force: yes
 
+      - name: TASK 5 - Create empty prompts.sh in home directory
+        ansible.builtin.file:
+          path: "/home/{{ USER1 }}/prompts.sh"
+          state: touch
+          mode: "0644"
