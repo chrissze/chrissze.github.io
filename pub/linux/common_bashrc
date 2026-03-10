@@ -133,7 +133,7 @@ curl ident.me
 
     export PROMPT_COMMAND='source ~/prompts.sh'
 
-
+    export NIXPKGS_ALLOW_UNFREE=1
 
 
 
