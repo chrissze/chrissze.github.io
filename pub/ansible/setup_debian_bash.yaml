@@ -15,19 +15,19 @@
 - name: POST debian
   hosts: localhost
   vars:
-    USER1: debian
+    USER1: cs
     
   tasks:
 
       # FORCED overwrite
-      # - name: TASK 1 - Fetch USER bashrc
-      #   become: no
-      #   ansible.builtin.get_url:
-      #       url: 'https://chrissze.github.io/pub/linux/user_bashrc'
-      #       dest: "/home/{{ USER1 }}/.bashrc"
-      #       mode: '0644'
-      #       owner: "{{ USER1 }}"
-      #       force: yes
+      - name: TASK 1 - Fetch USER bashrc
+        become: no
+        ansible.builtin.get_url:
+            url: 'https://chrissze.github.io/pub/linux/user_bashrc'
+            dest: "/home/{{ USER1 }}/.bashrc"
+            mode: '0644'
+            owner: "{{ USER1 }}"
+            force: yes
 
 
 
