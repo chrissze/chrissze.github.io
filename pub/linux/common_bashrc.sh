@@ -8,7 +8,6 @@ curl ident.me
 
 
 
-
 ##################
 ### USER ALIAS ###
 ##################
@@ -17,10 +16,11 @@ curl ident.me
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
-    alias cdan='cd /opt/github/chrissze.github.io/pub/ansible'
+    alias cdan='cd /opt/github/examples/ansible'
 
+    alias cddj='cd /opt/github/examples/python/django'
 
-    alias cdex='cd /opt/github/examples'
+    alias cde='cd /opt/github/examples'
 
     alias cdpy='cd /opt/github/examples/python'
 
@@ -46,8 +46,6 @@ curl ident.me
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
 
-
-    alias coo1='code --remote ssh-remote+o1 /tmp'
 
     alias codi='code-insiders'
 
@@ -75,6 +73,10 @@ curl ident.me
     
     alias mv='mv -i'  # prompt at overwrites
 
+    alias mi='micro'
+    
+    alias mir='micro -readonly on'
+
 
     alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
 
@@ -87,11 +89,6 @@ curl ident.me
     alias pro='nano ~/prompts.sh'
 
     alias psa='docker ps -a'
-
-    
-    alias pullpi='cd /opt/github/pizza/batterypy && git pull; cd /opt/github/pizza/dimsumpy && git pull; cd /opt/github/pizza/pizzapy && git pull'
-
-    alias pushpi='cd /opt/github/pizza/batterypy && git add . && git commit -m "batterypy update" && git push; cd /opt/github/pizza/dimsumpy && git add . && git commit -m "dimsumpy update" && git push; cd /opt/github/pizza/pizzapy && git add . && git commit -m "pizzapy update" && git push'
 
 
     alias pvenv='python3 -m venv venv && source venv/bin/activate && pip3 install --upgrade pip && which python3 && python3 -V &&  pip3 -V &&  pip3 list'
@@ -113,7 +110,7 @@ curl ident.me
 
     alias sha='shasum -a 256'
 
-    alias sou='source ~/.bash_profile'
+    alias sou='source ~/.bashrc'
 
     alias sulo='sudo --login'
 
@@ -136,7 +133,7 @@ curl ident.me
 
     export PROMPT_COMMAND='source ~/prompts.sh'
 
-    export UV_PROJECT_ENVIRONMENT='../.venv'
+    export UV_PROJECT_ENVIRONMENT='../venv'
 
 
 
