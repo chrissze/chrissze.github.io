@@ -16,6 +16,10 @@ curl ident.me
 
     alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
 
+    alias catpro='cat ~/prompts.sh'
+    
+    alias catrc='cat ~/.bashrc'
+    
     alias cdan='cd /opt/github/examples/ansible'
 
     alias cddj='cd /opt/github/examples/python/django'
@@ -52,9 +56,8 @@ curl ident.me
 
     alias cp='cp -i'  # prompt at overwrites
 
-    alias edpro='nano ~/prompts.sh'
     
-    alias edrc='nano ~/.bashrc'
+    alias edrc='micro ~/.bashrc'
 
     alias em='emacs' 
 
@@ -86,7 +89,7 @@ curl ident.me
 
     alias pipr='pip3 install -r requirements.txt && pip3 list'
 
-    alias pro='nano ~/prompts.sh'
+    alias pro='micro ~/prompts.sh'
 
     alias psa='docker ps -a'
 
