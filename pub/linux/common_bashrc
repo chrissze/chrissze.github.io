@@ -131,9 +131,12 @@ curl ident.me
 
     export HISTFILESIZE=500
 
+    
+    export NIXPKGS_ALLOW_UNFREE=1
+
     export PROMPT_COMMAND='source ~/prompts.sh'
 
-    export NIXPKGS_ALLOW_UNFREE=1
+    export UV_PROJECT_ENVIRONMENT='../.venv'
 
 
 
