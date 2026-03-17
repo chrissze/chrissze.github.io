@@ -1,0 +1,12 @@
+
+# COPY TO ~/.config/micro/settings.json
+
+
+{
+
+	"autosave": 3,
+
+	"softwrap": true
+
+
+}
