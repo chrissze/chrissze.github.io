@@ -2,6 +2,8 @@
 
 /home/linuxbrew/.linuxbrew/bin
 
+/home/linuxbrew/.linuxbrew/sbin
+
 $HOME/.nix-profile/bin
 
 $HOME/.cargo/bin

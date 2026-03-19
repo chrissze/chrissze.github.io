@@ -1,5 +1,7 @@
 # CUSTOM ROOT PATHS
 
+/home/linuxbrew/.linuxbrew/sbin
+
 /home/cs/.nix-profile/bin
 
 /usr/sbin
