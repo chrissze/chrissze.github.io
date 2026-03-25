@@ -141,7 +141,8 @@ curl ident.me
 
     export PS1="[\u@MAC \w]\n$ "
 
-
+    # For rust on mac
+    export LIBRARY_PATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
 
 
 ##################
