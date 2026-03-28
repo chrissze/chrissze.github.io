@@ -134,7 +134,7 @@ curl ident.me
     
     export NIXPKGS_ALLOW_UNFREE=1
 
-    export PROMPT_COMMAND='source ~/prompts.sh'
+    export PROMPT_COMMAND=run_prompt
 
     export UV_PROJECT_ENVIRONMENT='../venv'
 
@@ -249,6 +249,31 @@ curl ident.me
     }
 
 
+
+run_prompt() {
+    local status=$?
+    local emoji
+    local venv=""
+
+    if [ "$status" -eq 0 ]; then
+        emoji="😄"
+    else
+        emoji="😡"
+    fi
+
+    # detect venv
+    if [ -n "$VIRTUAL_ENV" ]; then
+        venv="($(basename "$VIRTUAL_ENV")) "
+    fi
+
+    PS1="${venv}\[\e[38;5;82m\]\u\[\e[0m\]@\[\e[38;5;45m\]\h \[\e[38;5;220m\]\w \[\e[38;5;196m\]$emoji\[\e[0m\] \$ "
+
+    source ~/prompts.sh
+}
+
+
+
+}
 
 
 echo "hi I'm $USER  .bashrc ends"
