@@ -117,7 +117,7 @@ curl ident.me
 
     alias sulo='sudo --login'
 
-    alias venv='source venv/bin/activate || source .venv/bin/activate'
+    alias venv='source venv/bin/activate 2>/dev/null || source .venv/bin/activate'
 
 
 ################
