@@ -2,10 +2,157 @@
 
 echo "I am $USER, /root/.bashrc    starts."
 
+curl -4 ident.me && echo
+
+
+
+
+##############
+# ROOT ALIAS #
+##############
+
+
+    alias als='echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+
+    alias cdvol='cd /var/lib/docker/volumes'
+
+    alias cdwww='cd /opt/composes/nginx/wwwvol'
+
+    alias cp='cp -i'  # prompt at overwrites
+
+    alias down='docker compose down && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+
+    alias gpush="git add . && git commit -m 'cs' && git push"
+
+    alias fw='firewall-cmd'  # DO NOT USE fi BECAUSE fi IS THE CLOSING OF if.
+
+    alias fls='firewall-cmd --list-all'
+
+    alias hi=history
+
+    alias mv='mv -i'  # prompt at overwrites
 
 
 
 
 
+
+
+
+
+
+    alias nls='docker network ls'
+
+
+    alias psa='docker ps -a'
+
+    alias re="rsync -av -e 'ssh -p 55555'"
+
+    alias re22="rsync -av -e 'ssh -p 22'"
+
+    alias rm='rm -i'
+
+    #username=xx
+    #password=hs
+    alias samo2='mount -t cifs -o credentials=/etc/samba/cred //o2.host.ac/o2 /media/o2'
+
+    alias sea='sealert -a /var/log/audit/audit.log'
+
+    alias seprevent='cat /var/log/messages | grep "SELinux is preventing"'
+
+    alias sou='source /root/.bash_profile'
+
+    alias sys='systemctl status --no-pager'
+
+    alias sysdis='systemctl disable --now'
+
+    alias sysen='systemctl enable --now'
+
+    alias sysres='systemctl restart'
+
+    alias upd='docker compose up -d && echo && docker ps -a && echo && docker network ls && echo && docker volume ls && echo && sudo ls -laph /var/lib/docker/volumes && echo && echo /var/lib/docker/volumes && echo'
+
+
+############
+# ROOT ENV #
+############
+
+    export EDITOR='nano'
+
+
+    export HISTSIZE=500
+
+    export HISTFILESIZE=500
+
+    export NIXPKGS_ALLOW_UNFREE=1
+
+    export PS1="[\u@\h:\w] # "
+
+    export VISUAL='nano'
+
+
+
+
+
+
+##################
+# ROOT FUNCTIONS #
+##################
+
+    cd() { builtin cd -P "$@" && ls -laph && echo && pwd && echo; }
+
+    clip() { cat "$@" | xsel -b; }
+
+    exec() { docker container exec -it "$@" /bin/bash; }
+
+    #  --zone=public does not work in Fedora
+    addt() { firewall-cmd --permanent --add-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    addu() { firewall-cmd --permanent --add-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    adds() { firewall-cmd --permanent --add-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    alls() { firewall-cmd --get-services ; }
+
+    finfo() { firewall-cmd --info-service="$@" ; }
+
+    listen() { netstat -tunlp | grep ":$1" && ss -tunlp | grep ":$1" && lsof -i -P -n | grep LISTEN | grep ":$1"; }
+
+    rmt() { firewall-cmd --permanent --remove-port="$@"/tcp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    rmu() { firewall-cmd --permanent --remove-port="$@"/udp && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    rms() { firewall-cmd --permanent --remove-service="$@" && firewall-cmd --reload && firewall-cmd --list-all ; }
+
+    hit() { touch "$@" && chmod 755 "$@" && ls -la; }
+
+
+    la() {
+        if [ -z "$1" ]; then
+            ls -ahlp
+        else
+            shopt -s dotglob nocaseglob; ls -adhlp "$1"* ."$1"* 2>/dev/null; shopt -u dotglob nocaseglob;
+        fi
+    }
+
+    ree() { mkdir /tmp/ree && rsync -av -e 'ssh -p 55555' $1 /tmp/ree/ && rsync -av /tmp/ree/* -e 'ssh -p 55555' $2 && rm -rf /tmp/ree; }
+
+
+    sss() {
+        echo "  ssh $HOSTNAME \"cat $(realpath $1)\" | pbcopy"; echo;
+        echo "  rsync -avP $1 cs@$HOSTNAME:$(realpath $1)" ; echo;
+        echo "  rsync -avP cs@$HOSTNAME:$(realpath $1) ." ; echo;
+    }
+
+#############
+# ROOT PATH #
+#############
+
+if [ -f /etc/rootpaths ]; then
+    eval PATH=$(grep -v '^\s*$\|^\s*#' /etc/rootpaths | paste -sd ":" -)
+    export PATH
+fi
 
 echo "I am $USER, /root/.bashrc    ends."
