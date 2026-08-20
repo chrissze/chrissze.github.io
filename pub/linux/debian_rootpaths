@@ -13,6 +13,7 @@
 
 
 # CUSTOM ROOT PATHS
+# put them below to prevent system update broken
 
 /usr/sbin
 
