@@ -113,6 +113,9 @@ ip route get 1.1.1.1 | awk '{print $7; exit}'  &&  echo  "      ^ Internal IP"
     # I cannot use rs alias due to Mac SIP protected rs command
     alias rus=rust-script
 
+    alias screenoff='dbus-send  --session  --dest=org.gnome.ScreenSaver  --type=method_call  /org/gnome/ScreenSaver  org.gnome.ScreenSaver.SetActive  boolean:true'
+
+
 
     alias sha='shasum -a 256'
 
