@@ -1,4 +1,6 @@
-echo "hi I'm $USER  .bashrc start"
+[ -z "$PS1" ] && return
+
+echo "hi I'm $USER, $HOME/.bashrc    starts"
 
 ##################
 # AUTO RUN TASKS #
@@ -6,6 +8,9 @@ echo "hi I'm $USER  .bashrc start"
 
 curl ident.me
 
+ip -4 -o addr show scope global | awk '{print $4}' | cut -d/ -f1
+
+ip route get 1.1.1.1 | awk '{print $7; exit}'
 
 
 ##################
@@ -276,5 +281,5 @@ run_prompt() {
 }
 
 
-echo "hi I'm $USER  .bashrc ends"
+echo "hi I'm $USER, $HOME .bashrc    ends"
 

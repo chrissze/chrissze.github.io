@@ -1,6 +1,6 @@
 [ -z "$PS1" ] && return       # for scp, rsync
 
-echo "I am $USER, /home/debian/.profile    starts."
+echo "I am $USER, $HOME/.profile        starts."
 
 # EXTERNAL LINKED FILE ARE ALL HERE
 
@@ -80,4 +80,4 @@ echo "I am $USER, /home/debian/.profile    starts."
     fi
 
 
-echo "I am $USER, /home/debian/.profile    ends."
+echo "I am $USER, $HOME/.profile        ends."
