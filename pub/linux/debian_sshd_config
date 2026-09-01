@@ -20,7 +20,7 @@ PermitRootLogin no
 
 PermitUserEnvironment no
 
-Port 55555
+Port 22
 
 PrintLastLog no
 
