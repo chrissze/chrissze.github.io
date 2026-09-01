@@ -6,11 +6,9 @@ echo "hi I'm $USER, $HOME/.bashrc    starts"
 # AUTO RUN TASKS #
 ##################
 
-curl ident.me
+curl ident.me                                  # Get ISP IP
 
-ip -4 -o addr show scope global | awk '{print $4}' | cut -d/ -f1
-
-ip route get 1.1.1.1 | awk '{print $7; exit}'
+ip route get 1.1.1.1 | awk '{print $7; exit}'  # get internal IP
 
 
 ##################
