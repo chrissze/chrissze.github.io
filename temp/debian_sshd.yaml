@@ -1,0 +1,91 @@
+#!/usr/bin/env -S ansible-playbook 
+
+#1 run this playbook by root
+  # sudo ./setup_debian_sshd.yaml
+
+#2 Check if 'Port 22' line in /etc/ssh/sshd_config, delete it if it exists.
+
+#3 Manually remove 'ssh' service in firewall
+    # sudo firewall-cmd --permanent  --remove-service=ssh
+    # sudo firewall-cmd --reload
+    # sudo firewall-cmd --list-all
+
+---
+- name: SSHD
+
+  hosts: localhost
+  
+  become: yes
+  
+  vars:
+    PORT: 22   # change it to fuji 6000, gpd 7000, xeon 24000
+
+
+  tasks:
+
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - curl
+          - firewalld
+          - openssh-server
+        state: present
+
+
+
+    - name: Open TCP ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}/tcp"
+        permanent: yes
+        state: enabled
+      loop:
+        - "{{ PORT }}"
+
+    - name: Remove ssh service from firewalld
+      ansible.posix.firewalld:
+        service: ssh
+        state: disabled
+        permanent: yes
+        immediate: yes        
+
+
+    - name: Reload firewalld to apply changes
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded
+
+
+    - name: Backup /etc/ssh/sshd_config
+      ansible.builtin.copy:
+        src: /etc/ssh/sshd_config
+        dest: "/etc/ssh/sshd_config.{{ ansible_date_time.time }}"
+        backup: no
+
+    - name: Download file from web
+      ansible.builtin.get_url:
+        url: "https://chrissze.github.io/pub/linux/debian_sshd_config"
+        dest: "/etc/ssh/sshd_config"
+        mode: '0644'
+        force: yes
+
+
+
+    - name: Set SSH port to {{ PORT }}
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^\s*#?\s*Port\s'
+        line: 'Port {{ PORT }}'
+        state: present
+        validate: 'sshd -t -f %s'
+        backup: yes
+      notify: RELOAD_SSHD
+
+
+
+  handlers:
+    - name: RELOAD_SSHD
+      ansible.builtin.service:
+        name: sshd
+        state: reloaded
+
+

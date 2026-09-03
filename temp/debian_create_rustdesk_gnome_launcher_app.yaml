@@ -1,0 +1,226 @@
+#!/usr/bin/env  -S  ansible-playbook 
+
+---
+
+#
+- name: MAKE A RUSTDESK GNOME APP
+  hosts: localhost
+  gather_facts: true
+  become: false
+
+  vars:
+    target_user: cs
+    
+    target_home: "/home/{{ target_user }}"
+
+    install_dir: "{{ target_home }}/.local/bin"
+
+    desktop_dir: "{{ target_home }}/.local/share/applications"
+
+    icon_root:   "{{ target_home }}/.local/share/icons/hicolor"
+
+    app_id: rustdesk
+    
+    appimage_dest: "{{ install_dir }}/{{ app_id }}.AppImage"
+
+    app_name: RustDesk
+    app_comment: Remote desktop client
+    app_categories: "Network;RemoteAccess;"
+    app_wmclass: rustdesk
+
+    # Leave empty to auto-detect the newest rustdesk*.AppImage in ~/Downloads,
+    # or set an explicit path such as /home/cs/Downloads/rustdesk-1.4.5.AppImage
+    appimage_src: ""
+
+    # Set this instead if you would rather have Ansible fetch the AppImage.
+    appimage_url: ""
+
+
+    # Override with -e install_fuse=true --ask-become-pass if you want the
+    # playbook to install libfuse2t64 rather than working around its absence.
+    install_fuse: false
+
+  tasks:
+    - name: Make sure the playbook is running as the desktop user, not root
+      ansible.builtin.assert:
+        that:
+          - ansible_user_id == target_user
+        fail_msg: >-
+          This playbook must run as {{ target_user }} (currently {{ ansible_user_id }}).
+        quiet: true
+
+    - name: Create the per-user directories GNOME reads from
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - "{{ install_dir }}"
+        - "{{ desktop_dir }}"
+        - "{{ icon_root }}/256x256/apps"
+        - "{{ icon_root }}/scalable/apps"
+
+    # ------------------------------------------------------------------
+    # Locate and install the AppImage
+    # ------------------------------------------------------------------
+
+    - name: Look for a downloaded AppImage when no source path was given
+      ansible.builtin.find:
+        paths: "{{ target_home }}/Downloads"
+        patterns: "{{ app_id }}*.AppImage"
+        file_type: file
+      register: downloaded
+      when:
+        - appimage_src | length == 0
+        - appimage_url | length == 0
+
+    - name: Select the most recently downloaded AppImage
+      ansible.builtin.set_fact:
+        appimage_src: "{{ (downloaded.files | sort(attribute='mtime') | last).path }}"
+      when:
+        - appimage_src | length == 0
+        - appimage_url | length == 0
+        - downloaded.files | default([]) | length > 0
+
+    - name: Fail with a clear message if no AppImage could be found
+      ansible.builtin.assert:
+        that: appimage_src | length > 0
+        fail_msg: >-
+          No {{ app_id }}*.AppImage found in {{ target_home }}/Downloads.
+          Pass one explicitly: -e appimage_src=/path/to/rustdesk.AppImage
+        quiet: true
+      when: appimage_url | length == 0
+
+    - name: Download the AppImage
+      ansible.builtin.get_url:
+        url: "{{ appimage_url }}"
+        dest: "{{ appimage_dest }}"
+        mode: "0755"
+      when: appimage_url | length > 0
+
+    - name: Install the AppImage into {{ install_dir }}
+      ansible.builtin.copy:
+        src: "{{ appimage_src }}"
+        dest: "{{ appimage_dest }}"
+        remote_src: true
+        mode: "0755"
+      when: appimage_url | length == 0
+
+    # ------------------------------------------------------------------
+    # Pull the application icon out of the AppImage
+    # ------------------------------------------------------------------
+
+    - name: Create a scratch directory for extraction
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: "-{{ app_id }}"
+      register: workdir
+
+    - name: Extract the AppImage payload
+      # --appimage-extract is handled by the AppImage runtime itself and does
+      # not need FUSE, so this works on a stock Debian 13 install.
+      ansible.builtin.command:
+        cmd: "{{ appimage_dest }} --appimage-extract"
+        chdir: "{{ workdir.path }}"
+        creates: "{{ workdir.path }}/squashfs-root"
+
+    - name: Look for icons under usr/share/icons
+      ansible.builtin.find:
+        paths: "{{ workdir.path }}/squashfs-root/usr/share/icons"
+        patterns:
+          - "*.png"
+          - "*.svg"
+        file_type: file
+        recurse: true
+      register: bundled_icons
+
+    - name: Fall back to the icon sitting at the AppImage root
+      ansible.builtin.find:
+        paths: "{{ workdir.path }}/squashfs-root"
+        patterns:
+          - "*.png"
+          - "*.svg"
+        file_type: file
+        recurse: false
+      register: root_icons
+      when: bundled_icons.files | length == 0
+
+    - name: Pick the largest icon as the best available resolution
+      ansible.builtin.set_fact:
+        chosen_icon: "{{ (candidates | sort(attribute='size') | last).path }}"
+      vars:
+        candidates: >-
+          {{ (bundled_icons.files | default([])) + (root_icons.files | default([])) }}
+      when: candidates | length > 0
+
+    - name: Install the icon into the user icon theme
+      ansible.builtin.copy:
+        src: "{{ chosen_icon }}"
+        dest: >-
+          {{ icon_root }}/{{ 'scalable' if chosen_icon.endswith('.svg') else '256x256' }}/apps/{{ app_id }}{{ chosen_icon | splitext | last }}
+        remote_src: true
+        mode: "0644"
+      when: chosen_icon is defined
+
+    - name: Remove the scratch directory
+      ansible.builtin.file:
+        path: "{{ workdir.path }}"
+        state: absent
+
+    # ------------------------------------------------------------------
+    # Desktop entry
+    # ------------------------------------------------------------------
+
+    - name: Check whether libfuse2 is present
+      ansible.builtin.shell:
+        cmd: "ldconfig -p | grep -q 'libfuse\\.so\\.2'"
+      register: fuse_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install libfuse2t64 (only when install_fuse=true)
+      ansible.builtin.apt:
+        name: libfuse2t64
+        state: present
+      become: true
+      when:
+        - install_fuse | bool
+        - fuse_check.rc != 0
+      register: fuse_installed
+
+    - name: Write the .desktop launcher
+      ansible.builtin.copy:
+        dest: "{{ desktop_dir }}/{{ app_id }}.desktop"
+        mode: "0755"
+        content: |
+          [Desktop Entry]
+          Type=Application
+          Version=1.0
+          Name={{ app_name }}
+          Comment={{ app_comment }}
+          Exec={{ appimage_dest }}{{ ' --appimage-extract-and-run' if (fuse_check.rc != 0 and not (fuse_installed.changed | default(false))) else '' }}
+          Icon={{ app_id if chosen_icon is defined else 'application-x-executable' }}
+          Terminal=false
+          Categories={{ app_categories }}
+          StartupWMClass={{ app_wmclass }}
+
+    - name: Refresh the desktop database
+      ansible.builtin.command:
+        cmd: "update-desktop-database {{ desktop_dir }}"
+      changed_when: false
+      failed_when: false
+
+    - name: Refresh the icon cache
+      ansible.builtin.command:
+        cmd: "gtk-update-icon-cache --force --ignore-theme-index {{ icon_root }}"
+      changed_when: false
+      failed_when: false
+
+    - name: Report the result
+      ansible.builtin.debug:
+        msg:
+          - "AppImage:  {{ appimage_dest }}"
+          - "Launcher:  {{ desktop_dir }}/{{ app_id }}.desktop"
+          - "Icon:      {{ chosen_icon | default('none found, using generic icon') }}"
+          - "FUSE:      {{ 'available' if fuse_check.rc == 0 else 'missing - using --appimage-extract-and-run' }}"
+          - "{{ app_name }} should now appear in the Show Applications grid."
