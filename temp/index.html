@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Directory Listing</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    h1 { font-size: 1.2rem; margin-bottom: 1rem; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 0.25rem 0; }
+    a { text-decoration: none; color: #0066cc; }
+    a:hover { text-decoration: underline; }
+    .dir { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Files in this directory</h1>
+  <ul id="file-list"></ul>
+
+  <script>
+    // Fetch the current directory's auto-index from the server and parse it
+    (async () => {
+      const listEl = document.getElementById('file-list');
+      try {
+        // This assumes the server provides an HTML directory index at this URL
+        const res = await fetch('./');
+        if (!res.ok) throw new Error('No directory listing available');
+        const html = await res.text();
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Many servers (Apache/Nginx) output links in a table or list.
+        // We'll grab all links that look like files/dirs in the listing.
+        const links = Array.from(doc.querySelectorAll('a[href]'))
+          .map(a => ({
+            href: a.getAttribute('href'),
+            text: (a.textContent || '').trim()
+          }))
+          .filter(item =>
+            item.href &&
+            item.text &&
+            !['Parent Directory', 'Index of', '/'].includes(item.text)
+          );
+
+        if (!links.length) {
+          listEl.innerHTML = '<li>No files found or directory listing not exposed.</li>';
+          return;
+        }
+
+        links.forEach(item => {
+          const li = document.createElement('li');
+          const a = document.createElement('a');
+          a.href = item.href;
+          a.textContent = item.text;
+          // Simple heuristic: directories often end with '/'
+          if (item.href.endsWith('/')) {
+            a.classList.add('dir');
+            a.textContent = '📁 ' + item.text;
+          } else {
+            a.textContent = '📄 ' + item.text;
+          }
+          li.appendChild(a);
+          listEl.appendChild(li);
+        });
+      } catch (e) {
+        listEl.innerHTML = '<li>Cannot read directory listing from server. Your server may block directory indexes.</li>';
+        console.error(e);
+      }
+    })();
+  </script>
+</body>
+</html>
+
+
