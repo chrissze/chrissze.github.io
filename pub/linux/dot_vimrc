@@ -1,0 +1,15 @@
+" 1. Turn on syntax highlighting
+
+syntax on
+
+" 2. Make files non-modifiable when opened with vim -R or view
+
+autocmd BufReadPost * if &readonly | setlocal nomodifiable | endif
+
+
+
+" 3. Tab to 4 spaces
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
