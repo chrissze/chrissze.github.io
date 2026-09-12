@@ -24,5 +24,6 @@ Port 22
 
 PrintLastLog no
 
-# Debain Subsystem for ansible, rsync, scp
-Subsystem sftp /usr/libexec/sftp-server
+# Debain Subsystem for ansible, rsync, scp, sshfs
+# sftp-server is an executable presented on the debian system
+Subsystem  sftp  /usr/lib/openssh/sftp-server
