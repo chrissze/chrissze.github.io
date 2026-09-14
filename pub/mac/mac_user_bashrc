@@ -81,13 +81,8 @@ curl ident.me
     alias mv='mv -i'  # prompt at overwrites
 
 
-    alias pip3un="pip3 freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip3 uninstall -y "
+    alias pb='pbcopy  < '
 
-    alias pipun="pip freeze | grep -vE '^(certifi|cffi|cryptography|pip|pycparser|setuptools|wheel)==' | awk -F '==' '{print $1}' | xargs pip uninstall -y "
-
-    alias pipup='pip3 install --upgrade pip'
-
-    alias pipr='pip3 install -r requirements.txt && pip3 list'
 
     alias pro='nano ~/prompts.sh'
 
