@@ -46,37 +46,31 @@ curl ident.me
 
     alias clonepizzapy='git clone git@github.com:chrissze/pizzapy.git'
 
-    alias clonefullpizza='git clone git@github.com:chrissze/pizzapy.git && git clone git@github.com:chrissze/batterypy.git && git clone git@github.com:chrissze/dimsumpy.git'
 
     alias clonescript='git clone git@github.com:chrissze/script.git'
 
-    alias cofuji='code --remote ssh-remote+fuji /tmp'
 
-    alias coo1='code --remote ssh-remote+o1 /tmp'
 
     alias codi='code-insiders'
 
 
     alias cp='cp -i'  # prompt at overwrites
 
-    alias edpro='nano ~/prompts.sh'
     
     alias edrc='nano ~/.bashrc'
 
     alias em='emacs' 
 
-    alias emr='emacs -nw -f split-window-right' 
 
     alias fuji='ssh fuji' 
 
 
     alias gp="git pull"
 
-    alias gpull='for d in */.git; do ( cd "${d%/.git}" && echo "==> $PWD" && git pull --ff-only ); done'
  
     alias hi=history
 
-    alias mo2='sudo mount -t nfs -o resvport,vers=4 10.0.0.1:/data/o2 ~/o2'
+
     
     alias mv='mv -i'  # prompt at overwrites
 
