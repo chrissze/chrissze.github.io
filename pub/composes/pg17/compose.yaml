@@ -1,6 +1,6 @@
 services:
   postgresql:
-    image: bitnami/postgresql:17
+    image: soldevelo/postgresql:17
 
     restart: always   # auto start after reboot
 
